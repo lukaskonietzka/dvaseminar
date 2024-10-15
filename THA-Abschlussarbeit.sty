@@ -357,7 +357,7 @@
 \usepackage[final]{listings}
 \lstloadlanguages{Perl,XML}
 \definecolor{CodeColor}{gray}{0.1}
-\lstset{%language=XML, 
+\lstset{language=SQL, 
         basicstyle=\ttfamily,
         numbersep=2ex,numberstyle=\scriptsize,
         xleftmargin=4ex,
@@ -365,7 +365,15 @@
         aboveskip=2\medskipamount,
         belowskip=2ex,
         breaklines=true,
-        }
+        numbers=left,               % Zeilennummerierung anbringen
+        keywordstyle=\color{blue},  % Farbe für SQL-Schlüsselwörter
+        stringstyle=\color{red},    % Farbe für Zeichenketten
+        commentstyle=\color{gray},  % Farbe für Kommentare
+        numbers=left,               % Zeilennummerierung auf der linken Seite
+        breaklines=true,            % Automatischer Zeilenumbruch
+        frame=single,               % Einrahmung des Codes
+        captionpos=b,               % Position der Beschriftung (b=unten, t=oben)
+      }
 \newcommand{\cd}[1]{\lstinline{#1}}
 
 

@@ -6,8 +6,10 @@ Testsektion \cite{Nuijten2023}
 
 \begin{lstlisting} [caption={This is a code block}]
     -- This is a comment
-    SELECT name, age
+    SELECT
+        name,
+        age
     FROM users
-    WHERE age > 30
+    WHERE name = 'Heiko'
     ORDER BY age DESC;
     \end{lstlisting}

@@ -14,7 +14,7 @@ hingegen folgten laut \cite{grust2017advanced} erst mit der späteren Version im
 Jahr 2003.
 
 \section{SQL Kurzüberischt}
-Wird nur ausgeschrieben, wenn wir nicht genug seiten haben
+Wird nur ausgeschrieben, wenn wir nicht genug Seiten haben
 
 \section{Window Functions}
 Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt,
@@ -25,8 +25,8 @@ Beginn der Arbeit erwähnt, dass für eine Komplexe Datenanalyse diese SQL Erwei
 nicht mehr wegzudenken ist. Er beschreibt in seinem Artikel die \textit{Analytic
 Functions} als repräsentativ für den aktuellen Stand der Technik.
 
-Für eine pregnante und eindeutige Definition der \textit{Analytic Functions}
-sei auf die Dokumentation der Oracle Datenbank verwiesen, die die \textit{Analytic
+Für eine pregnante und eindeutige Definition der \textit{Analytic Functions} sei
+auf die Dokumentation der Oracle Datenbank verwiesen, die die \textit{Analytic
 Functions} wie folgt beschreiben.
 
 \begin{center}
@@ -38,15 +38,15 @@ Functions} wie folgt beschreiben.
 \end{center}
 
 Wenn man dieser Definition folgt, dann werden darunter also aggregierte Werte
-verstanden, die mittels dem Schlüsselwort \textit{OVER} auf bestimmte Zeilen in
+verstanden, die mittels dem Schlüsselwort \texttt{OVER} auf bestimmte Zeilen in
 einer Tabelle angewendet wird. So ist es Beispielsweise möglich, auch
 benachbarte Datensätze mit einzubeziehen.
 
-Die analytischen Funktionen, sind stark verwand mit den weit verbreiteten
+Die analytischen Funktionen sind stark verwandt mit den weit verbreiteten
 Aggregatfunktionen in SQL. Sie bilden in gewisser Weise eine Erweiterung dieser Aggregatfunktionen.
 \cite{Nuijten2023} betrachten zur Unterscheidung der Aggregatfunktion und den
 analytischen Funktionen die Ergebnismenge. Sie erläutern, dass Beispielsweise
-ein \textit{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, während
+ein \texttt{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, während
 analytische Funktionen die Ergebnismenge nicht verändern und für jeden Eintrag
 einen Wert angeben.
 
@@ -57,7 +57,7 @@ Reihenfolge der Abarbeitung festlegt.
 \begin{description}
 	\item[$\bullet$ 1. Stufe] auflösen der JOIN-, WHERE-, GROUP BY- und HAVING-Klausel
 
-	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewnand
+	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewandt
 
 	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewandt
 \end{description}
@@ -67,9 +67,9 @@ eines Modells verdeutlicht.
 
 \subsection{Aufbau}
 Um den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
-zu können, sei an dieser Stelle nochmals auf \cite{oracel} verwiesen.
-Hier ist ein konkreter Aufbau einer analytischen Funktion zu finden, die hier näher
-betrachtet werden soll.
+zu können, sei an dieser Stelle nochmals auf \cite{oracle} verwiesen. Hier ist
+ein konkreter Aufbau einer analytischen Funktion zu finden, die hier näher betrachtet
+werden soll.
 
 \begin{figure}[h]
 	\centering
@@ -77,19 +77,19 @@ betrachtet werden soll.
 	\caption{ Aufbau einer analytischen Funktion | Quelle: \cite{oracle}}
 \end{figure}
 
-Der erste Teil beschreibt die konkrete analytische Funktion, die auf die
-Erbenismenge ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
+Der erste Teil beschreibt die konkrete analytische Funktion, die auf die Ergebnismenge
+ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
 Aggregatfunktionen. Eine grobe Übersicht über verschiedenen \textit{Window
-Functions} beschreibt \cite{ibrahaim23} in seiner Arbeit. Hierzu unterteilt er
-im Kapitel \textit{Different Types of Window Functions} die möglichen Funktionen
+Functions} beschreibt \cite{ibrahaim23} in seiner Arbeit. Hierzu unterteilt er im
+Kapitel \textit{Different Types of Window Functions} die möglichen Funktionen
 übersichtlich in drei verschiedenen Gruppen,
 
-Das Schlüsselwort \textit{OVER(*)} wurde bereits zuvor in diesem Artikel erwähnt.
-Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster über
-die Ergebnismenge gelegt werden.
+Das Schlüsselwort \texttt{OVER(*)} wurde bereits zuvor in diesem Artikel erwähnt.
+Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster
+über die Ergebnismenge gelegt werden.
 
-Im Argument der \textit{OVER} Funktion definieren wir die Ausprägung des
-Fensters und die Ordnung des Fensters. Dieses Argument ist bekannt als \textit{analytic-clause}
+Im Argument der \texttt{OVER} Funktion definieren wir die Ausprägung des Fensters
+und die Ordnung des Fensters. Dieses Argument ist bekannt als \textit{analytic-clause}
 und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
 \textit{analytic-clause} sei hier beschrieben, bleibt aber hier unkommentiert.
 
@@ -102,10 +102,80 @@ und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
 % ------------------------------------------------------
 
 \section{Common Table Expressions und rekursive Queries}
+Neben den \textit{Window Functions} sollen hier noch die rekursiven Abfragen,
+auch \textit{Recursiv Queries} genannt, behandelt werden. Um eine rekursive Abfrage
+schreiben zu können, muss zunächst ein anderes Konzept in SQL verstanden werden.
+Die rekursiven Abfragen bauen auf diesem Konzept auf und sind ohne dies nicht einsetzbar.
+Die Rede ist von den \textit{Common Table Expressions (CTE)}.
+
+Der erste Abschnitt dieses Kapitels führt demnach in die Theorien und Konzepte der
+\textit{CTE} ein und baut darauf auf. Im zweiten Schritt sollen die rekursiven Abfragen
+betrachtet werden.
 
 \subsection{Common Table Expressions (CTE)}
+Die \textit{Common Table Expressions} sind ein mächtiges Konstrukt in SQL und
+vereinfachen komplexe Anfragen. Speziell Abfragen mit einem \textit{subselect}
+werden dadurch deutlich einfache.
+
+Für eine aussagekräftige Definition der \textit{CTE} sei auf den Internetartikel
+von \cite{Ignacio2022} verwiesen, der die Frage: "Was ist eine \textit{CTE}" mit
+folgendem Satz beantwortet:
+\begin{center}
+	\textit{ 'A Common Table Expression (CTE) is like a named subquery. It functions
+	as a virtual table that only its main query can access. CTEs can help simplify,
+	shorten, and organize your code.' } \\ \cite{Ignacio2022}
+\end{center}
+Vereinfacht lässt sich daraus ableite, dass ein CTE ein query mit Namen ist. Es handelt
+sich hier also um ein \texttt{SELECT}, das mit einem Namen angesprochen werden kann.
+Betrachtet wird es als virtuelle Tabelle, da diese erst zur Laufzeit des jeweiligen
+\texttt{SELECT} angelegt wird und nach Abschluss sofort zerstört wird. Einmal erstell,
+kann so eine Virtuelle Tabelle wie eine herkömliche Tabelle behandelt werden. Die
+\textit{main query}, die \cite{Ignacio2022} anspricht, ist das \texttt{SELECT} Statement,
+dass direkt nach der CTE Erstellung folgt. Das CTE leitet also eine kleine Abstraktionsschicht
+ein, die hilft, die Vorteil, die aus der Definition von \cite{Ignacio2022}
+hervorgehen, einzuhalten.
+
+Ein CTE bedient sich folgender Syntax:
+
+\texttt{WITH cteName (<...>) SELECT mainQuery FROM cteName;}
+
+Für \texttt{cteName} ist der entsprechende Name für die virtuelle Tabelle zu
+wählen. Die \texttt{(<...>)} weist darauf hin, dass in der runden Klammer das jeweilige
+\texttt{SELECT} Statement steht, welches die Identität der CTE festlegt. \texttt{mainQuery}
+ist die Query, die auf die virtuelle Tabelle verweist und unmittelbar nach der
+CTE folgt.
 
 \subsection{Rekursive Queries}
+Mit dem Wissen aus dem vorherigen Abschnitt soll hier in die rekursiven Abfragen
+eingeführt werden. Eine Rekursion ist laut \cite{benecke1998rekursion} Kapitel zehn
+(Rekursion) die Definition eines Problems, einer Funktion oder eines Verhaltens
+durch sich selbst. Er schreibt weiter, dass der Begriff Rekursion in der
+Informatik oft im Zusammenhang mit Datenstrukturen und Funktionen steht. Dies Trifft
+auch auf die CTE. Diese werden Verwendendet um innerhalb einer CTE auf sich
+selbst zu referenzieren und so einen rekursiven Aufruf generieren.
+
+\begin{lstlisting} [caption={Rekrusive Abfragen mit CTE | Quelle: \cite{Mohan23}}, label={list:rekursion}]
+WITH RECURSIVE cteName -- define CTE
+AS (	SELECT <...> -- base case
+	FROM <...>
+	UNION ALL -- combine
+	SELECT <...> -- recursive case
+	FROM cteName
+)
+SELECT * FROM cteName; -- main query
+\end{lstlisting}
+
+Das Beispiel aus \ref{list:rekursion} soll den grundsätzlichen Aufbau einer rekursiven
+Abfrage zeigen. Wie auch \cite{Mohan23} in seinem Beispiel schon beschrieben hat,
+wird zunächst die virtuelle Tabelle (CTE) mit Name definiert. Innerhalb der CTE
+gibt es zwei \texttt{SELECT} Statements. Einen \textit{Base Case} und einen \textit{Recursiv
+Case}. Die Rekursion entsteht hier im zweiten \texttt{SELECT}, dass auf den CTE referenziert.
+Der \texttt{UNION ALL} kombiniert die beiden \texttt{SELECT}. Die \textit{main
+query} ist Teil der klassischen CTE und wurde im obrigen Kapitel bereits
+behandelt. Es wird hier genutzt um letzten Endes das Ergebnis, dass in der CTE
+zusammengebaut wurde, auszugeben.
+
+% ------------------------------------------------------
 
 \section{Rollup and Cube}
 
@@ -115,4 +185,7 @@ und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
 
 \subsection{Cube}
 
+% ------------------------------------------------------
+
 \section{Dialekte und Unterstützung}
+Wird nur ausgeschrieben, wenn wir noch Seiten benötigen

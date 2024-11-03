@@ -99,7 +99,7 @@ und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
 	\caption{ Aufbau einer analytischen Klausel | Quelle: \cite{oracle}}
 \end{figure}
 
-% ------------------------------------------------------
+% --------------------------------------------------------------------------------------------
 
 \section{Common Table Expressions und rekursive Queries}
 Neben den \textit{Window Functions} sollen hier noch die rekursiven Abfragen,
@@ -156,7 +156,7 @@ selbst zu referenzieren und so einen rekursiven Aufruf generieren.
 
 \begin{lstlisting} [caption={Rekrusive Abfragen mit CTE | Quelle: \cite{Mohan23}}, label={list:rekursion}]
 WITH RECURSIVE cteName -- define CTE
-AS (	SELECT <...> -- base case
+AS (SELECT <...> -- base case
 	FROM <...>
 	UNION ALL -- combine
 	SELECT <...> -- recursive case
@@ -175,9 +175,19 @@ query} ist Teil der klassischen CTE und wurde im obrigen Kapitel bereits
 behandelt. Es wird hier genutzt um letzten Endes das Ergebnis, dass in der CTE
 zusammengebaut wurde, auszugeben.
 
-% ------------------------------------------------------
+% --------------------------------------------------------------------------------------------
 
 \section{Rollup and Cube}
+Auch die letzte Analyse-Erweiterung die in diese Arbeit behandelt werden soll, macht
+seinem Namen alle Ehre und gewährt eine viel analytischere Einsicht in die Ergebnismenge,
+als es mit herkömmlichen SQL-Befehlen möglich ist.
+
+Die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} sind Erweiterungen der \texttt{GROUP
+BY} Klausel und wie bereits in früheren Kapitel beschrieben speziell für die
+Datenanalyse geeignet. Wie bei den rekursiven Abfragen basiert diese Erweiterung
+auf einem Grundkonzept, dass an dieser Stelle eingeleitet werden soll.
+
+QUELLE FEHLT
 
 \subsection{Grouping Sets}
 
@@ -185,7 +195,7 @@ zusammengebaut wurde, auszugeben.
 
 \subsection{Cube}
 
-% ------------------------------------------------------
+% --------------------------------------------------------------------------------------------
 
 \section{Dialekte und Unterstützung}
 Wird nur ausgeschrieben, wenn wir noch Seiten benötigen

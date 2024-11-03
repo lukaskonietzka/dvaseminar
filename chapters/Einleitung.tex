@@ -19,72 +19,73 @@ werden:
 	sich durch einen Einsatz dieser Konstrukte."}
 \end{center}
 
-Sofern auf die Forschungsfrage eine Antwort gefunden werden kann, besteht am
-Ende dieser Arbeit ein grober Überblick über die bekanntesten Analyse-Erweiterungen
-im SQL-Standard und für welche Fälle diese eingesetzt werden. Außerdem soll ein Verständnis
-bestehen, wie auch komplexere Datenabfragen durch Einsatz der Analyse-Erweiterungen
+Sofern auf die Forschungsfrage eine Antwort gefunden werden kann, besteht am Ende
+dieser Arbeit ein grober Überblick über die bekanntesten Analyse-Erweiterungen im
+SQL-Standard und für welche Fälle diese eingesetzt werden. Außerdem soll ein
+Verständnis bestehen, wie auch komplexere Datenabfragen durch Einsatz der Analyse-Erweiterungen
 vereinfacht werden könne.
 
-Darüber hinaus soll die Arbeite eine praxisnahe Orientierungshilfe liefern, die als
-Stütze bei der Datenanalyse mit SQL fungiert.
+Darüber hinaus soll die Arbeite eine praxisnahe Orientierungshilfe liefern, die
+als Stütze bei der Datenanalyse mit SQL fungiert.
 
 \section{Relevanz der Analyse-Erweiterungen}
 Datenanalysen gehören heute zu den unverzichtbaren Werkzeugen für Entscheidungen
-in Unternehmen und Forschung. Da sich viele Unternehmen auf die klassischen
-relationalen Datenbanken stützen, wird SQL als Standard zur Abfrage von Daten und
-zur Erstellung von Analysen eingesetzt. Die SQL Analyse-Erweiterungen sollen
-genau diesen Analyseprozess unterstützen.
+in Unternehmen und Forschung. Da sich viele Unternehmen auf die klassischen relationalen
+Datenbanken stützen, wird SQL als Standard zur Abfrage von Daten und zur
+Erstellung von Analysen eingesetzt. Die SQL Analyse-Erweiterungen sollen genau diesen
+Analyseprozess unterstützen.
 
-\cite{FOTACHE2015243} schrieben hierzu in ihrem Artikel über die Verwendung von
-SQL im Bereich Data Science. Bereits dort erwähnten sie einige der Analyse-Erweiterungen,
-die sich unterstützend für die Datenanlyse auswirken. In Kapitel 3 ihrer Veröffentlichung
-(SQL Features for Data Science) schrieben sie von \textit{analytical processing}
-oder \textit{window functions}. Des Weiteren wird in Kapitle 4.3 (OLAP and SQL)
-unter anderem von \textit{statistical inspired aggregate functions} und \textit{multiple
-group by operators} gesprochen. Einen Weiteren Indiz für den Einsatz der Analyse-Erweiterungen
-im Bereich der Datenanalyse bietet \cite{Maue2022} in seinem Internetartikel, wo
-er kurz darüber Berichte, welchen Mehrwert die Analyse-Funktionen haben. Er
-schrieb hier von einer komplexen Datenanalyse durch nur wenige Zeilen Quelltext.
+\cite{FOTACHE2015243} schrieben hierzu in ihrem Artikel über die Verwendung von SQL
+im Bereich Data Science. Bereits dort erwähnten sie einige der Analyse-Erweiterungen,
+die sich unterstützend für die Datenanlyse auswirken. In Kapitel 3 ihrer
+Veröffentlichung (SQL Features for Data Science) schrieben sie von \textit{analytical
+processing} oder \textit{window functions}. Des Weiteren wird in Kapitle 4.3 (OLAP
+and SQL) unter anderem von \textit{statistical inspired aggregate functions} und
+\textit{multiple group by operators} gesprochen. Einen Weiteren Indiz für den
+Einsatz der Analyse-Erweiterungen im Bereich der Datenanalyse bietet
+\cite{Maue2022} in seinem Internetartikel, wo er kurz darüber Berichte, welchen
+Mehrwert die Analyse-Funktionen haben. Er schrieb hier von einer komplexen Datenanalyse
+durch nur wenige Zeilen Quelltext.
 
-Es wird also deutlich, dass die Analyse-Erweiterungen nicht nur eine komplexe Analyse
-zulassen, sondern für das ganze Gebiet der Datenanalyse einen hohen Wert bietet.
-Sie gewähren eine weitaus detailliertere Einsicht in Datensätze, als es mit
+Es wird also deutlich, dass die Analyse-Erweiterungen nicht nur eine komplexe
+Analyse zulassen, sondern für das ganze Gebiet der Datenanalyse einen hohen Wert
+bietet. Sie gewähren eine weitaus detailliertere Einsicht in Datensätze, als es mit
 herkömmlichen Befehlen möglich ist.
 
 \section{Aufbau der Arbeit}
 Wie in Kapitel 2.1 beschrieben, soll diese Arbeit am Ende einen groben Überblick
-über die Analyse-Erweiterungen und deren Möglichkeiten geben. Darüber hinaus
-sollen einige praxisbezogenen Beispiele diskutieren werden. Hierzu teilt sich das
-Thema in drei Teile auf.
+über die Analyse-Erweiterungen und deren Möglichkeiten geben. Darüber hinaus sollen
+einige praxisbezogenen Beispiele diskutieren werden. Hierzu teilt sich das Thema
+in drei Teile auf.
 
-Der Erste Teil soll den Einstieg erleichtern und bietet einige Grundlagen zum Inhalt.
-Hierzu wird im ersten Schritt auf SQL Grundlagen eingegangen, die zum Verstehen des
-eigentlichen Kerns der Arbeit notwendig sind. Darüber hinaus führen wir die
-konkreten Erweiterungen ein, die wir hier näher betrachten werden. Hierzu werfen
-wir einen Blick auf die Funktionsweise der unterschiedlichen Erweiterungen. Ergänzend
-dazu sollen auch zusätzliche Erweiterungen erwähnt werden.
+Der Erste Teil soll den Einstieg erleichtern und bietet einige Grundlagen zum
+Inhalt. Hierzu wird im ersten Schritt auf SQL Grundlagen eingegangen, die zum
+Verstehen des eigentlichen Kerns der Arbeit notwendig sind. Darüber hinaus führen
+wir die konkreten Erweiterungen ein, die wir hier näher betrachten werden. Hierzu
+werfen wir einen Blick auf die Funktionsweise der unterschiedlichen Erweiterungen.
+Ergänzend dazu sollen auch zusätzliche Erweiterungen erwähnt werden.
 
 Der zweite Teil bildet den Kern der Arbeit und soll die fokussierten Analyse-Erweiterungen
-anhand eines passenden Beispiels erläutern. Hierzu wird ein globales Beispiel
-einer relationalen Datenbank generiert, mit deren Hilfe alle der ausgewählten Erweiterungen
-demonstriert und analysiert werden. Für die Analyse wird auf Bewertungskriterien
-zurückgegriffen, die generisch gewählt werden. So können die sehr
-unterschiedlichen Erweiterungen kategorisiert werden.
+anhand eines passenden Beispiels erläutern. Hierzu wird ein globales Beispiel einer
+relationalen Datenbank generiert, mit deren Hilfe alle der ausgewählten
+Erweiterungen demonstriert und analysiert werden. Für die Analyse wird auf Bewertungskriterien
+zurückgegriffen, die generisch gewählt werden. So können die sehr unterschiedlichen
+Erweiterungen kategorisiert werden.
 
 Im letzten Teil der Arbeit sollen die Ergebnisse evaluiert werden. Hierzu werden
-die Beispiele analysiert und mögliche Interpretationen ausgearbeitet. Die zu
-Anfang definierten Bewertungskriterien spielen hierbei eine wesentliche Rolle.
+die Beispiele analysiert und mögliche Interpretationen ausgearbeitet. Die zu Anfang
+definierten Bewertungskriterien spielen hierbei eine wesentliche Rolle.
 
 \section{Fokus der Arbeit}
-Es existieren diverse Analyse-Erweiterungen für SQL die für die
-unterschiedlichsten Anwendungsfälle eingesetzt werden können. Einige dieser Erweiterungen
-lösen Nischenprobleme, andere bieten eine breite Palette an Funktionen. Dieser Artikel
+Es existieren diverse Analyse-Erweiterungen für SQL die für die unterschiedlichsten
+Anwendungsfälle eingesetzt werden können. Einige dieser Erweiterungen lösen
+Nischenprobleme, andere bieten eine breite Palette an Funktionen. Dieser Artikel
 wählt drei der vielen Analyse-Erweiterungen aus und setzt so einen Fokus.
 
-Für die Auswahl dieser konkreten Erweiterungen stützt sich die Arbeit auf das Paper
-von \cite{FOTACHE2015243} die im Kontext Data Science schon einige Erweiterungen
-erwähnt haben. Wie bereits zu Anfang der Arbeit beschrieben sind zwei dieser
-Erweiterungen die folgenden:
+Für die Auswahl dieser konkreten Erweiterungen stützt sich die Arbeit auf das
+Paper von \cite{FOTACHE2015243} die im Kontext Data Science schon einige
+Erweiterungen erwähnt haben. Wie bereits zu Anfang der Arbeit beschrieben sind zwei
+dieser Erweiterungen die folgenden:
 
 \begin{description}
 	\item[$\bullet$ Window-Functions] als Erweiterung der klassischen Aggregatfunktionen
@@ -93,17 +94,17 @@ Erweiterungen die folgenden:
 \end{description}
 
 Für die dritte Erweiterung, die hier fokussiert werden soll, sei auf den Artikel
-von \cite{4460710} verwiesen. Bereits im ersten Kapitel wird deutlich, dass Rekursion
-ein fester Bestandteil der Informatik ist. Er betont, dass viele Algorithmen auf
-Basis der Rekursion definiert sind. Mit SQL3 (1999) wird die Rekursion auch in
-den SQL-Standard eingeführt und soll hier die dritte Erweiterung sein, die behandelt
-wird.
+von \cite{4460710} verwiesen. Bereits im ersten Kapitel wird deutlich, dass
+Rekursion ein fester Bestandteil der Informatik ist. Er betont, dass viele
+Algorithmen auf Basis der Rekursion definiert sind. Mit SQL3 (1999) wird die Rekursion
+auch in den SQL-Standard eingeführt und soll hier die dritte Erweiterung sein,
+die behandelt wird.
 
 \begin{description}
 	\item[$\bullet$ Recursive Queries] als Erweiterung der Commen Table Extentions
 		(CTE)
 \end{description}
 
-Im Laufe des Artikels soll Wissen zu diesen drei Erweiterungen gesammelt und an
-praxisbezogenen Beispiel angewandt werden. Alle weiteren Analyse-Erweiterungen werden
-in diesem Artikel nur namentlich erwähnt und erfahren keine weitere Behandlung.
+Im Laufe des Artikels soll Wissen zu diesen drei Erweiterungen gesammelt und an praxisbezogenen
+Beispiel angewandt werden. Alle weiteren Analyse-Erweiterungen werden in diesem
+Artikel nur namentlich erwähnt und erfahren keine weitere Behandlung.

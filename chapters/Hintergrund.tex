@@ -18,16 +18,16 @@ Wird nur ausgeschrieben, wenn wir nicht genug seiten haben
 
 \section{Window Functions}
 Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt,
-sind das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanlyse
-innerhalb von SQL ein wichtiger Besandteil. \cite{cao2012optimization} veröffentlichte
+sind das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanalyse
+innerhalb von SQL ein wichtiger Bestandteil. \cite{cao2012optimization} veröffentlichte
 eine Arbeit über die Optimierung von \textit{Window Functions} wo er bereits zu
 Beginn der Arbeit erwähnt, dass für eine Komplexe Datenanalyse diese SQL Erweiterungen
-nicht mehr wegzudenken ist. Er beschreibt in seinem Artikel die \textit{Analytiv
+nicht mehr wegzudenken ist. Er beschreibt in seinem Artikel die \textit{Analytic
 Functions} als repräsentativ für den aktuellen Stand der Technik.
 
-Für eine pregnante und eindeutige Definition der der \textit{Analytic Functions}
+Für eine pregnante und eindeutige Definition der \textit{Analytic Functions}
 sei auf die Dokumentation der Oracle Datenbank verwiesen, die die \textit{Analytic
-Funkitions} wie folgt beschreiben.
+Functions} wie folgt beschreiben.
 
 \begin{center}
 	\textit{ 'Analytic functions compute an aggreagt value based on a grpoup of
@@ -37,16 +37,16 @@ Funkitions} wie folgt beschreiben.
 	} \\ \cite{oracle}
 \end{center}
 
-Wenn mann dieser Definition folgt, dann werden darunter also aggregierte Werte
+Wenn man dieser Definition folgt, dann werden darunter also aggregierte Werte
 verstanden, die mittels dem Schlüsselwort \textit{OVER} auf bestimmte Zeilen in
 einer Tabelle angewendet wird. So ist es Beispielsweise möglich, auch
 benachbarte Datensätze mit einzubeziehen.
 
-Die analytischen Funktionen sind stark verwand mit den weit verbreitetn
-Aggregatfunktionen in SQL. Sie bilden in gewisser weise eine Erweiterung dieser Aggregatfunktionen.
+Die analytischen Funktionen, sind stark verwand mit den weit verbreiteten
+Aggregatfunktionen in SQL. Sie bilden in gewisser Weise eine Erweiterung dieser Aggregatfunktionen.
 \cite{Nuijten2023} betrachten zur Unterscheidung der Aggregatfunktion und den
-analytischen Funktionen die Ergebnissmenge. Sie erläutern, dass Beispielsweise
-ein \textit{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, Während
+analytischen Funktionen die Ergebnismenge. Sie erläutern, dass Beispielsweise
+ein \textit{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, während
 analytische Funktionen die Ergebnismenge nicht verändern und für jeden Eintrag
 einen Wert angeben.
 
@@ -59,24 +59,47 @@ Reihenfolge der Abarbeitung festlegt.
 
 	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewnand
 
-	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewand
+	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewandt
 \end{description}
 
-Im näcshten Abschnitt werden die Stufen zwei und drei genauer betrachtet und mittels
-eins Modelles verdeutlicht.
+Im nächsten Abschnitt werden die Stufen zwei und drei genauer betrachtet und mittels
+eines Modells verdeutlicht.
 
 \subsection{Aufbau}
 Um den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
-zu können, sei an dieser stelle nochmals auf die Dokumentaion von Oracel verwiesen.
+zu können, sei an dieser Stelle nochmals auf \cite{oracel} verwiesen.
 Hier ist ein konkreter Aufbau einer analytischen Funktion zu finden, die hier näher
 betrachtet werden soll.
-
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticFunction.jpg}
 	\caption{ Aufbau einer analytischen Funktion | Quelle: \cite{oracle}}
 \end{figure}
+
+Der erste Teil beschreibt die konkrete analytische Funktion, die auf die
+Erbenismenge ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
+Aggregatfunktionen. Eine grobe Übersicht über verschiedenen \textit{Window
+Functions} beschreibt \cite{ibrahaim23} in seiner Arbeit. Hierzu unterteilt er
+im Kapitel \textit{Different Types of Window Functions} die möglichen Funktionen
+übersichtlich in drei verschiedenen Gruppen,
+
+Das Schlüsselwort \textit{OVER(*)} wurde bereits zuvor in diesem Artikel erwähnt.
+Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster über
+die Ergebnismenge gelegt werden.
+
+Im Argument der \textit{OVER} Funktion definieren wir die Ausprägung des
+Fensters und die Ordnung des Fensters. Dieses Argument ist bekannt als \textit{analytic-clause}
+und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
+\textit{analytic-clause} sei hier beschrieben, bleibt aber hier unkommentiert.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{img/aufbauAnalyticClausel.jpg}
+	\caption{ Aufbau einer analytischen Klausel | Quelle: \cite{oracle}}
+\end{figure}
+
+% ------------------------------------------------------
 
 \section{Common Table Expressions und rekursive Queries}
 
@@ -92,4 +115,4 @@ betrachtet werden soll.
 
 \subsection{Cube}
 
-\section{Dialekte und Unterstüzung}
+\section{Dialekte und Unterstützung}

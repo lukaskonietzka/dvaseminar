@@ -5,7 +5,7 @@ ein Blick auf die Historie hilfreich. Der Hauptgrund für die Wahl der drei oben
 genannten Erweiterungen liegt nämlich nicht nur in ihren vielseitigen
 Möglichkeiten, sondern auch in ihrer Integration in den SQL-Standard, wie auch
 von \cite{grust2017advanced} in seiner Arbeit hervorgehoben wird. Er verdeutlicht
-auf Seite 10, dass im Jahre 1987 die erste Version des SQL-Standard
+auf Seite 10, dass im Jahre 1987 die erste Version des SQL-Standards
 veröffentlicht wurde. Mit SQL3 1999 kamen dann die ersten Analyse-Erweiterungen mit
 den \textit{recursive queries} hinzu. Wie \cite{melton2001sql} in Kapitel 9.12 ihrer
 Arbeit beschreiben, wurden die Funktionen \textit{ROLLUP} und \textit{CUBE}
@@ -14,12 +14,69 @@ hingegen folgten laut \cite{grust2017advanced} erst mit der späteren Version im
 Jahr 2003.
 
 \section{SQL Kurzüberischt}
+Wird nur ausgeschrieben, wenn wir nicht genug seiten haben
 
-\section{Window Funktionen}
+\section{Window Functions}
+Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt,
+sind das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanlyse
+innerhalb von SQL ein wichtiger Besandteil. \cite{cao2012optimization} veröffentlichte
+eine Arbeit über die Optimierung von \textit{Window Functions} wo er bereits zu
+Beginn der Arbeit erwähnt, dass für eine Komplexe Datenanalyse diese SQL Erweiterungen
+nicht mehr wegzudenken ist. Er beschreibt in seinem Artikel die \textit{Analytiv
+Functions} als repräsentativ für den aktuellen Stand der Technik.
 
-\subsection{Definition}
+Für eine pregnante und eindeutige Definition der der \textit{Analytic Functions}
+sei auf die Dokumentation der Oracle Datenbank verwiesen, die die \textit{Analytic
+Funkitions} wie folgt beschreiben.
+
+\begin{center}
+	\textit{ 'Analytic functions compute an aggreagt value based on a grpoup of
+	rows.' } \\ \cite{oracle}
+
+	\textit{ 'The group of rows is called a window and is defined by the analytic-clause.'
+	} \\ \cite{oracle}
+\end{center}
+
+Wenn mann dieser Definition folgt, dann werden darunter also aggregierte Werte
+verstanden, die mittels dem Schlüsselwort \textit{OVER} auf bestimmte Zeilen in
+einer Tabelle angewendet wird. So ist es Beispielsweise möglich, auch
+benachbarte Datensätze mit einzubeziehen.
+
+Die analytischen Funktionen sind stark verwand mit den weit verbreitetn
+Aggregatfunktionen in SQL. Sie bilden in gewisser weise eine Erweiterung dieser Aggregatfunktionen.
+\cite{Nuijten2023} betrachten zur Unterscheidung der Aggregatfunktion und den
+analytischen Funktionen die Ergebnissmenge. Sie erläutern, dass Beispielsweise
+ein \textit{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, Während
+analytische Funktionen die Ergebnismenge nicht verändern und für jeden Eintrag
+einen Wert angeben.
+
+\cite{Nuijten2023} beschreiben weiter, dass sich die Abarbeitung der Funktionen in
+drei Stufen einteilen lässt, wobei dir Sortierung dieser drei Schritte auch die
+Reihenfolge der Abarbeitung festlegt.
+
+\begin{description}
+	\item[$\bullet$ 1. Stufe] auflösen der JOIN-, WHERE-, GROUP BY- und HAVING-Klausel
+
+	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewnand
+
+	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewand
+\end{description}
+
+Im näcshten Abschnitt werden die Stufen zwei und drei genauer betrachtet und mittels
+eins Modelles verdeutlicht.
 
 \subsection{Aufbau}
+Um den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
+zu können, sei an dieser stelle nochmals auf die Dokumentaion von Oracel verwiesen.
+Hier ist ein konkreter Aufbau einer analytischen Funktion zu finden, die hier näher
+betrachtet werden soll.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{img/aufbauAnalyticFunction.jpg}
+	\caption{ Aufbau einer analytischen Funktion | Quelle: \cite{oracle}}
+\end{figure}
 
 \section{Common Table Expressions und rekursive Queries}
 

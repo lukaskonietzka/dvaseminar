@@ -1,4 +1,4 @@
-\chapter{Hintergrund}
+\chapter{Hintergrund und Grundlagen}
 Dieses Kapitel soll die Grundsteine legen und in die Konzepte und Theorien der Analyse-Erweiterungen
 einführen. Um die Fragestellung dieser Arbeit einordnen zu können, ist unter anderem
 ein Blick auf die Historie hilfreich. Der Hauptgrund für die Wahl der drei oben
@@ -179,17 +179,35 @@ zusammengebaut wurde, auszugeben.
 
 \section{Rollup and Cube}
 Auch die letzte Analyse-Erweiterung die in diese Arbeit behandelt werden soll, macht
-seinem Namen alle Ehre und gewährt eine viel analytischere Einsicht in die Ergebnismenge,
-als es mit herkömmlichen SQL-Befehlen möglich ist.
+ihrem Namen alle Ehre und gewährt mit wenigen Zeilen Quelltext, eine viel
+analytischere Einsicht in die Ergebnismenge, als es mit herkömmlichen SQL-Befehlen
+möglich ist.
 
 Die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} sind Erweiterungen der \texttt{GROUP
-BY} Klausel und wie bereits in früheren Kapitel beschrieben speziell für die
-Datenanalyse geeignet. Wie bei den rekursiven Abfragen basiert diese Erweiterung
-auf einem Grundkonzept, dass an dieser Stelle eingeleitet werden soll.
+BY} Klausel und wie bereits in früheren Kapitel beschrieben speziell für die Datenanalyse
+geeignet. Wie bei den rekursiven Abfragen basiert diese Erweiterung auf einem
+Grundkonzept, dass an dieser Stelle vorangehen soll.
 
 QUELLE FEHLT
 
 \subsection{Grouping Sets}
+Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der herkömmlichen
+\texttt{GROUP BY} Klausel. Wie aus dem Namen schon hervorgeht, handelt es sich
+nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an Gruppierungen.
+Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
+\cite{oracle16} beschreibt, dass dieses Schlüsselwort mehrere Gruppierungen in einer
+Abfrage erlaubt. Sie beschreiben weiter, dass bei einem \texttt{GROUPING SET}
+nur die eine angegebene Gruppe gruppiert wird und nicht alle möglichen Gruppen. \cite{oracle16}
+verweist an dieser Stelle schon auf die Erweiterungen \texttt{ROLLUP} und
+\texttt{CUBE}.
+
+\texttt{GROUP BY GROUPING SETS (continent, city);}
+
+Dieses kurze Beispiel zeigt eine mögliche Syntax. Die Ergebnismenge dieser
+Gruppierung ist einmal die Gruppierung nach dem \textit{continent} und einmal nach
+\textit{city}. Es werden keine Kombinationen gruppiert, nur die einzelnen
+Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist, ein
+\texttt{GROUPING SETS} zu verweden.
 
 \subsection{Rollup}
 

@@ -207,9 +207,26 @@ Dieses kurze Beispiel zeigt eine mögliche Syntax. Die Ergebnismenge dieser
 Gruppierung ist einmal die Gruppierung nach dem \textit{continent} und einmal nach
 \textit{city}. Es werden keine Kombinationen gruppiert, nur die einzelnen
 Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist, ein
-\texttt{GROUPING SETS} zu verweden.
+\texttt{GROUPING SETS} zu verwenden.
 
 \subsection{Rollup}
+Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine
+Erweiterung der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Die \cite{oracle16}
+Dokumentation beschreibt, einen Rollup als Zwischensumme, die von der kleinsten Ebenen
+bis hin zur größten "\textit{aufgerollt}" wird. Sie beschreiben weiter, dass die
+Reihenfolge der Gruppierung der angegebenen Gruppierungsliste folgt. Ein Beispiel ist
+hier zu sehen. Die Richtung der Gruppierungsreihenfolge ist von rechts nach links.
+
+\texttt{GROUP BY ROLLUP (A, B, C);}
+
+Im obrigen kurzen Beispiel starten wir also wie folgt:
+
+- A, B, C
+- A, B
+- A 
+- Gesamtsumme ()
+
+
 
 \subsection{Cube}
 

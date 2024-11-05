@@ -181,14 +181,14 @@ zusammengebaut wurde, auszugeben.
 Auch die letzte Analyse-Erweiterung die in diese Arbeit behandelt werden soll, macht
 ihrem Namen alle Ehre und gewährt mit wenigen Zeilen Quelltext, eine viel
 analytischere Einsicht in die Ergebnismenge, als es mit herkömmlichen SQL-Befehlen
-möglich ist.
+möglich ist. So beschreibt es auch \cite{melton2002advanced} in Kapitel 7.2.3 seines
+Buches \textit{Advanced SQL}. Er definiert in diesem Kapitel die Erweiterungen als
+mehrdimensionale Zusammenfassungen und kontrollierte Unterbrechungen von gruppierten
+Daten. Diese Formulierung lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE}
+Erweiterungen der \texttt{GROUP BY} Klausel sind.
 
-Die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} sind Erweiterungen der \texttt{GROUP
-BY} Klausel und wie bereits in früheren Kapitel beschrieben speziell für die Datenanalyse
-geeignet. Wie bei den rekursiven Abfragen basiert diese Erweiterung auf einem
-Grundkonzept, dass an dieser Stelle vorangehen soll.
-
-QUELLE FEHLT
+Wie bei den rekursiven Abfragen basiert diese Erweiterung jedoch auf einem Grundkonzept,
+dass an dieser Stelle vorangehen soll.
 
 \subsection{Grouping Sets}
 Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der herkömmlichen
@@ -201,34 +201,60 @@ nur die eine angegebene Gruppe gruppiert wird und nicht alle möglichen Gruppen.
 verweist an dieser Stelle schon auf die Erweiterungen \texttt{ROLLUP} und
 \texttt{CUBE}.
 
-\texttt{GROUP BY GROUPING SETS (continent, city);}
+\texttt{GROUP BY GROUPING SETS (A, B);}
 
-Dieses kurze Beispiel zeigt eine mögliche Syntax. Die Ergebnismenge dieser
-Gruppierung ist einmal die Gruppierung nach dem \textit{continent} und einmal nach
-\textit{city}. Es werden keine Kombinationen gruppiert, nur die einzelnen
-Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist, ein
-\texttt{GROUPING SETS} zu verwenden.
+Folgt man der Dokumentation von \cite{oracle16} so ergeben sich bei einem \texttt{GROUPING
+SETS} folgenden Gruppierungen:
+\begin{align*}
+	\{A\}, \quad \{B\}
+\end{align*}
+Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach dem \textit{A}
+und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
+Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
+ein \texttt{GROUPING SETS} zu verwenden.
 
 \subsection{Rollup}
-Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine
-Erweiterung der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Die \cite{oracle16}
-Dokumentation beschreibt, einen Rollup als Zwischensumme, die von der kleinsten Ebenen
-bis hin zur größten "\textit{aufgerollt}" wird. Sie beschreiben weiter, dass die
-Reihenfolge der Gruppierung der angegebenen Gruppierungsliste folgt. Ein Beispiel ist
-hier zu sehen. Die Richtung der Gruppierungsreihenfolge ist von rechts nach links.
+Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine Erweiterung
+der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Die \cite{oracle16}
+Dokumentation beschreibt in Kapitel 20, einen Rollup als Zwischensumme, die von
+der kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}" wird. Sie
+beschreiben weiter, dass die Reihenfolge der Gruppierung der angegebenen Gruppierungsliste
+folgt. Ein Beispiel ist hier zu sehen. Die Richtung der Gruppierungsreihenfolge ist
+von rechts nach links.
 
 \texttt{GROUP BY ROLLUP (A, B, C);}
 
-Im obrigen kurzen Beispiel starten wir also wie folgt:
-
-- A, B, C
-- A, B
-- A 
-- Gesamtsumme ()
-
-
+Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und Weise
+der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten wir die
+Gruppierungen als Menge.
+\begin{align*}
+	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
+\end{align*}
+Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert.
+Die letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
+also über alle Records gruppiert.
 
 \subsection{Cube}
+\cite{oracle16} weist in der Dokumentation darauf hin, dass mit einem \texttt{ROLLUP}
+nicht alle möglichen Kombinationen an Gruppierungen möglich sind. Die
+Erweiterung \texttt{ROLLUP} gibt eine eindeutige Gruppierungsreihenfolge vor.
+Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf das
+Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, so die \cite{oracle16}
+Dokumentation. Dieser aggregiert alle möglichen Kombinationen der Gruppierungen,
+einschließlich der Gesamtsumme. Er berücksichtigt nicht die Reihenfolge, der angegebenen
+Gruppierungen.
+
+\texttt{GROUP BY CUBE (A, B, C);}
+
+Unter Betrachtung dieses Beispiels ergeben sich aus den Gruppen \textit{A, B, C}
+folgende mögliche Kombinationen.
+\begin{align*}
+	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
+\end{align*}
+Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
+noch genaueren Einblick in die vorliegenden Datensätze gewährt. Dies muss jedoch
+nicht immer besser sein. Es kommt stark darauf an, welcher Einblick erwünscht
+ist.
 
 % --------------------------------------------------------------------------------------------
 

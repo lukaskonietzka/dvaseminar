@@ -1,16 +1,27 @@
 \chapter{Methodik}
+In dieses Kapitel sollen die fokusierten Analyse-Erweiterungen genauer unter die
+Lupe genommen werden. Hierzu werden praxisnahe Beispiele für die Erweiterungen
+genneriert und hernagezogen. Nachdem eine Einblick in die Beispiele gewonnen wurde,
+soll anhand von speziellen Bewertungskriterien die Sprachkonstrukte und
+Möglichleiten dieser Analyse-Erweiterungen objektiv bewertet werden. Auch die Ergebnismenge
+der verschiednen Beispiel soll in die Bewertung mit einfließen.
+
+Für sollch ein Vorgehen, wird im folgenden Kapitel der entsprechende Rahmen
+gesetzt.
 
 \section{Rahmenbedingungen}
+Befor mit dem erstellen einer Beispieldatenbank begonnen werden kann, muss ein Datenbank
+Management System (DBMS) gewählt werden. Aufgrund der einfachen Installation
+wird für die folgenden Beispiele eine MYSQL Datenbank verwendet. Dieses bietet alle
+Erweiterungen, die in dieser Arbeit näher betrachtet werden sollen.
+
+Als praxisnahes Beispiel wird auf ein allgemein bekanntes konzept
+zurückgegriffen um die Komplexität zu reduzieren und den Fokus mehr auf die
+Analyseerweiterungen zu lenken. Im Rahmen dieses Artikel soll das Konzept einer Bibliothek
+als Beispiel fungieren. Dieses trägt vortan den Namen \textit{LibraryDB}. Das
+Datenmodell teilt sich hier in drei Relationen auf.
 
 \section{Beispiel analytische Funktion}
-
-\begin{lstlisting} [caption={This is a code block}]
--- This is a comment
-SELECT name, age, AVG(age) AS avgAge
-FROM users
-WHERE name = 'Heiko'
-GROUP BY city
-\end{lstlisting}
 
 \section{Beispiel - Rekursive Queries}
 

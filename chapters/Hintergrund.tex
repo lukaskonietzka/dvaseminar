@@ -3,32 +3,26 @@ Dieses Kapitel soll die Grundsteine legen und in die Konzepte und Theorien der A
 einführen. Um die Fragestellung dieser Arbeit einordnen zu können, ist unter anderem
 ein Blick auf die Historie hilfreich. Der Hauptgrund für die Wahl der drei oben
 genannten Erweiterungen liegt nämlich nicht nur in ihren vielseitigen
-Möglichkeiten, sondern auch in ihrer Integration in den SQL-Standard, wie auch
-von \cite{grust2017advanced} in seiner Arbeit hervorgehoben wird. Er verdeutlicht
-auf Seite 10, dass im Jahre 1987 die erste Version des SQL-Standards
-veröffentlicht wurde. Mit SQL3 1999 kamen dann die ersten Analyse-Erweiterungen mit
-den \textit{recursive queries} hinzu. Wie \cite{melton2001sql} in Kapitel 9.12 ihrer
-Arbeit beschreiben, wurden die Funktionen \textit{ROLLUP} und \textit{CUBE}
-ebenfalls 1999 in den SQL-Standard aufgenommen. Die \textit{Window Functions}
-hingegen folgten laut \cite{grust2017advanced} erst mit der späteren Version im
-Jahr 2003.
-
-\section{SQL Kurzüberischt}
-Wird nur ausgeschrieben, wenn wir nicht genug Seiten haben
+Möglichkeiten, sondern auch in ihrer Integration in den SQL-Standard (\cite{grust2017advanced},
+Seite 10). Durch nähere Betrachtung der Arbeit von \cite{grust2017advanced} wird
+deutlich, dass im Jahre 1987 die erste Version des SQL-Standards veröffentlicht
+wurde. Mit SQL3 1999 kamen dann die ersten Analyse-Erweiterungen mit den \textit{recursive
+queries} hinzu (\cite{grust2017advanced}, Seite 10). Die Erweiterungen \texttt{ROLLUP}
+und \texttt{CUBE} wurden ebenfalls im Jahre 1999 in den SQL-Standard aufgenommen
+(\cite{melton2001sql}, Kapitel 9.12). Mit einer päteren Version im Jahr 2003
+folgten dann die \textit{Window Functions} (\cite{grust2017advanced}, Seite 10).
 
 \section{Window Functions}
-Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt,
-sind das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanalyse
-innerhalb von SQL ein wichtiger Bestandteil. \cite{cao2012optimization} veröffentlichte
-eine Arbeit über die Optimierung von \textit{Window Functions} wo er bereits zu
-Beginn der Arbeit erwähnt, dass für eine Komplexe Datenanalyse diese SQL Erweiterungen
-nicht mehr wegzudenken ist. Er beschreibt in seinem Artikel die \textit{Analytic
-Functions} als repräsentativ für den aktuellen Stand der Technik.
+Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt, sind
+das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanalyse innerhalb
+von SQL ein wichtiger Bestandteil. Die \textit{Window Functions} sind so für eine
+komplexe Datananaylse nicht mehr wegzudenken. Sie sind für den aktuellen Stand
+der Technik repräsentativ und absolut notwendig (\cite{cao2012optimization},
+Abstract).
 
 Für eine pregnante und eindeutige Definition der \textit{Analytic Functions} sei
 auf die Dokumentation der Oracle Datenbank verwiesen, die die \textit{Analytic
 Functions} wie folgt beschreiben.
-
 \begin{center}
 	\textit{ 'Analytic functions compute an aggreagt value based on a grpoup of
 	rows.' } \\ \cite{oracle}
@@ -36,40 +30,41 @@ Functions} wie folgt beschreiben.
 	\textit{ 'The group of rows is called a window and is defined by the analytic-clause.'
 	} \\ \cite{oracle}
 \end{center}
-
 Wenn man dieser Definition folgt, dann werden darunter also aggregierte Werte
 verstanden, die mittels dem Schlüsselwort \texttt{OVER} auf bestimmte Zeilen in
 einer Tabelle angewendet wird. So ist es Beispielsweise möglich, auch
-benachbarte Datensätze mit einzubeziehen.
+benachbarte Datensätze mit einzubeziehen (\cite{oracle}).
 
 Die analytischen Funktionen sind stark verwandt mit den weit verbreiteten
 Aggregatfunktionen in SQL. Sie bilden in gewisser Weise eine Erweiterung dieser Aggregatfunktionen.
-\cite{Nuijten2023} betrachten zur Unterscheidung der Aggregatfunktion und den
-analytischen Funktionen die Ergebnismenge. Sie erläutern, dass Beispielsweise
-ein \texttt{COUNT(*)} als Aggregatfunktion nur eine Zeile zurückliefert, während
-analytische Funktionen die Ergebnismenge nicht verändern und für jeden Eintrag
-einen Wert angeben.
+Zur Unterscheidung der Aggregatfunktion und den analytischen Funktionen kann die
+Ergebnismenge betrachtet weden (\cite{Nuijten2023}, Analytic Functions). Sie
+erläutern, dass Beispielsweise ein \texttt{COUNT(<...>)} als Aggregatfunktion
+nur eine Zeile zurückliefert, während analytische Funktionen die Ergebnismenge nicht
+verändern und für jeden Eintrag einen Wert angeben (\cite{Nuijten2023}, Analytic
+Functions).
 
-\cite{Nuijten2023} beschreiben weiter, dass sich die Abarbeitung der Funktionen in
-drei Stufen einteilen lässt, wobei dir Sortierung dieser drei Schritte auch die
-Reihenfolge der Abarbeitung festlegt.
-
+Die Abarbeitung einer solchen Analyse-Funktionen lässt sich in drei Stufen
+einteilen , wobei dir Sortierung dieser drei Schritte auch die Reihenfolge der
+Abarbeitung festlegt (\cite{Nuijten2023}, Building Blocks).
 \begin{description}
 	\item[$\bullet$ 1. Stufe] auflösen der JOIN-, WHERE-, GROUP BY- und HAVING-Klausel
+		\\ (\cite{Nuijten2023}, Building Blocks)
 
 	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewandt
+		\\ (\cite{Nuijten2023}, Building Blocks)
 
 	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewandt
+		\\ (\cite{Nuijten2023}, Building Blocks)
 \end{description}
-
-Im nächsten Abschnitt werden die Stufen zwei und drei genauer betrachtet und mittels
-eines Modells verdeutlicht.
+Im nächsten Abschnitt werden die Stufen zwei und drei genauer betrachtet und
+mittels eines Modells verdeutlicht.
 
 \subsection{Aufbau}
-Um den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
-zu können, sei an dieser Stelle nochmals auf \cite{oracle} verwiesen. Hier ist
-ein konkreter Aufbau einer analytischen Funktion zu finden, die hier näher betrachtet
-werden soll.
+Um den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen zu
+können, sei an dieser Stelle nochmals auf \cite{oracle} verwiesen. Hier ist ein konkreter
+Aufbau einer analytischen Funktion zu finden, die hier näher betrachtet werden
+soll.
 
 \begin{figure}[h]
 	\centering
@@ -77,12 +72,14 @@ werden soll.
 	\caption{ Aufbau einer analytischen Funktion | Quelle: \cite{oracle}}
 \end{figure}
 
-Der erste Teil beschreibt die konkrete analytische Funktion, die auf die Ergebnismenge
-ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
-Aggregatfunktionen. Eine grobe Übersicht über verschiedenen \textit{Window
-Functions} beschreibt \cite{ibrahaim23} in seiner Arbeit. Hierzu unterteilt er im
-Kapitel \textit{Different Types of Window Functions} die möglichen Funktionen
-übersichtlich in drei verschiedenen Gruppen,
+Der erste Teil beschreibt die konkrete analytische Funktion, die auf die
+Ergebnismenge ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
+Aggregatfunktionen. Das Argument einer analyse Funktion legt fest, auf welche Spalte
+diese angewendet wereden soll (\cite{schicker2017datenbanken}, Seite 110). Eine grobe
+Übersicht über verschiedenen \textit{Window Functions} beschreibt
+\cite{ibrahaim23} in seiner Arbeit. Hierzu unterteilt er im Kapitel \textit{Different
+Types of Window Functions} die möglichen Funktionen übersichtlich in drei
+verschiedenen Gruppen.
 
 Das Schlüsselwort \texttt{OVER(*)} wurde bereits zuvor in diesem Artikel erwähnt.
 Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster
@@ -90,7 +87,7 @@ Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster
 
 Im Argument der \texttt{OVER} Funktion definieren wir die Ausprägung des Fensters
 und die Ordnung des Fensters. Dieses Argument ist bekannt als \textit{analytic-clause}
-und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
+und teilt sich wieder in weitere Teile auf (cite{oracle}) . Der Aufbau dieser
 \textit{analytic-clause} sei hier beschrieben, bleibt aber hier unkommentiert.
 
 \begin{figure}[h]
@@ -101,105 +98,28 @@ und teilt sich laut \cite{oracle} wieder in weitere Teile auf. Der Aufbau dieser
 
 % --------------------------------------------------------------------------------------------
 
-\section{Common Table Expressions und rekursive Queries}
-Neben den \textit{Window Functions} sollen hier noch die rekursiven Abfragen,
-auch \textit{Recursiv Queries} genannt, behandelt werden. Um eine rekursive Abfrage
-schreiben zu können, muss zunächst ein anderes Konzept in SQL verstanden werden.
-Die rekursiven Abfragen bauen auf diesem Konzept auf und sind ohne dies nicht einsetzbar.
-Die Rede ist von den \textit{Common Table Expressions (CTE)}.
-
-Der erste Abschnitt dieses Kapitels führt demnach in die Theorien und Konzepte der
-\textit{CTE} ein und baut darauf auf. Im zweiten Schritt sollen die rekursiven Abfragen
-betrachtet werden.
-
-\subsection{Common Table Expressions (CTE)}
-Die \textit{Common Table Expressions} sind ein mächtiges Konstrukt in SQL und
-vereinfachen komplexe Anfragen. Speziell Abfragen mit einem \textit{subselect}
-werden dadurch deutlich einfache.
-
-Für eine aussagekräftige Definition der \textit{CTE} sei auf den Internetartikel
-von \cite{Ignacio2022} verwiesen, der die Frage: "Was ist eine \textit{CTE}" mit
-folgendem Satz beantwortet:
-\begin{center}
-	\textit{ 'A Common Table Expression (CTE) is like a named subquery. It functions
-	as a virtual table that only its main query can access. CTEs can help simplify,
-	shorten, and organize your code.' } \\ \cite{Ignacio2022}
-\end{center}
-Vereinfacht lässt sich daraus ableite, dass ein CTE ein query mit Namen ist. Es handelt
-sich hier also um ein \texttt{SELECT}, das mit einem Namen angesprochen werden kann.
-Betrachtet wird es als virtuelle Tabelle, da diese erst zur Laufzeit des jeweiligen
-\texttt{SELECT} angelegt wird und nach Abschluss sofort zerstört wird. Einmal erstell,
-kann so eine Virtuelle Tabelle wie eine herkömliche Tabelle behandelt werden. Die
-\textit{main query}, die \cite{Ignacio2022} anspricht, ist das \texttt{SELECT} Statement,
-dass direkt nach der CTE Erstellung folgt. Das CTE leitet also eine kleine Abstraktionsschicht
-ein, die hilft, die Vorteil, die aus der Definition von \cite{Ignacio2022}
-hervorgehen, einzuhalten.
-
-Ein CTE bedient sich folgender Syntax:
-
-\texttt{WITH cteName (<...>) SELECT mainQuery FROM cteName;}
-
-Für \texttt{cteName} ist der entsprechende Name für die virtuelle Tabelle zu
-wählen. Die \texttt{(<...>)} weist darauf hin, dass in der runden Klammer das jeweilige
-\texttt{SELECT} Statement steht, welches die Identität der CTE festlegt. \texttt{mainQuery}
-ist die Query, die auf die virtuelle Tabelle verweist und unmittelbar nach der
-CTE folgt.
-
-\subsection{Rekursive Queries}
-Mit dem Wissen aus dem vorherigen Abschnitt soll hier in die rekursiven Abfragen
-eingeführt werden. Eine Rekursion ist laut \cite{benecke1998rekursion} Kapitel zehn
-(Rekursion) die Definition eines Problems, einer Funktion oder eines Verhaltens
-durch sich selbst. Er schreibt weiter, dass der Begriff Rekursion in der
-Informatik oft im Zusammenhang mit Datenstrukturen und Funktionen steht. Dies Trifft
-auch auf die CTE. Diese werden Verwendendet um innerhalb einer CTE auf sich
-selbst zu referenzieren und so einen rekursiven Aufruf generieren.
-
-\begin{lstlisting} [caption={Rekrusive Abfragen mit CTE | Quelle: \cite{Mohan23}}, label={list:rekursion}]
-WITH RECURSIVE cteName -- define CTE
-AS (SELECT <...> -- base case
-	FROM <...>
-	UNION ALL -- combine
-	SELECT <...> -- recursive case
-	FROM cteName
-)
-SELECT * FROM cteName; -- main query
-\end{lstlisting}
-
-Das Beispiel aus \ref{list:rekursion} soll den grundsätzlichen Aufbau einer rekursiven
-Abfrage zeigen. Wie auch \cite{Mohan23} in seinem Beispiel schon beschrieben hat,
-wird zunächst die virtuelle Tabelle (CTE) mit Name definiert. Innerhalb der CTE
-gibt es zwei \texttt{SELECT} Statements. Einen \textit{Base Case} und einen \textit{Recursiv
-Case}. Die Rekursion entsteht hier im zweiten \texttt{SELECT}, dass auf den CTE referenziert.
-Der \texttt{UNION ALL} kombiniert die beiden \texttt{SELECT}. Die \textit{main
-query} ist Teil der klassischen CTE und wurde im obrigen Kapitel bereits
-behandelt. Es wird hier genutzt um letzten Endes das Ergebnis, dass in der CTE
-zusammengebaut wurde, auszugeben.
-
-% --------------------------------------------------------------------------------------------
-
 \section{Rollup and Cube}
 Auch die letzte Analyse-Erweiterung die in diese Arbeit behandelt werden soll, macht
 ihrem Namen alle Ehre und gewährt mit wenigen Zeilen Quelltext, eine viel
 analytischere Einsicht in die Ergebnismenge, als es mit herkömmlichen SQL-Befehlen
-möglich ist. So beschreibt es auch \cite{melton2002advanced} in Kapitel 7.2.3 seines
-Buches \textit{Advanced SQL}. Er definiert in diesem Kapitel die Erweiterungen als
-mehrdimensionale Zusammenfassungen und kontrollierte Unterbrechungen von gruppierten
-Daten. Diese Formulierung lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE}
-Erweiterungen der \texttt{GROUP BY} Klausel sind.
+möglich ist (\cite{melton2002advanced}, Kapitel 7.2.3). In diverser
+Fachliteratur ist oft von mehrdimensionale Zusammenfassungen und kontrollierte
+Unterbrechungen von gruppierten Daten die Red. Diese Formulierung lässt erahnen,
+dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} Erweiterungen der \texttt{GROUP
+BY} Klausel sind.(\cite{melton2002advanced}, Kapitel 7.2.3)
 
 Wie bei den rekursiven Abfragen basiert diese Erweiterung jedoch auf einem Grundkonzept,
 dass an dieser Stelle vorangehen soll.
 
 \subsection{Grouping Sets}
 Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der herkömmlichen
-\texttt{GROUP BY} Klausel. Wie aus dem Namen schon hervorgeht, handelt es sich
-nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an Gruppierungen.
-Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
-\cite{oracle16} beschreibt, dass dieses Schlüsselwort mehrere Gruppierungen in einer
-Abfrage erlaubt. Sie beschreiben weiter, dass bei einem \texttt{GROUPING SET}
-nur die eine angegebene Gruppe gruppiert wird und nicht alle möglichen Gruppen. \cite{oracle16}
-verweist an dieser Stelle schon auf die Erweiterungen \texttt{ROLLUP} und
-\texttt{CUBE}.
+\texttt{GROUP BY} Klausel (\cite{oracle16}). Wie aus dem Namen schon hervorgeht,
+handelt es sich nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an
+Gruppierungen. Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
+Das Schlüsselwort \texttt{GROUPING SETS} erlaubt mehrere Gruppierungen in einer Abfrage.
+Jedoch wird nur eine angegebene Gruppe gruppiertund nicht alle möglichen Gruppen
+(\cite{oracle16}). An dieser Stelle sei schon auf die Erweiterungen \texttt{ROLLUP}
+und \texttt{CUBE} verwiesen.
 
 \texttt{GROUP BY GROUPING SETS (A, B);}
 
@@ -211,38 +131,35 @@ SETS} folgenden Gruppierungen:
 Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach dem \textit{A}
 und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
 Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
-ein \texttt{GROUPING SETS} zu verwenden.
+ein \texttt{GROUPING SETS} zu verwenden (\cite{oracle16}).
 
 \subsection{Rollup}
 Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine Erweiterung
-der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Die \cite{oracle16}
-Dokumentation beschreibt in Kapitel 20, einen Rollup als Zwischensumme, die von
-der kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}" wird. Sie
-beschreiben weiter, dass die Reihenfolge der Gruppierung der angegebenen Gruppierungsliste
-folgt. Ein Beispiel ist hier zu sehen. Die Richtung der Gruppierungsreihenfolge ist
-von rechts nach links.
+der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Einen Rollup ist als
+Zwischensumme zu betrachtetn, die von der kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}"
+wird (\cite{oracle16}). Die Reihenfolge der Gruppierung folgt der angegebenen Gruppierungsliste.
+Die Richtung der Gruppierungsreihenfolge ist von rechts nach links (\cite{oracle16}).
 
 \texttt{GROUP BY ROLLUP (A, B, C);}
 
-Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und Weise
-der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten wir die
-Gruppierungen als Menge.
+Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und
+Weise der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten
+wir die Gruppierungen als Menge.
 \begin{align*}
 	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
 \end{align*}
-Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert.
-Die letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
+Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert. Die
+letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
 also über alle Records gruppiert.
 
 \subsection{Cube}
-\cite{oracle16} weist in der Dokumentation darauf hin, dass mit einem \texttt{ROLLUP}
-nicht alle möglichen Kombinationen an Gruppierungen möglich sind. Die
-Erweiterung \texttt{ROLLUP} gibt eine eindeutige Gruppierungsreihenfolge vor.
-Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf das
-Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, so die \cite{oracle16}
-Dokumentation. Dieser aggregiert alle möglichen Kombinationen der Gruppierungen,
-einschließlich der Gesamtsumme. Er berücksichtigt nicht die Reihenfolge, der angegebenen
-Gruppierungen.
+Mit einem \texttt{ROLLUP} sind nicht alle möglichen Kombinationen an Gruppierungen
+möglich (\cite{oracle16}). Die Erweiterung \texttt{ROLLUP} gibt eine eindeutige Gruppierungsreihenfolge
+vor. Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf
+das Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden (\cite{oracle16}).
+Dieser aggregiert alle möglichen Kombinationen der Gruppierungen, einschließlich
+der Gesamtsumme. Er berücksichtigt nicht die Reihenfolge, der angegebenen
+Gruppierungen (\cite{oracle16}).
 
 \texttt{GROUP BY CUBE (A, B, C);}
 
@@ -251,10 +168,9 @@ folgende mögliche Kombinationen.
 \begin{align*}
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
-Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
-noch genaueren Einblick in die vorliegenden Datensätze gewährt. Dies muss jedoch
-nicht immer besser sein. Es kommt stark darauf an, welcher Einblick erwünscht
-ist.
+Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung
+einen noch genaueren Einblick in die vorliegenden Datensätze gewährt. Dies muss jedoch
+nicht immer besser sein. Es kommt stark darauf an, welcher Einblick erwünscht ist.
 
 % --------------------------------------------------------------------------------------------
 

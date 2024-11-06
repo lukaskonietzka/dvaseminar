@@ -9,13 +9,13 @@ deutlich, dass im Jahre 1987 die erste Version des SQL-Standards veröffentlicht
 wurde. Mit SQL3 1999 kamen dann die ersten Analyse-Erweiterungen mit den \textit{recursive
 queries} hinzu (\cite{grust2017advanced}, Seite 10). Die Erweiterungen \texttt{ROLLUP}
 und \texttt{CUBE} wurden ebenfalls im Jahre 1999 in den SQL-Standard aufgenommen
-(\cite{melton2001sql}, Kapitel 9.12). Mit einer päteren Version im Jahr 2003
+(\cite{melton2001sql}, Kapitel 9.12). Mit einer späteren Version im Jahr 2003
 folgten dann die \textit{Window Functions} (\cite{grust2017advanced}, Seite 10).
 
 \section{Window Functions}
 Die \textit{Analytic Functions} oder auch \textit{Window Functions} genannt, sind
 das Herzstück der Analyse-Erweiterungen und somit auch für die Datenanalyse innerhalb
-von SQL ein wichtiger Bestandteil. Die \textit{Window Functions} sind so für eine
+von SQL ein wichtiger Bestandteil. Die \textit{Window Functions} sind so aus eine
 komplexe Datananaylse nicht mehr wegzudenken. Sie sind für den aktuellen Stand
 der Technik repräsentativ und absolut notwendig (\cite{cao2012optimization},
 Abstract).
@@ -36,16 +36,16 @@ einer Tabelle angewendet wird. So ist es Beispielsweise möglich, auch
 benachbarte Datensätze mit einzubeziehen (\cite{oracle}).
 
 Die analytischen Funktionen sind stark verwandt mit den weit verbreiteten
-Aggregatfunktionen in SQL. Sie bilden in gewisser Weise eine Erweiterung dieser Aggregatfunktionen.
-Zur Unterscheidung der Aggregatfunktion und den analytischen Funktionen kann die
+Aggregatfunktionen in SQL. Sie bilden in gewisser Weise eine Erweiterung. Zur
+Unterscheidung der Aggregatfunktion und den analytischen Funktionen kann die
 Ergebnismenge betrachtet weden (\cite{Nuijten2023}, Analytic Functions). Sie
 erläutern, dass Beispielsweise ein \texttt{COUNT(<...>)} als Aggregatfunktion
 nur eine Zeile zurückliefert, während analytische Funktionen die Ergebnismenge nicht
-verändern und für jeden Eintrag einen Wert angeben (\cite{Nuijten2023}, Analytic
+verändern und für jeden Eintrag einen Wert vorsehen (\cite{Nuijten2023}, Analytic
 Functions).
 
 Die Abarbeitung einer solchen Analyse-Funktionen lässt sich in drei Stufen
-einteilen , wobei dir Sortierung dieser drei Schritte auch die Reihenfolge der
+einteilen , wobei die Sortierung dieser drei Schritte auch die Reihenfolge der
 Abarbeitung festlegt (\cite{Nuijten2023}, Building Blocks).
 \begin{description}
 	\item[$\bullet$ 1. Stufe] auflösen der JOIN-, WHERE-, GROUP BY- und HAVING-Klausel
@@ -83,18 +83,37 @@ verschiedenen Gruppen.
 
 Das Schlüsselwort \texttt{OVER(*)} wurde bereits zuvor in diesem Artikel erwähnt.
 Es ist der namensgebende Teil der \textit{Window Functions}, da so die Fenster
-über die Ergebnismenge gelegt werden.
+über die Ergebnismenge gelegt werden. Bleibt das Argument der \texttt{OVER()}
+Funktion leer, so wird das Fenster über alle Records gespannt. Ein Biespiel
+liefert dieser Block
 
-Im Argument der \texttt{OVER} Funktion definieren wir die Ausprägung des Fensters
-und die Ordnung des Fensters. Dieses Argument ist bekannt als \textit{analytic-clause}
-und teilt sich wieder in weitere Teile auf (cite{oracle}) . Der Aufbau dieser
-\textit{analytic-clause} sei hier beschrieben, bleibt aber hier unkommentiert.
+\texttt{AVG(<..>) OVER()} (\cite{Nuijten2023}, Building Blocks)
+
+Im Argument der \texttt{OVER} Funktion wird die Ausprägung und die Ordnung des Fensters
+definiert. Dieses Argument ist bekannt als ç (cite{oracle}). Der Aufbau dieser
+\textit{analytic-clause} sei hier beschrieben (cite{oracle}).
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticClausel.jpg}
 	\caption{ Aufbau einer analytischen Klausel | Quelle: \cite{oracle}}
+	\label{fig:aufbauAnalytischeKlausel}
 \end{figure}
+
+Aus dem Aufbau der \textit{analytic-clause} wird klar, das diese in zwei Hauptteil
+aufgeteilt wird. Ein partitionClause, die die einzelnen Fenster festlegt und die
+orderByClausel, die die Reihenfolge in den einzelnen Fenstern festlegt. Ein etwas
+generischen Biespiel sieht wie folgt aus.
+
+\texttt{PARTITION BY <..> ORDER BY <..>} (\cite{Nuijten2023}, Building Blocks)
+
+Wenn die gezeigetn Aufbauten aus den Abbildungen 2.1 und 2.2 zusammengesetzt
+werden, entsteht eine Analyse-Funktion, die bereits eine hohe Ausprägung hat. Für
+eine korrekte Fusion der Beiden Klauseln wir die analytische Klausel in das Argument
+der Over-Funktion eingefühgt. (\cite{Nuijten2023}, Building Blocks)
+
+\texttt{AVG(a) OVER (Partition BY <..> ORDER BY <..>)} (\cite{Nuijten2023}, Building
+Blocks)
 
 % --------------------------------------------------------------------------------------------
 
@@ -108,58 +127,62 @@ Unterbrechungen von gruppierten Daten die Red. Diese Formulierung lässt erahnen
 dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} Erweiterungen der \texttt{GROUP
 BY} Klausel sind.(\cite{melton2002advanced}, Kapitel 7.2.3)
 
-Wie bei den rekursiven Abfragen basiert diese Erweiterung jedoch auf einem Grundkonzept,
-dass an dieser Stelle vorangehen soll.
+Bevor mit den eingentlichen Erweiterungen begonnen werden kann, muss hier ein
+Grundkonzept vorangestellt werden. Dieses Führt schrittweise die Schlüsselworter
+\texttt{ROLLUP} und \texttt{CUBE} ein. Hierbei handelt es sich im das \texttt{GROUPING
+SETS}.
 
 \subsection{Grouping Sets}
-Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der herkömmlichen
-\texttt{GROUP BY} Klausel (\cite{oracle16}). Wie aus dem Namen schon hervorgeht,
-handelt es sich nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an
-Gruppierungen. Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
-Das Schlüsselwort \texttt{GROUPING SETS} erlaubt mehrere Gruppierungen in einer Abfrage.
-Jedoch wird nur eine angegebene Gruppe gruppiertund nicht alle möglichen Gruppen
-(\cite{oracle16}). An dieser Stelle sei schon auf die Erweiterungen \texttt{ROLLUP}
-und \texttt{CUBE} verwiesen.
+Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der
+herkömmlichen \texttt{GROUP BY} Klausel (\cite{oracle16}). Wie aus dem Namen
+schon hervorgeht, handelt es sich nicht um eine einzelne Gruppierung, sondern um
+ein ganzes Set an Gruppierungen. Das Set lässt darauf deuten, dass jede
+Gruppierung nur einmal vorkommt. Das Schlüsselwort \texttt{GROUPING SETS}
+erlaubt mehrere Gruppierungen in einer Abfrage. Jedoch wird nur eine angegebene Gruppe
+gruppiertund nicht alle möglichen Gruppen (\cite{oracle16}). Für eine
+Kombination an Gruppierungen sei an dieser Stelle schon auf die Erweiterungen
+\texttt{ROLLUP} und \texttt{CUBE} verwiesen.
 
 \texttt{GROUP BY GROUPING SETS (A, B);}
 
-Folgt man der Dokumentation von \cite{oracle16} so ergeben sich bei einem \texttt{GROUPING
-SETS} folgenden Gruppierungen:
+Folgt man der Dokumentation von \cite{oracle16} so ergeben sich bei einem
+\texttt{GROUPING SETS} folgenden Gruppierungen:
 \begin{align*}
 	\{A\}, \quad \{B\}
 \end{align*}
 Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach dem \textit{A}
-und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
-Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
-ein \texttt{GROUPING SETS} zu verwenden (\cite{oracle16}).
+und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die
+einzelnen Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von
+vielen ist, ein \texttt{GROUPING SETS} zu verwenden (\cite{oracle16}).
 
 \subsection{Rollup}
-Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine Erweiterung
-der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Einen Rollup ist als
-Zwischensumme zu betrachtetn, die von der kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}"
-wird (\cite{oracle16}). Die Reihenfolge der Gruppierung folgt der angegebenen Gruppierungsliste.
-Die Richtung der Gruppierungsreihenfolge ist von rechts nach links (\cite{oracle16}).
+Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine
+Erweiterung der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Einen Rollup
+ist als Zwischensumme zu betrachtetn, die von der kleinsten Ebenen bis hin zur
+größten "\textit{aufgerollt}" wird (\cite{oracle16}). Die Reihenfolge der
+Gruppierung folgt der angegebenen Gruppierungsliste. Die Richtung der Gruppierungsreihenfolge
+ist von rechts nach links (\cite{oracle16}).
 
 \texttt{GROUP BY ROLLUP (A, B, C);}
 
-Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und
-Weise der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten
-wir die Gruppierungen als Menge.
+Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und Weise
+der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten wir die
+Gruppierungen als Menge.
 \begin{align*}
 	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
 \end{align*}
-Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert. Die
-letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
+Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert.
+Die letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
 also über alle Records gruppiert.
 
 \subsection{Cube}
-Mit einem \texttt{ROLLUP} sind nicht alle möglichen Kombinationen an Gruppierungen
-möglich (\cite{oracle16}). Die Erweiterung \texttt{ROLLUP} gibt eine eindeutige Gruppierungsreihenfolge
-vor. Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf
-das Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden (\cite{oracle16}).
-Dieser aggregiert alle möglichen Kombinationen der Gruppierungen, einschließlich
-der Gesamtsumme. Er berücksichtigt nicht die Reihenfolge, der angegebenen
-Gruppierungen (\cite{oracle16}).
+Mit einem \texttt{ROLLUP} sind nicht alle möglichen Kombinationen an
+Gruppierungen möglich (\cite{oracle16}). Die Erweiterung \texttt{ROLLUP} gibt
+eine eindeutige Gruppierungsreihenfolge vor. Wenn eine andere Reihenfolge oder mehrere
+Gruppierungen gewollt sind, muss auf das Konzept der \texttt{CUBE} Erweiterung zurückgegriffen
+werden (\cite{oracle16}). Dieser aggregiert alle möglichen Kombinationen der
+Gruppierungen, einschließlich der Gesamtsumme. Er berücksichtigt nicht die
+Reihenfolge, der angegebenen Gruppierungen (\cite{oracle16}).
 
 \texttt{GROUP BY CUBE (A, B, C);}
 
@@ -168,9 +191,10 @@ folgende mögliche Kombinationen.
 \begin{align*}
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
-Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung
-einen noch genaueren Einblick in die vorliegenden Datensätze gewährt. Dies muss jedoch
-nicht immer besser sein. Es kommt stark darauf an, welcher Einblick erwünscht ist.
+Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
+noch genaueren Einblick in die vorliegenden Datensätze gewährt. Dies muss jedoch
+nicht immer besser sein. Es kommt stark darauf an, welcher Einblick erwünscht
+ist.
 
 % --------------------------------------------------------------------------------------------
 

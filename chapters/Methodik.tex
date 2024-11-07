@@ -238,11 +238,48 @@ FROM Borrowed_Books;
 	\label{tab:member_borrows}
 \end{table}
 
-Wie zu erkennen ist, wird die \textit{ORDER BY} wie in früheren Kapiteln bereits
-beschrieben einfach an die \textit{PARTITION BY} Klausel angehängt. Sie ist somit
-ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser Beispielreihe wurde
-noch lange nicht alle Möglichkeiten der Window-Funktions angesprochen die Dokumentation
-von \citet{oracle} beschreibt noch weitere Sprachkonstrukte, die in dieser Arbeit
-aber unberücksichtigt belieben.
+Wie zu erkennen ist, wird die \textit{oder\_by\_clause} wie in früheren Kapiteln
+bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel
+angehängt. Sie ist somit ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser
+Beispielreihe wurde noch lange nicht alle Möglichkeiten der Window-Funktions angesprochen
+die Dokumentation von \citet{oracle} beschreibt noch weitere Sprachkonstrukte, die
+in dieser Arbeit aber unberücksichtigt belieben.
 
 \section{Beispiel - Rollup and Cube}
+Die Erweiterungen \texttt{ROLLUP} und \texttt{CUBE} werden als Erweiterung der \texttt{GROUP
+BY} Klausel verstanden. Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB}
+die Möglichkeiten und Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien
+zu der herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit herkömmlichen
+Befehlen Einsicht in mehrere Gruppierungen zu erhalten, so muss für jede
+gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Der nachfolgende
+Codeblock zeigt dies.
+
+\begin{minipage}{0.45\textwidth}
+	\lstset{caption={Gruppe Date}, label={list:Group_date}} \begin{lstlisting}
+SELECT borrow_date,
+FROM Borrowed_Books
+GROUP BY(borrow_date);
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+	\lstset{caption={Gruppe ID}, label={list:Group_id}} \begin{lstlisting}
+SELECT member_id,
+FROM Borrowed_Books
+GROUP BY(member_id);
+	\end{lstlisting}
+\end{minipage}
+
+Um dieses Vorgehen zu vereinfachen, kann auf das Schlüsselwort \texttt{GROUPING
+SETS} zurückgegriffen werden, dass ein Set von gewünschten Gruppierungen nimmt
+und diese in einer Ergebnismenge zurückliefert. Die Syntax ist in Block ... zu sehen
+
+\begin{lstlisting}
+SELECT borrow_date, member_id,
+FROM Borrowed_Books
+GROUP BY GROUPING SETS(borrow_date, member_id);
+\end{lstlisting}
+
+\texttt{GROUPING SETS} kann jedoch nur die einzelnen Gruppen gruppieren. Es ist nicht
+möglich eine Kombination aus den angegebenen Attributen zu gruppieren. Diese
+Funktion ist den Erweiterungen \texttt{ROLLUP} und \texttt{CUBE} überlassen.

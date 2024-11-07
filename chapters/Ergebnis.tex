@@ -8,7 +8,7 @@ analysiert.
 Dieses Kapitel beschäftigt sich ausschließlich mit der konkreten Anwendung der Window
 Functions und deren Verwandtheit zu den herkömmlichen Aggregatfunktionen. Hierzu
 wird das Beispiel der \textit{LibraryDB} herangezogen. Zu Beginn sei eine
-Aggregatfunktion der einfachsten Art gezeigt. Für ein praktisches Beispiel
+Aggregatfunktion der einfachsten Art gezeigt.
 
 \begin{minipage}{0.68\textwidth}
 	\lstset{caption={einfachste Aggregatfunktion}, label={list:simpleAgg}} \begin{lstlisting}
@@ -79,8 +79,9 @@ UNTEREINANDER
 
 \begin{minipage}{0.68\textwidth}
 	\lstset{caption={einfachste Aggregatfunktion}, label={list:simpleAggOver}} \begin{lstlisting}
-SELECT AVG(published_year) OVER() AS avg_year;
-FROM Books;
+SELECT AVG(published_year) OVER() AS avg_year
+FROM Books
+GROUP BY genre;
 	\end{lstlisting}
 \end{minipage}
 \hfill
@@ -88,7 +89,13 @@ FROM Books;
 	\centering
 	\begin{tabular}{|c|}
 		\hline
-		avg\_year \\
+		\textbf{avg\_year} \\
+		\hline
+		1947.2500 \\
+		\hline
+		1947.2500 \\
+		\hline
+		1947.2500 \\
 		\hline
 		1947.2500 \\
 		\hline

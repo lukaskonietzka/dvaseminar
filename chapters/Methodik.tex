@@ -3,56 +3,246 @@ In dieses Kapitel sollen die fokussierten Analyse-Erweiterungen genauer unter di
 Lupe genommen werden. Hierzu werden praxisnahe Beispiele für die Erweiterungen
 generiert und herangezogen. Nachdem ein Einblick in die Beispiele gewonnen wurde,
 soll anhand von speziellen Bewertungskriterien die Sprachkonstrukte und
-Möglichkeiten dieser Analyse-Erweiterungen objektiv bewertet werden. Auch die Ergebnismenge
-der verschiedenen Beispiele soll in die Bewertung mit einfließen.
-
-Für solch ein Vorgehen wird im folgenden Kapitel der entsprechende Rahmen gesetzt.
+Möglichkeiten dieser Analyse-Erweiterungen objektiv bewertet werden. Für solch ein
+Vorgehen wird im folgenden Kapitel der entsprechende Rahmen gesetzt.
 
 \section{Rahmenbedingungen}
 Bevor mit dem Erstellen einer Beispieldatenbank begonnen werden kann, muss ein
-Datenbank Management System (DBMS) gewählt werden. Aufgrund der einfachen Installation
-wird für die folgenden Beispiele eine MYSQL Datenbank verwendet. Dieses bietet
-alle Erweiterungen, die in dieser Arbeit näher betrachtet werden sollen.
+Datenbank Management System (DBMS) gewählt werden, mit dem die Beispiele generiert
+werden können. Aufgrund der einfachen Installation und des wenigen Overheads, wird
+für die folgenden Beispiele eine MYSQL Datenbank verwendet. Dieses bietet alle
+Erweiterungen, die in dieser Arbeit näher betrachtet werden sollen.
 
 Als praxisnahes Beispiel wird auf ein allgemein bekanntes Konzept zurückgegriffen,
 um die Komplexität zu reduzieren und den Fokus mehr auf die Analyse-Erweiterungen
 zu lenken. Im Rahmen dieses Artikels soll das Konzept einer Bibliothek als Beispiel
-fungieren. Dieses trägt fortan den Namen \textit{LibraryDB}. Das logische
-Datenmodell teilt sich hier in drei Relationen auf.
-\begin{description}
-	\item[$\bullet$ 1. Relation] Books
+fungieren. Dieses trägt fortan den Namen \textit{LibraryDB}.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|l|l|l|c|}
+		\hline
+		book\_id & title & author & genre & published\_year \\
+		\hline
+	\end{tabular}
+	\caption{Books}
+	\label{tab:books}
+\end{table}
+\vspace{.5cm}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|l|l|l|l|}
+		\hline
+		member\_id & name & membership\_start\_date & membership\_type & age\_group \\
+		\hline
+	\end{tabular}
+	\caption{Members}
+	\label{tab:members}
+\end{table}
+\vspace{.5cm}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|l|l|}
+		\hline
+		borrow\_id & member\_id & book\_id & borrow\_date & return\_date \\
+		\hline
+	\end{tabular}
+	\caption{Borrowed\_Books}
+	\label{tab:borrowed_books}
+\end{table}
 
-	\item[$\bullet$ 2. Relation] Members
-
-	\item[$\bullet$ 3. Realtion] BorrowedBooks
-\end{description}
-
-Die Relation \textit{BorrowedBooks} stellt eine Verbindung zwischen den Tabellen
-\textit{Members} und \textit{Books} her. So kann Beispielsweise auch ein
-Mitglied mehrere Bücher ausleihen. Die folgende Abbildung zeigt das genaue logische
-Datenmodell.
-
-TABELLEN einbauen
+Das logische Datenmodell teilt sich hier in drei Relationen auf \textit{Books, Member,
+Borrowed\_Books}. Die Relation \textit{BorrowedBooks} stellt eine Verbindung
+zwischen den Tabellen \textit{Members} und \textit{Books} her. So kann Beispielsweise
+auch ein Mitglied mehrere Bücher ausleihen. Die folgende Abbildung zeigt das
+genaue logische Datenmodell.
 
 Für eine objektive und einheitliche Bewertung der Beispiele sollen zuletzt noch
 Parameter festgelegt werden, anhand deren eine Beurteilung möglich ist. Für
-Diese Arbeite werden folgende Kriterien herangezogen:
-\begin{description}
-	\item[$\bullet$ 1. Parameter] Lesbarkeit
+Diese Arbeite werden folgende Kriterien \textit{Lesbarkeit, Flexibilität,
+Ergebnismenge} hernagezogen. Im ersten Punkt soll ein Blick auf die Lesbarkeit
+der Anfragen geworfen werden. Sind sie strukturiert und verständlich aufgebaut.
+Im zweiten Punkt soll eine Aussage über die Flexibilität der Querys getroffen
+werden. Zuletzt soll auch die konkrete Ergebnismenge nicht zu kurz kommen.
+Nachdem alle nötigen Rahmenbedingungen gesetzt wurden, kann in den nächsten beiden
+Kapiteln auf die konkreten Beispiele eingegangen werden.
 
-	\item[$\bullet$ 2. Parameter] Flexibilität
+\section{Beispiel - Window Function}
+Dieses Kapitel beschäftigt sich ausschließlich mit der konkreten Anwendung der Window
+Functions und deren Verwandtheit zu den herkömmlichen Aggregatfunktionen. Hierzu
+wird das Beispiel der \textit{LibraryDB} herangezogen. Zu Beginn sei eine
+Aggregatfunktion der einfachsten Art gezeigt. Für ein praktisches Beispiel
 
-	\item[$\bullet$ 3. Parameter] Ergebnismenge
-\end{description}
+\begin{minipage}{0.68\textwidth}
+	\lstset{caption={einfachste Aggregatfunktion}, label={list:simpleAgg}} \begin{lstlisting}
+SELECT AVG(published_year) AS avg_year
+FROM Books;
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.28\textwidth}
+	\centering
+	\begin{tabular}{|c|}
+		\hline
+		\textbf{avg\_year} \\
+		\hline
+		1947.2500          \\
+		\hline
+	\end{tabular}
+	\captionof{table}{Ergebnis} \label{tab:avg_year}
+\end{minipage}
 
-Im ersten Punkt soll ein Blick auf die Lesbarkeit der Anfragen geworfen werden. Sind
-sie strukturiert und verständlich aufgebaut. Im zweiten Punkt soll eine Aussage
-über die Flexibilität der Querys getroffen werden. Zuletzt soll auch die konkrete
-Ergebnismenge nicht zu kurz kommen.
+Diese Query läuft über die Relation \textit{Books} der \textit{LibraryDB}. Dabei
+bildet sie den Durchschnitt aller Einträger in der Spalte \textit{published\_year}.
+Das Ergebnis dieser Query ist eine einzige Zeile, die den Durchschnitt aller Einträge
+bildet. Das Resultat ist in Tabelle \ref{tab:avg_year} zu sehen. Im nächsten Schritt
+kann ein genauerer Einblick gewonnen werden, indem durch die \texttt{GROUP BY} Klausel
+die Ergebnismenge in Gruppen unterteilt wird. So ist erkennbar, welches Genre an
+Büchern welches durchschnittliche Alter hat. Das zugehörige Statement sieht wie
+folgt aus:
 
-Nachdem alle nötigen Rahmenbedingungen gesetzt wurden, kann in den nächsten
-beiden Kapiteln auf die konkreten Beispiele eingegangen werden.
+\begin{minipage}{0.68\textwidth}
+	\lstset{caption={einfachste Aggregatfunktion}, label={list:simpleAgg}} \begin{lstlisting}
+SELECT AVG(published_year) AS avg_year
+FROM Books
+GROUP BY genre;
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.28\textwidth}
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{genre} & \textbf{avg\_year} \\
+		\hline
+		Fiction        & 1945.3333          \\
+		\hline
+		Dystopian      & 1940.5000          \\
+		\hline
+		Adventure      & 1851.0000          \\
+		\hline
+		Romance        & 1813.0000          \\
+		\hline
+		Historical     & 1869.0000          \\
+		\hline
+		Fantasy        & 1968.5000          \\
+		\hline
+		Thriller       & 2003.0000          \\
+		\hline
+	\end{tabular}
+	\captionof{table}{Ergebnis} \label{tab:avg_year_genre}
+\end{minipage}
 
-\section{Beispiel analytische Funktion}
+Diese Query liefert genau soviel Records, wie es verschiedenen Einträger in der
+Spalte \textit{genre} gibt. Es wird dann für jedes Genre ein durchschnittliches
+Alter der Bücher angegeben. Für die Nächste Betrachtung soll aus der Aggregatfunktion
+\texttt{AVG(<..>)} eine Analyse-Funktion generiert werden. Hierzu ist hinter die
+Aggregatfunktion das Schlüsselwort \texttt{OVER()} anzuhängen. TABELLE ÄNDERN!!!
+UNTEREINANDER
+
+\begin{minipage}{0.68\textwidth}
+	\lstset{caption={einfachste Aggregatfunktion}, label={list:simpleAggOver}} \begin{lstlisting}
+SELECT AVG(published_year) OVER() AS avg_year;
+FROM Books;
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.28\textwidth}
+	\centering
+	\begin{tabular}{|c|}
+		\hline
+		avg\_year \\
+		\hline
+		1947.2500 \\
+		\hline
+	\end{tabular}
+	\captionof{table}{Ergebnis} \label{tab:avg_year_over}
+\end{minipage}
+
+Nach Betrachtung der Ergebnismenge fällt sofort auf, dass nun ein viel detaillierter
+Einblick gewonnen wird. \texttt{OVER()} sorgt dafür, dass für jeden
+ursprünglichen Wert der Menge der bestimmte Durchschnittswert angegeben wird. Anders
+als bei den klassischen Aggregatfunktionen aus \ref{list:simpleAgg} wird die Ergebnismenge
+nicht zusammengefasst. Im Beispiel aus dem Block \ref{list:simpleAggOver} wird
+durch das \texttt{Over} bereits ein Fenster über die Ergebnismenge gelegt. In
+diesem Fall umschließt das Fenster alle Einträge, da keine genaueren Angaben im Argument
+angegeben wurden. Für ein praxisnahes Beispiel, soll eine Ausleihhistorie aufgebaut
+werden, die angibt welches Mitglied wie viele Bücher ausgeliehen hat. Hierzu soll
+die Funktion \texttt{ROW\_NUMBER} herangezogen werden. Das Ziel ist es über die Ergebnismenge
+der \textit{Borrowed\_Books} Fenster zu legen und diese anhand der \textit{member\_id}
+aufzuteilen. \texttt{ROW\_NUMBER} zählt dann die Zeilen in jedem Fenster.
+
+\lstset{caption={einfachste Aggregatfunktion}, label={list:windowFunction}} \begin{lstlisting}
+SELECT member_id, book_id, borrow_date, return_date,
+ROW_NUMBER() OVER(PARTITION BY member_id) AS borrow_sequence
+FROM Borrowed_Books;
+\end{lstlisting}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{member\_id} & \textbf{book\_id} & \textbf{borrow\_date} & \textbf{return\_date} & \textbf{borrow\_sequence} \\
+		\hline
+		1                   & 1                 & 2023-01-01            & 2023-01-15            & 1                         \\
+		\hline
+		1                   & 4                 & 2023-04-10            & NULL                  & 2                         \\
+		\hline
+		2                   & 2                 & 2023-02-01            & 2023-02-10            & 1                         \\
+		\hline
+		2                   & 1                 & 2023-06-15            & NULL                  & 2                         \\
+		\hline
+		3                   & 3                 & 2023-03-05            & 2023-03-20            & 1                         \\
+		\hline
+		4                   & 5                 & 2023-05-12            & 2023-06-01            & 1                         \\
+		\hline
+	\end{tabular}
+	\caption{Buchausleihen von Mitgliedern}
+	\label{tab:member_borrows}
+\end{table}
+
+Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der Fachliteratur
+als \textit{running total} beschrieben wird. QUELLE!!! Die Gruppierung der
+Fenster sind anhand der \textit{member\_id} zu erkennen.
+
+Mit der \textit{ORDER BY} Klausel kann noch ein Schritt weiter gegangen werden
+und die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten Beispiel
+der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id} sortiert werden.
+Die konkrete Syntax für diese Query zeigt der folgenden Bock.
+
+\lstset{caption={einfachste Aggregatfunktion}, label={list:windowFunction}}
+\begin{lstlisting}
+SELECT member_id, book_id, borrow_date, return_date,
+ROW_NUMBER() OVER(PARTITION BY member_id ORDER BY book_id)
+	AS borrow_sequence
+FROM Borrowed_Books;
+\end{lstlisting}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{member\_id} & \textbf{book\_id} & \textbf{borrow\_date} & \textbf{return\_date} & \textbf{borrow\_sequence} \\
+		\hline
+		1                   & 1                 & 2023-01-01            & 2023-01-15            & 1                         \\
+		\hline
+		1                   & 4                 & 2023-04-10            & NULL                  & 2                         \\
+		\hline
+		2                   & 1                 & 2023-06-15            & NULL                  & 2                         \\
+		\hline
+		2                   & 2                 & 2023-02-01            & 2023-02-10            & 1                         \\
+		\hline
+		3                   & 3                 & 2023-03-05            & 2023-03-20            & 1                         \\
+		\hline
+		4                   & 5                 & 2023-05-12            & 2023-06-01            & 1                         \\
+		\hline
+	\end{tabular}
+	\caption{Buchausleihen von Mitgliedern}
+	\label{tab:member_borrows}
+\end{table}
+
+Wie zu erkennen ist, wird die \textit{ORDER BY} wie in früheren Kapiteln bereits
+beschrieben einfach an die \textit{PARTITION BY} Klausel angehängt. Sie ist somit
+ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser Beispielreihe wurde
+noch lange nicht alle Möglichkeiten der Window-Funktions angesprochen die Dokumentation
+von \citet{oracle} beschreibt noch weitere Sprachkonstrukte, die in dieser Arbeit
+aber unberücksichtigt belieben.
 
 \section{Beispiel - Rollup and Cube}

@@ -1,2 +1,38 @@
 \chapter{Fazit}
-Testeinleitung
+\label{chap:fazit} Abschließend lässt sich über die hier behandelten Analyse-Erweiterungen
+sage, dass beide Formen mächtige Sprachkonstrukte bieten, die weit über die herkömmlichen
+SQL Befehle hinaus gehen. Durch diese Konstrukte bieten sich jeodch auch viel
+mehr Möglichkeiten. Gerade im Bezug auf die Datananalyse, wie es \citet{FOTACHE2015243}
+in ihrer Arbeit \textit{SQL and Data Analysis} beschreiben. Die Erweiterungen Rollup,
+Cube und Window Funktions bieten grundsätzlich eine gute Lesbarkeit des
+Quelltextes. Jedoch sind für eine korrekte Implementierung einer Query mit Analyse-Funktion
+wesentlich mehr Fachkenntnisse nötig wie bei den Konzepten ROLLUP und CUBE. Es
+müssen viel mehr einzelne Klauseln verstanden und betrachtet werden, die alle ihre
+eigenen Syntax haben. Ein \texttt{ROLLUP} oder \texttt{CUBE} ist hier wesentlich
+einfacher zu handhaben. Diese können lediglich der \texttt{GROUP BY} Klausel
+vorangestellt werden. Wie das Kapitel \ref{sec:relevant} bereits zu Beginn der Arbeit
+deutlich gemacht hat, finden die Analyse-Erweiterungen in der Datananalyse
+vermehrt Anwendung, da sie einen analytische Sicht auf die vorliegenden Daten gewähren.
+Beide hier behandelten Erweiterungen beiten diese analytische Einsicht, wie an den
+Beispielen aus Kapitel \ref{sec:window_function} und \ref{sec:rollup_and_cube} deutlich
+wird. Da die Window Funktions das deutlich komplexere Sprachkonstukt bieten, ergeben
+sich hierduch auch mehr Möglichkeiten und die größere Flexibilität. Die
+Erweiterungen \texttt{ROLLUP} und \texttt{CUBE} sind hingegen etwas starrer in
+ihrer Anwendung. Der letze Punkte wirft ein Blick auf die Ergebnismenge, welche
+die beiden hier fokussierten Erweiterungen liefern. Die Window funktions sind das
+komplexere Sprachkunstrukt, mit vielen Möglichkeiten bezogen auf die Anwendung
+und Flexibilität. Die Interpretation der Ergebnismeng ist hierbei umso einfacher.
+Die Struktur hat viele ähnlichkeitne zu den weit verbreiteten Aggregatfunktionen
+und ist daher eingänig. Bei den Konzepten \texttt{ROLLUP} und \texttt{CUBE} gestaltet
+sich die Interpretation der Ergebnisrelation etwas schwieriger. Es muss erst
+verstanden werden, wie die \texttt{NULL} Werte zu interpretieren sind. Auch sind
+die verschiedenen Eben der Gruppierunge nicht sofort ersichtlich.
+
+Mit Blich auf die Forschungsfrage, lässt sich zusammenfassend feststellen, dass die
+Integration dieser Analyse-Erweiterungen einen erheblichen Mehrwert für die Möglichkeiten
+in der Datenanalyse bietet, insbesondere in Hinblick darauf, wie einfach komplexe
+Abfragen geworden sind. Jedoch wurde auch klar, dass für viele Möglichkeiten immer
+komplexer werdende Sprachkonstrukte nötig sind. Für die Zukunft wäre eine
+weitergehende Untersuchung der spezifischen Anwendungsfälle dieser Erweiterungen
+sinnvoll, um ihre Potenziale vollständig auszuschöpfen. Auch eine weiterführende
+Recherche zu dem Thema Rekursive Abfragen würde die Arbiet hervorragend ergänzen.

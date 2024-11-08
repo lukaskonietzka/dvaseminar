@@ -69,14 +69,12 @@ eines Modells verdeutlicht.
 genauer verstehen zu können, sei an dieser Stelle nochmals auf die Dokumentation
 von \citet{oracle} verwiesen. Hier ist ein konkreter Aufbau einer analytischen Funktion
 zu finden, die hier näher betrachtet werden soll.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticFunction.jpg}
 	\caption{ Aufbau einer analytischen Funktion | Quelle: \citep{oracle}}
 	\label{fig:aufbauAnalyticFunction}
 \end{figure}
-
 Der erste Teil beschreibt die konkrete analytische Funktion, die auf die
 Ergebnismenge ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
 Aggregatfunktionen. Das Argument einer Analyse-Funktion legt fest, auf welche Spalte
@@ -96,14 +94,12 @@ dieser Ausschnitt.
 Im Argument der \texttt{OVER} Funktion wird die Ausprägung und die Ordnung des
 Fensters definiert. Dieses Argument ist bekannt als \textit{analytic-clause}
 \citep{oracle}. Der Aufbau dieser Klausel sei hier beschrieben \citep{oracle}.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticClausel.jpg}
 	\caption{ Aufbau einer analytischen Klausel | Quelle: \citep{oracle}}
 	\label{fig:aufbauAnalytischeKlausel}
 \end{figure}
-
 Aus dem Aufbau der \textit{analytic-clause} \citep{oracle} wird klar, das diese grob
 in zwei Teile aufgeteilt wird. Ein \textit{partition-clause} \citep{oracle}, die
 die einzelnen Fenster festlegt und die \textit{order-by-clause} \citep{oracle},
@@ -160,7 +156,6 @@ so ergeben sich bei einem \texttt{GROUPING SETS} folgenden Gruppierungen:
 \begin{align*}
 	\{A\}, \quad \{B\}
 \end{align*}
-
 Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach \textit{A}
 und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
 Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
@@ -182,13 +177,12 @@ wir die Gruppierungen als Menge.
 \begin{align*}
 	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
 \end{align*}
-
 Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert.
 Die letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
 demnach mit der kleinsten Menge begonnen (rechts) und auf die größte aufgerollt (links).
 
 \subsection{Cube}
-\label{susec:cube} Mit einem \texttt{ROLLUP} sind nicht alle möglichen
+\label{subsec:cube} Mit einem \texttt{ROLLUP} sind nicht alle möglichen
 Kombinationen an Gruppierungen möglich \citep{oracle99}. Die Erweiterung \texttt{ROLLUP}
 gibt eine eindeutige Gruppierungsreihenfolge vor, die ohne Ausnahme eingehalten
 wird. Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss
@@ -206,7 +200,6 @@ folgende mögliche Kombinationen.
 \begin{align*}
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
-
 Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
 noch genaueren Einblick in die vorliegenden Datensätze gewährt.
 % --------------------------------------------------------------------------------------------

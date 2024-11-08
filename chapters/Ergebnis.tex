@@ -200,7 +200,7 @@ verstanden. Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB} die
 Möglichkeiten und Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien
 zu der herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit herkömmlichen
 Befehlen Einsicht in mehrere Gruppierungen zu erhalten, so muss für jede
-gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Der Codeblöcke 
+gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Der Codeblöcke
 \ref{list:group_date} und \ref{list:group_id} zeigen dies.
 
 \begin{minipage}{0.45\textwidth}
@@ -223,7 +223,7 @@ Um dieses Vorgehen zu vereinfachen, kann auf das Schlüsselwort \texttt{GROUPING
 SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und
 \ref{list:group_date} in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls
 in einer Relation dargestellt. Alle nicht relevanten Felder werden dann mit
-\texttt{NULL} Aufgefüllt.
+\texttt{NULL} aufgefüllt.
 
 \begin{lstlisting}[caption={Beispiel eines Grouping sets}, label={list:grouping_sets}]
 SELECT borrow_date, member_id,
@@ -242,12 +242,16 @@ gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
 
 \begin{description}
 	\label{bul:aufzählung}
+
 	\item[$\bullet$ 1. Punkt] Wie viele Bücher wurden insgesamt schon ausgeliehen
 
 	\item[$\bullet$ 2. Punkt] Wie viel Bücher wurden an einem bestimmten Tag ausgeliehen
 
-	\item[$\bullet$ 2. Punkt] Wie viel Bücher wurden von einer Person an einem Tag ausgeliehen
+	\item[$\bullet$ 2. Punkt] Wie viel Bücher wurden von einer Person an einem Tag
+		ausgeliehen
 \end{description}
+
+\filbreak
 
 \begin{lstlisting}[caption={Beispiel eines ROLLUP}, label={list:rollup}]
 SELECT borrow_date, member_id, COUNT(book_id)
@@ -279,27 +283,26 @@ GROUP BY ROLLUP(borrow_date, member_id);
 	\label{tab:rollup}
 \end{table}
 
-Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenger aus der
-Query \ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die oben
-genanten Punkte aus der Aufzählung \ref{bul:aufzählung} wiederfinden. Der erste Punkt (Gesamtverleih)
-ist auf die letzte Zeile zurückzuführen, die angibt, dass insgesammt bereits 10 Bücher
-verliehen wurden. Das Datum oder das Mitglied wird hier also nicht
-berücksichtigt. Der Punkt zwei weist auf alle Einträge hin, die in der Spalte
-member\_id ein NULL vorfinden. Beispielsweise wurden am 2023-01-01 insgesamt drei
-Bücher verliehen (Zeile drei). Die konkreterste Betrachtung sind dann alle
-Spalten, die kein NULL aufweisen. Betrachtet man die erste Zeil, so kann dort herrausgelesen
-werden, dass am 2023-01-01 das Mitglied mit der Nummer eins, zwei Bücher ausgeliehen
-hat. Ohne die Erweiterunge \texttt{ROLLUP} müsste für jede dieser drei Punkte ein
-eigenes SELECT geschrieben werden. Durch die richtige Anordung der Attribute
-innerhalb der Rollup Funktion kann also ein immer detaillierterer Einblick
-gewonnen werden.
-
-Auch wenn der \texttt{ROLLUP} bereits einen sehr tiefen Einblick mit nur wenigen
-Zeilen Code gewährt, gibt es noch ein Konstrukt, dass noch tiefer geht. Durch
-ersetzten des Schlüsselwortes \texttt{ROLLUP} gegen \texttt{CUBE} lassen sich
-noch mehr Kombinationen der Ergebnismenge anzeigen. Hierzu sei auf das Kapitel ...
-verweisen. Damit lässt sich auch ermitteln, wie viele Bücher ein Mitglied unabhängig
-vom Tag ausgeliehen hat.
+Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query
+\ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die oben
+genannten Punkte aus der Aufzählung \ref{bul:aufzählung} wiederfinden. Der erste
+Punkt (Gesamtverleih) ist auf die letzte Zeile zurückzuführen, die angibt, dass
+insgesamt bereits zehn Bücher verliehen wurden. Das Datum oder das Mitglied wird
+hier also nicht berücksichtigt. Der Punkt zwei weist auf alle Einträge hin, die in
+der Spalte \textit{member\_id} ein \texttt{NULL} vorfinden. Beispielsweise
+wurden am \textit{2023-01-01} insgesamt drei Bücher verliehen (Zeile drei). Die
+kleinste Betrachtung sind dann alle Spalten, die kein \texttt{NULL} aufweisen. Betrachtet
+man die erste Zeile, so kann dort herausgelesen werden, dass am \textit{2023-01-01}
+das Mitglied mit der Nummer \textit{eins}, zwei Bücher ausgeliehen hat. Ohne die
+Erweiterung \texttt{ROLLUP} müsste für jede dieser drei Punkte ein eigenes
+\texttt{SELECT} geschrieben werden. Durch die richtige Anordnung der Attribute
+innerhalb der Rollup-Funktion kann also ein immer detaillierterer Einblick
+gewonnen werden. Auch wenn der \texttt{ROLLUP} bereits einen sehr tiefen
+Einblick mit nur wenigen Zeilen Code gewährt, gibt es noch ein Konstrukt, dass
+noch tiefer geht. Durch ersetzten des Schlüsselwortes \texttt{ROLLUP} gegen
+\texttt{CUBE} lassen sich noch mehr Kombinationen der Ergebnismenge anzeigen.
+Hierzu sei auf das Kapitel \ref{subsec:cube} verweisen. Damit lässt sich auch ermitteln,
+wie viele Bücher ein Mitglied unabhängig vom Tag ausgeliehen hat.
 
 \begin{lstlisting}
 SELECT borrow_date, member_id, COUNT(book_id)
@@ -309,10 +312,10 @@ GROUP BY CUBE(borrow_date, member_id);
 \end{lstlisting}
 
 \section{Zusätzliche Erweiterungen}
-\label{sec:zus_erweiterungen} Weitere Analyse-Erweiterungen, die hier aber unberührt
-beilen sollen, sind Beispielsweise die Rekursiven Abfragen. Eine Rekursion ist laut
-\citet{benecke1998rekursion} die Definition eines Problems, einer Funktion oder eines
-Verhaltens durch sich selbst. Aufbauend auf dem Konzept der \textit{Common Table
-Espressions} (CTE) können damit auch in SQL Probleme rekursiv gelöst werden \citep{Ignacio2022}.
-Hinzu kommt das Konzept des \textit{Pivot and unpivot}, das \citet{Nuijten2023}
-näher beschriebt.
+\label{sec:zus_erweiterungen} Weitere Analyse-Erweiterungen, die hier aber
+unberührt beilen sollen, sind Beispielsweise die Rekursiven Abfragen. Eine
+Rekursion ist laut \citet{benecke1998rekursion} die Definition eines Problems,
+einer Funktion oder eines Verhaltens durch sich selbst. Aufbauend auf dem Konzept
+der \textit{Common Table Espressions} (CTE) können damit auch in SQL Probleme
+rekursiv gelöst werden \citep{Ignacio2022}. Hinzu kommt das Konzept des \textit{Pivot
+and unpivot}, das \citet{Nuijten2023} näher beschriebt.

@@ -1,0 +1,40 @@
+\addcontentsline{toc}{chapter}{SQL-Skript LibraryDB}
+\label{sec:library_db}
+\textbf{Hinweis:} Dieses SQL-Skript bildet die Grundlage für die in der
+Arbeit gezeigten Beispiele.
+
+\begin{lstlisting}[caption={SQL Skript LibraryDB}, label={list:skript_library_db}]
+-- Create the LibraryDB database
+CREATE DATABASE LibraryDB;
+USE LibraryDB;
+-- Creates the table books
+CREATE TABLE Books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    genre VARCHAR(50),
+    published_year INT CHECK (published_year > 0)
+);
+-- Creats the table Members
+CREATE TABLE Members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    membership_start_date DATE,
+    membership_type ENUM('Standard', 'Premium')
+        DEFAULT 'Standard',
+    age_group ENUM('Child', 'Teen', 'Adult')
+        NOT NULL
+);
+-- Creats the table Borrowed_Books
+CREATE TABLE Borrowed_Books (
+    borrow_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT,
+    book_id INT,
+    borrow_date DATE,
+    return_date DATE,
+    FOREIGN KEY (member_id)
+        REFERENCES Members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id)
+        REFERENCES Books(book_id) ON DELETE CASCADE
+);
+\end{lstlisting}

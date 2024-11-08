@@ -287,7 +287,7 @@
 
 \begin{minipage}[t][15cm][t]{125mm}
 {\color{THAred} \fontsize{18}{18} \selectfont \textbf{\thesis@thesisType}} \\[0.5ex]
-{\fontsize{12}{18} \selectfont {\small \localeReachingDegree}\\[0.1ex] \thesis@studyDegree \ \localeIn~\thesis@studyProgram}
+{\fontsize{12}{18} \selectfont {\small \thesis@studyDegree}\\[0.1ex]  \ \localeIn~\thesis@studyProgram}
 
 \vspace{18mm}
 
@@ -306,8 +306,7 @@
  \fontsize{11}{18}  \selectfont
 \begin{tabularx}{\textwidth}{ll} \toprule
     \localeSupervisor  & \thesis@supervisor \\%
-\ifthenelse{\equal{\thesis@supervisorDeputy}{}}{}{\localeSupervisorDep  & \thesis@supervisorDeputy \\}% 
-    \localeTopicAssignment  & \thesis@topicAssignment \\
+\ifthenelse{\equal{\thesis@supervisorDeputy}{}}{}{\localeSupervisorDep  & \thesis@supervisorDeputy \\}%
     \localeSubmittedOn  & \thesis@submissionDate \\
 \ifthenelse{\equal{\thesis@defenseDate}{}}{}{\localeDefenseOn  & \thesis@defenseDate \\}%
     \localeNDA & \ifthenelse{\boolean{thesis@nonDisclosure}}{\localeYes}{\localeNo}  \\

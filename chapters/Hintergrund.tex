@@ -19,11 +19,12 @@ sind.
 Functions} genannt, sind das Herzstück der Analyse-Erweiterungen und somit auch
 für die Datenanalyse innerhalb von SQL ein wichtiger Bestandteil. Die \textit{Window
 Functions} sind so aus eine komplexe Datenanaylse nicht mehr wegzudenken. \citet[Abstract]{cao2012optimization}
-bezeichnen sie sind für den aktuellen Stand der Technik als repräsentativ und absolut notwendig.
-Hinzu kommt, dass sie laut \citet[Kapitel 8]{kellenberger2019expert} einen Performancevorteil
-bietet. Dieser Performancevorteil ergibt sich jedoch laut \citet[Kapitel 8]{kellenberger2019expert}
-nicht primär durch die bessere Laufzeit, sondern vielmehr dadurch, wie einfach
-komplexe Abfragen damit werden können.
+bezeichnen sie sind für den aktuellen Stand der Technik als repräsentativ und absolut
+notwendig. Hinzu kommt, dass sie laut \citet[Kapitel 8]{kellenberger2019expert} einen
+Performancevorteil bietet. Dieser Performancevorteil ergibt sich jedoch laut
+\citet[Kapitel 8]{kellenberger2019expert} nicht primär durch die bessere
+Laufzeit, sondern vielmehr dadurch, wie einfach komplexe Abfragen damit werden
+können.
 
 Für eine prägnante und eindeutige Definition der \textit{Analytic Functions} sei
 auf die Dokumentation der \citet{oracle} Datenbank verwiesen, die die \textit{Analytic
@@ -52,7 +53,7 @@ einteilen, wobei die Sortierung dieser drei Schritte auch die Reihenfolge der Ab
 festlegt (\cite{Nuijten2023}, Building Blocks).
 \begin{description}
 	\item[$\bullet$ 1. Stufe] auflösen der \texttt{JOIN}-, \texttt{WHERE}-, \texttt{GROUP
-		BY}- und \texttt{HAVING}Klausel \\ (\cite{Nuijten2023}, Building Blocks)
+		BY}- und \texttt{HAVING}-Klausel \\ (\cite{Nuijten2023}, Building Blocks)
 
 	\item[$\bullet$ 2. Stufe] die analytische Funktion wird auf die Ergebnismenge angewandt
 		\\ (\cite{Nuijten2023}, Building Blocks)
@@ -132,68 +133,71 @@ Klauseln gewähren.
 \label{sec:rollup_and_cube} Auch die letzte Analyse-Erweiterung die in diese
 Arbeit behandelt werden soll, macht ihrem Namen alle Ehre und gewährt mit wenigen
 Zeilen Quelltext, eine viel analytischere Einsicht in die Ergebnismenge, als es mit
-herkömmlichen SQL-Befehlen möglich ist (\cite{melton2002advanced}, Kapitel 7.2.3).
-In diverser Fachliteratur ist oft von mehrdimensionale Zusammenfassungen und
-kontrollierte Unterbrechungen von gruppierten Daten die Red. Diese Formulierung lässt
-erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} Erweiterungen der \texttt{GROUP
-BY} Klausel sind (\cite{melton2002advanced}, Kapitel 7.2.3). Bevor mit den eingentlichen
-Erweiterungen begonnen werden kann, muss hier ein Grundkonzept vorangestellt
-werden. Dieses Führt schrittweise die Schlüsselworter \texttt{ROLLUP} und
-\texttt{CUBE} ein. Hierbei handelt es sich im das \texttt{GROUPING SETS}.
+herkömmlichen SQL-Befehlen möglich ist \citep[Kapitel 7.2.3]{melton2002advanced}.
+\citet[Kapitel 7.2.3]{melton2002advanced} beschreibt diese als mehrdimensionale
+Zusammenfassungen und kontrollierte Unterbrechungen von gruppierten Date. Diese Formulierung
+lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} Erweiterungen
+der \texttt{GROUP BY} Klausel sind. Bevor mit den eigentlichen Erweiterungen begonnen
+werden kann, muss hier ein Grundkonzept vorangestellt werden. Dieses Führt schrittweise
+die Schlüsselwörter \texttt{ROLLUP} und \texttt{CUBE} ein. Hierbei handelt es
+sich um das Konzept des \texttt{GROUPING SETS}.
 
 \subsection{Grouping Sets}
-Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls eine Erweiterung der
-herkömmlichen \texttt{GROUP BY} Klausel (\cite{oracle16}). Wie aus dem Namen
-schon hervorgeht, handelt es sich nicht um eine einzelne Gruppierung, sondern um
-ein ganzes Set an Gruppierungen. Das Set lässt darauf deuten, dass jede
-Gruppierung nur einmal vorkommt. Das Schlüsselwort \texttt{GROUPING SETS}
-erlaubt mehrere Gruppierungen in einer Abfrage. Jedoch wird nur eine angegebene Gruppe
-gruppiertund nicht alle möglichen Gruppen (\cite{oracle16}). Für eine
-Kombination an Gruppierungen sei an dieser Stelle schon auf die Erweiterungen
-\texttt{ROLLUP} und \texttt{CUBE} verwiesen.
+\label{subsec:grouping_sets} Das Schlüsselwort \texttt{GROUPING SETS} ist
+ebenfalls eine Erweiterung der herkömmlichen \texttt{GROUP BY} Klausel wie auch die
+\citet{oracle16} Dokumentation belegt. Wie aus dem Namen schon hervorgeht,
+handelt es sich nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an
+Gruppierungen. Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
+Das Schlüsselwort \texttt{GROUPING SETS} erlaubt mehrere Gruppierungen in einer Abfrage.
+Jedoch wird nur eine angegebene Gruppe gruppiert und nicht alle möglichen
+Gruppen \citet{oracle16}. Für eine Kombination an Gruppierungen sei an dieser
+Stelle schon auf die Erweiterungen \texttt{ROLLUP} und \texttt{CUBE} verwiesen.
 
 \texttt{GROUP BY GROUPING SETS (A, B);}
 
-Folgt man der Dokumentation von \cite{oracle16} so ergeben sich bei einem
-\texttt{GROUPING SETS} folgenden Gruppierungen:
+Folgt man der Dokumentation von \citet{oracle16} und dem hier gezeigten Beispiel,
+so ergeben sich bei einem \texttt{GROUPING SETS} folgenden Gruppierungen:
 \begin{align*}
 	\{A\}, \quad \{B\}
 \end{align*}
-Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach dem \textit{A}
-und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die
-einzelnen Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von
-vielen ist, ein \texttt{GROUPING SETS} zu verwenden (\cite{oracle16}).
+
+Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach \textit{A}
+und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
+Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
+ein \texttt{GROUPING SETS} zu verwenden \citet{oracle16}.
 
 \subsection{Rollup}
-Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP} eine
-Erweiterung der \texttt{GROUP BY} und \texttt{GROUPING SETS} Klausel. Einen Rollup
-ist als Zwischensumme zu betrachtetn, die von der kleinsten Ebenen bis hin zur
-größten "\textit{aufgerollt}" wird (\cite{oracle16}). Die Reihenfolge der
-Gruppierung folgt der angegebenen Gruppierungsliste. Die Richtung der Gruppierungsreihenfolge
-ist von rechts nach links (\cite{oracle16}).
+\label{subsec:rollup} Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP}
+eine Erweiterung der \texttt{GROUP BY}- und \texttt{GROUPING SETS}-Klausel.
+Einen Rollup ist als Zwischensumme zu betrachten, die von der kleinsten Ebenen bis
+hin zur größten "\textit{aufgerollt}" wird, so beschreibt es die \citet{oracle99}.
+Die Reihenfolge der Gruppierung folgt der angegebenen Gruppierungsliste. Die
+Richtung der Gruppierungsreihenfolge ist von rechts nach links (\cite{oracle16}).
 
 \texttt{GROUP BY ROLLUP (A, B, C);}
 
-Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und Weise
-der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten wir die
-Gruppierungen als Menge.
+Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und
+Weise der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten
+wir die Gruppierungen als Menge.
 \begin{align*}
 	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
 \end{align*}
+
 Mit einem \texttt{ROLLUP} werden also in diesem Beispiel vier Mengen geliefert.
 Die letzte Klammer steht für die leere Menge und damit die Gesamtsumme. Es wird hier
-also über alle Records gruppiert.
+demnach mit der kleinsten Menge begonnen (rechts) und auf die größte aufgerollt (links).
 
 \subsection{Cube}
-Mit einem \texttt{ROLLUP} sind nicht alle möglichen Kombinationen an
-Gruppierungen möglich \citep{oracle99}. Die Erweiterung \texttt{ROLLUP} gibt eine
-eindeutige Gruppierungsreihenfolge vor. Wenn eine andere Reihenfolge oder
-mehrere Gruppierungen gewollt sind, muss auf das Konzept der \texttt{CUBE}
-Erweiterung zurückgegriffen werden, das \citet{oracle99} in ihrer Dokumentation
-beschreiben. Wird die Methode des \texttt{CUBE} verwendet, so ist oft von einem Datenwürfel
-die Reden \citep{oracle99}. Dieser aggregiert alle möglichen Kombinationen der Gruppierungen,
-einschließlich der Gesamtsumme und erstell so Datenwürfel. Er berücksichtigt nicht
-die Reihenfolge, der angegebenen Gruppierungen \citep{oracle99}.
+\label{susec:cube} Mit einem \texttt{ROLLUP} sind nicht alle möglichen
+Kombinationen an Gruppierungen möglich \citep{oracle99}. Die Erweiterung \texttt{ROLLUP}
+gibt eine eindeutige Gruppierungsreihenfolge vor, die ohne Ausnahme eingehalten
+wird. Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss
+auf das Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, das \citet{oracle99}
+in ihrer Dokumentation beschreiben. Wird die Methode des \texttt{CUBE} verwendet,
+so ist oft von einem Datenwürfel die Reden \citep{oracle99}. Dieser aggregiert
+alle möglichen Kombinationen der Gruppierungen, einschließlich der Gesamtsumme und
+erstellt so Datenwürfel. Er berücksichtigt nicht die Reihenfolge, der angegebenen
+Gruppierungen \citep{oracle99}.
 
 \texttt{GROUP BY CUBE (A, B, C);}
 
@@ -202,6 +206,7 @@ folgende mögliche Kombinationen.
 \begin{align*}
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
+
 Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
 noch genaueren Einblick in die vorliegenden Datensätze gewährt.
 % --------------------------------------------------------------------------------------------

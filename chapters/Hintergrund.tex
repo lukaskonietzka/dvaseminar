@@ -156,24 +156,25 @@ so ergeben sich bei einem \texttt{GROUPING SETS} folgenden Gruppierungen:
 \begin{align*}
 	\{A\}, \quad \{B\}
 \end{align*}
-Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach \textit{A}
-und einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die einzelnen
-Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von vielen ist,
-ein \texttt{GROUPING SETS} zu verwenden \citet{oracle16}.
+Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach \textit{A} und
+einmal nach \textit{B}. Es werden keine Kombinationen gruppiert, nur die
+einzelnen Spalten. Zu erwähnen ist hier, dass dies nur eine Möglichkeit von
+vielen ist, ein \texttt{GROUPING SETS} zu verwenden \citet{oracle16}.
 
 \subsection{Rollup}
-\label{subsec:rollup} Wie aus dem vorherigen Kapitel bereits hervorgeht, ist \texttt{ROLLUP}
-eine Erweiterung der \texttt{GROUP BY}- und \texttt{GROUPING SETS}-Klausel.
-Einen Rollup ist als Zwischensumme zu betrachten, die von der kleinsten Ebenen bis
-hin zur größten "\textit{aufgerollt}" wird, so beschreibt es die \citet{oracle99}.
-Die Reihenfolge der Gruppierung folgt der angegebenen Gruppierungsliste. Die
-Richtung der Gruppierungsreihenfolge ist von rechts nach links (\cite{oracle16}).
+\label{subsec:rollup} Wie aus dem vorherigen Kapitel bereits hervorgeht, ist
+\texttt{ROLLUP} eine Erweiterung der \texttt{GROUP BY}- und \texttt{GROUPING
+SETS}-Klausel. Einen Rollup ist als Zwischensumme zu betrachten, die von der
+kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}" wird, so beschreibt
+es die \citet{oracle99}. Die Reihenfolge der Gruppierung folgt der angegebenen
+Gruppierungsliste. Die Richtung der Gruppierungsreihenfolge ist von rechts nach links
+(\cite{oracle16}).
 
 \texttt{GROUP BY ROLLUP (A, B, C);}
 
-Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und
-Weise der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten
-wir die Gruppierungen als Menge.
+Durch genauere Betrachtung des hier gezeigten Beispiels soll die genau Art und Weise
+der \texttt{ROLLUP} Gruppierung näher erläutert werden. Hierzu Betrachten wir die
+Gruppierungen als Menge.
 \begin{align*}
 	\{ \}, \{A\}, \{A, B\}, \{A, B, C\}
 \end{align*}
@@ -200,6 +201,6 @@ folgende mögliche Kombinationen.
 \begin{align*}
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
-Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung einen
-noch genaueren Einblick in die vorliegenden Datensätze gewährt.
+Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung
+einen noch genaueren Einblick in die vorliegenden Datensätze gewährt.
 % --------------------------------------------------------------------------------------------

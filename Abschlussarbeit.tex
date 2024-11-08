@@ -38,12 +38,11 @@
 	authorEMail={lukas.konietzka@tha.de},
 	authorPhone={+49\,172-2728-376},
 	authorSignaturePlace={Augsburg},
-	studyProgram={Informatik}
-	%           ,thesisType={Bachelorarbeit}
+	studyProgram={Informatik},
+	thesisType={DVA-Seminar}
 	,
 	thesisTitle={SQL Analyser-Erweiterungen},
-	studyDegree= %
-	{{DVA-Seminar}},
+	studyDegree={Im Rahmen des DVA-Seminares},
 	faculty= %
 	{{Fakultät für \\ Informatik}}
 	%           ,topicAssignment={\today}
@@ -83,8 +82,12 @@
 		erfahren. Ein der wichtigsten sind die Analyse-Erweiterungen. Einige dieser Analyse-Fähigkeiten
 		haben es im Laufe der Jahre in den SQL-Standard geschafft und sind ab diesem
 		Zeitpunkt ein fester Bestandteil von SQL. Trotz Ihrer doch langen Geschichte,
-		stehen die Analyse-Erweiterungen eher im Schatten der breiten Palette an SQL-Befehlen
-		und konnten nicht sonderlich viel an Bekanntheit gewinnen.
+		stehen die Analyse-Erweiterungen eher im Schatten der breiten Palette an SQL-Befehlen. 
+		Dieser Artikel zeigt die Möglichkeiten und Sprachkonstrukte anhand von zwei Analyse-Erweiterungen.
+		Hierzu wurde eine umfassende Literaturrecherche zum aktuellen Stand der Technik durchgeführt.
+		Den Kern der Arbeit sollen die Beispielimplementierungen bilden, die anhand der \textit{LibraryDB} aufgezeigt
+		werden. Durch die spätere Analyse dieser Beispiele wird klar, dass die meisten Analyse-Erweiterungen
+		viele Möglichkeiten bieten, jedoch auch eine Steigerung der Komplexität mitbringen. 
 	\end{abstract}
 	\tableofcontents
 
@@ -113,7 +116,7 @@
 	\renewcommand{\bibfont}{\footnotesize}
 	\printbibliography
 	[title={Literaturverzeichnis}, heading=bibintoc]
-	
+
 	\include{chapters/LibraryDB}
 	\include{chapters/LibraryDBSampleData}
 

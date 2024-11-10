@@ -1,12 +1,22 @@
-\addcontentsline{toc}{chapter}{SQL-Skript LibraryDB}
-\chapter*{LibraryDB}
+\addcontentsline{toc}{chapter}{Anhang}
+\chapter*{Anhang}
+
+
+\addcontentsline{toc}{section}{SQL-Skript LibraryDB}
+\section*{LibraryDB}
 \label{sec:library_db} \textbf{Hinweis:} Dieses SQL-Skript bildet die Grundlage
 für die in der Arbeit gezeigten Beispiele.
 
-\begin{lstlisting}[caption={SQL Skript LibraryDB}, label={list:skript_library_db}]
+\begin{lstlisting}[caption={SQL Skript LibraryDB create DB}, label={list:skript_library_db_create}]
 -- Create the LibraryDB database
 CREATE DATABASE LibraryDB;
+
+-- Select the LibraryDB database
 USE LibraryDB;
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={SQL Skript LibraryDB Books}, label={list:skript_library_db_books}]
 -- Creates the table books
 CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +25,11 @@ CREATE TABLE Books (
     genre VARCHAR(50),
     published_year INT CHECK (published_year > 0)
 );
+\end{lstlisting}
+
+\filbreak
+
+\begin{lstlisting}[caption={SQL Skript LibraryDB Members}, label={list:skript_library_db_members}]
 -- Creats the table Members
 CREATE TABLE Members (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -25,6 +40,9 @@ CREATE TABLE Members (
     age_group ENUM('Child', 'Teen', 'Adult')
         NOT NULL
 );
+\end{lstlisting}
+
+\begin{lstlisting}[caption={SQL Skript LibraryDB Borrowed\_Books}, label={list:skript_library_db_borrowed_books}]
 -- Creats the table Borrowed_Books
 CREATE TABLE Borrowed_Books (
     borrow_id INT AUTO_INCREMENT PRIMARY KEY,

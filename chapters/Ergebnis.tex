@@ -80,8 +80,7 @@ sehen ist.
 	\lstset{caption={Aggregatfunktion mit Over}, label={list:empty_over}} \begin{lstlisting}
 SELECT AVG(published_year) OVER()
 AS avg_year
-FROM Books
-GROUP BY genre;
+FROM Books;
 	\end{lstlisting}
 \end{minipage}
 \hfill
@@ -113,7 +112,7 @@ diesem Fall umschließt das Fenster alle Einträge, da keine genaueren Angaben i
 Argument angegeben wurden. Für ein praxisnahes Beispiel mit mehreren Fenstern,
 soll eine Ausleihhistorie aufgebaut werden, die angibt welches Mitglied wie viele
 Bücher ausgeliehen hat. Hierzu soll die Analyse-Funktion \texttt{ROW\_NUMBER} herangezogen
-werden. Das Ziel ist es über die Ergebnismenge der \textit{Borrowed\_Books} Fenster
+werden. Das Ziel ist es über die Ergebnismenge der \textit{Borrowed\_Books} ein Fenster
 zu legen und diese anhand der \textit{member\_id} aufzuteilen. \texttt{ROW\_NUMBER}
 zählt dann die Zeilen in jedem Fenster. Listing \ref{list:window-function} zeigt
 den nötigen Quelltext für dieses Beispiel.
@@ -144,7 +143,7 @@ FROM Borrowed_Books;
 		\hline
 	\end{tabular}
 	\caption{Ergebnis Analyse-Funktion}
-	\label{tab:member_borrows}
+	\label{tab:ergebnnis_analyse_funktion}
 \end{table}
 
 Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der Fachliteratur
@@ -183,7 +182,7 @@ FROM Borrowed_Books;
 		\hline
 	\end{tabular}
 	\caption{Ergebnis Order By}
-	\label{tab:member_borrows}
+	\label{tab:ergebnis_oder_by}
 \end{table}
 
 Wie zu erkennen ist, wird die \textit{oder\_by\_clause} wie in früheren Kapiteln

@@ -1,8 +1,7 @@
 \chapter{Hintergrund und Grundlagen}
 \label{chap:hintergund_und_grundlagen} Die SQL Analyse-Erweiterungen sind spezielle
 Erweiterungen der SQL-Sprache, die es ermöglichen, anspruchsvollere analytische Abfragen
-und Datenanalysen direkt in SQL durchzuführen, ohne auf externe Tools oder
-Skripte angewiesen zu sein. Dieses Kapitel soll die Grundsteine legen und in die
+und Datenanalysen direkt in SQL durchzuführen. Dieses Kapitel soll die Grundsteine legen und in die
 Konzepte und Theorien der Analyse-Erweiterungen einführen. Um die Fragestellung
 dieser Arbeit einordnen zu können, ist unter anderem ein Blick auf die Historie hilfreich.
 Der Hauptgrund für die Wahl der zwei oben genannten Erweiterungen in Kapitel
@@ -127,7 +126,7 @@ Klauseln gewähren.
 
 % --------------------------------------------------------------------------------------------
 
-\section{Multidimensonale Group By Klauseln}
+\section{Multidimensonale Group By-Klauseln}
 \label{sec:rollup_and_cube} Auch die letzte Analyse-Erweiterung die in diese
 Arbeit behandelt werden soll, macht ihrem Namen alle Ehre und gewährt mit wenigen
 Zeilen Quelltext, eine viel analytischere Einsicht in die Ergebnismenge, als es mit
@@ -194,8 +193,7 @@ auf das Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, welche
 \citet{oracle99} in ihrer Dokumentation beschreiben. Wird die Methode des
 \texttt{CUBE} verwendet, so ist oft von einem Datenwürfel die Reden \citep{oracle99}.
 Dieser aggregiert alle möglichen Kombinationen der Gruppierungen, einschließlich
-der Gesamtsumme und erstellt so Datenwürfel. Er berücksichtigt nicht die
-Reihenfolge, der angegebenen Gruppierungen \citep{oracle99}.
+der Gesamtsumme und erstellt so Datenwürfel \citep{oracle99}.
 
 \texttt{GROUP BY CUBE (A, B, C);}
 
@@ -205,5 +203,5 @@ folgende mögliche Kombinationen.
 	\{ A, B, C\}, \{A, B\}, \{A, C\}, \{B, C\}, \{A\}, \{B\}, \{C\}, \{ \}
 \end{align*}
 Durch Betrachtung dieser Mengen wird klar, dass die \texttt{CUBE} Erweiterung
-einen noch genaueren Einblick in die vorliegenden Datensätze gewährt.
+bietet demnach noch genaueren Einblick in die vorliegenden Datensätze gewährt.
 % --------------------------------------------------------------------------------------------

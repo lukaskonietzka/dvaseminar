@@ -1,8 +1,9 @@
 \chapter{Ergebnis}
 \label{chap:ergebnis} In diesem Kapitel sollen aufbauend auf der Datenbankimplementierung
 konkreten Implementierungsbeispiele zu den zwei Analyse-Erweiterungen betrachtet
-werden. So lassen sich die Möglichkeiten und Sprachkonstrukte gut aufzeigen. Das
-Skript für das Erstellen der Datenbank liegt dem Anhang bei.
+werden. Hierzu pflegt das Kapitel eine schrittweise Einführung in die
+Erweiterungen. Das Skript für das Erstellen der Datenbank kann dem \hyperref[sec:library_db]{Anhang}
+entnommen werden.
 
 \section{Implementierung - Window Function}
 \label{sec:window_function} Dieses Kapitel beschäftigt sich ausschließlich mit der
@@ -41,8 +42,9 @@ zugehörige Statement sieht wie folgt aus.
 
 \begin{minipage}{0.55\textwidth}
 	\lstset{caption={Aggregatfunktion und Group\_By}, label={list:group_by}} \begin{lstlisting}
-SELECT AVG(published_year)
-AS avg_year
+SELECT
+genre,
+AVG(published_year) AS avg_year
 FROM Books
 GROUP BY genre;
 	\end{lstlisting}

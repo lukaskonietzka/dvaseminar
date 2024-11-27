@@ -18,8 +18,8 @@ Für eine aussagekräftige Definition der \textit{CTE} sei auf den Internetartik
 % von \cite{Ignacio2022} verwiesen, der die Frage: "Was ist eine \textit{CTE}" mit
 folgendem Satz beantwortet:
 \begin{center}
-	\textit{{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{} 'A Common
-	Table Expression (CTE) is like a named subquery. It functions as a virtual table
+	\textit{{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{} 'A Common Table
+	Expression (CTE) is like a named subquery. It functions as a virtual table
 	that only its main query can access. CTEs can help simplify,
 	% shorten, and organize your code.' } \\ \cite{Ignacio2022}
 \end{center}
@@ -86,20 +86,19 @@ Seite 10)
 	\item[$\bullet$ Recursive Queries] als Erweiterung der Commen Table Extentions(CTE)
 \end{description}
 
-
 % --------
 
 \section{Interpretation}
-\label{sec:interpretatin} Für eine objektive und einheitliche Bewertung der
-Beispiele sollen Parameter festgehalten werden, anhand deren eine Beurteilung möglich
-ist. Für Diese Arbeite werden die Kriterien \textit{Lesbarkeit, Flexibilität,
-Ergebnismenge} herangezogen. Im ersten Punkt soll also überprüft werden, ob die Sprachkonstrukte
-lesbar gestaltet sind. Im zweiten Punkt soll eine Aussage über die Flexibilität
-der Queries getroffen werden. Zuletzt soll auch die konkrete Ergebnismenge nicht
-zu kurz kommen. Nachdem alle nötigen Rahmenbedingungen gesetzt wurden, kann in den
-nächsten beiden Kapiteln auf die konkreten Beispiele eingegangen werden. Die
-Auswertung der Beispiele und damit die Bewertung der einzelnen Möglichkeiten und
-Sprachkonstrukte sind im Kapitel \ref{chap:fazit} zu finden.
+\label{sec:interpretatin} Für eine objektive und einheitliche Bewertung der Beispiele
+sollen Parameter festgehalten werden, anhand deren eine Beurteilung möglich ist.
+Für Diese Arbeite werden die Kriterien \textit{Lesbarkeit, Flexibilität,
+Ergebnismenge} herangezogen. Im ersten Punkt soll also überprüft werden, ob die
+Sprachkonstrukte lesbar gestaltet sind. Im zweiten Punkt soll eine Aussage über die
+Flexibilität der Queries getroffen werden. Zuletzt soll auch die konkrete
+Ergebnismenge nicht zu kurz kommen. Nachdem alle nötigen Rahmenbedingungen gesetzt
+wurden, kann in den nächsten beiden Kapiteln auf die konkreten Beispiele
+eingegangen werden. Die Auswertung der Beispiele und damit die Bewertung der einzelnen
+Möglichkeiten und Sprachkonstrukte sind im Kapitel \ref{chap:fazit} zu finden.
 
 \begin{minipage}{0.55\textwidth}
 	\lstset{caption={Aggregatfunktion}, label={list:simpleAgg}} \begin{lstlisting}
@@ -123,9 +122,9 @@ FROM Books;
 
 Diese Query läuft über die Relation \textit{Books} der \textit{LibraryDB}. Dabei
 bildet sie den Durchschnitt aller Einträger in der Spalte \textit{published\_year}.
-Das Ergebnis dieser Query ist eine einzige Zeile, die den Durchschnitt aller Einträge
-bildet. Das Resultat ist in Tabelle \ref{tab:ergebnis_aggregatfunktion} zu sehen.
-Im nächsten Schritt kann ein genauerer Einblick gewonnen werden, indem durch die
-\texttt{GROUP BY} Klausel die Ergebnismenge in Gruppen unterteilt wird. So ist
-erkennbar, welches Genre an Büchern welches durchschnittliche Alter hat. Das
+Das Ergebnis dieser Query ist eine einzige Zeile, die den Durchschnitt aller
+Einträge bildet. Das Resultat ist in Tabelle \ref{tab:ergebnis_aggregatfunktion}
+zu sehen. Im nächsten Schritt kann ein genauerer Einblick gewonnen werden, indem
+durch die \texttt{GROUP BY} Klausel die Ergebnismenge in Gruppen unterteilt wird.
+So ist erkennbar, welches Genre an Büchern welches durchschnittliche Alter hat. Das
 zugehörige Statement sieht wie folgt aus.

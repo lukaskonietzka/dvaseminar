@@ -1,8 +1,9 @@
 \chapter{Ergebnis}
 \label{chap:ergebnis} In diesem Kapitel sollen aufbauend auf der Datenbankimplementierung
 konkreten Implementierungsbeispiele zu den zwei Analyse-Erweiterungen betrachtet
-werden. Hierzu pflegt das Kapitel eine schrittweise Einführung in die Erweiterungen. Das
-Skript für das Erstellen der Datenbank kann dem \hyperref[sec:library_db]{Anhang} entnommen werden.
+werden. Hierzu pflegt das Kapitel eine schrittweise Einführung in die
+Erweiterungen. Das Skript für das Erstellen der Datenbank kann dem \hyperref[sec:library_db]{Anhang}
+entnommen werden.
 
 \section{Implementierung - Window Function}
 \label{sec:window_function} Dieses Kapitel beschäftigt sich ausschließlich mit der
@@ -41,13 +42,12 @@ GROUP BY genre;
 	\captionof{table}{Ergebnis Group\_by} \label{tab:ergebnis_group_by}
 \end{minipage}
 
-Diese Query liefert genau soviel Records, wie es verschiedenen Einträger in der
-Spalte \textit{genre} gibt, die Tabelle \ref{tab:ergebnis_group_by} zeigt einen
-Ausschnitt. Es wird dann für jedes Genre ein durchschnittliches Alter der Bücher
-angegeben. Für die Nächste Betrachtung soll aus der Aggregatfunktion \texttt{AVG(<..>)}
-eine Analyse-Funktion generiert werden. Hierzu ist hinter die Aggregatfunktion
-das Schlüsselwort \texttt{OVER()} anzuhängen, wie in \ref{list:empty_over} zu
-sehen ist.
+Diese Query liefert genau soviel Records, wie es verschiedenen Einträger in der Spalte
+\textit{genre} gibt, die Tabelle \ref{tab:ergebnis_group_by} zeigt einen Ausschnitt.
+Es wird dann für jedes Genre ein durchschnittliches Alter der Bücher angegeben. Für
+die Nächste Betrachtung soll aus der Aggregatfunktion \texttt{AVG(<..>)} eine
+Analyse-Funktion generiert werden. Hierzu ist hinter die Aggregatfunktion das Schlüsselwort
+\texttt{OVER()} anzuhängen, wie in \ref{list:empty_over} zu sehen ist.
 
 \begin{minipage}{0.60\textwidth}
 	\lstset{caption={Aggregatfunktion mit Over}, label={list:empty_over}} \begin{lstlisting}
@@ -75,20 +75,20 @@ FROM Books;
 	\captionof{table}{Ergebnis Over} \label{tab:ergebnis_over}
 \end{minipage}
 
-Nach Betrachtung der Ergebnismenge fällt sofort auf, dass nun ein viel
-detaillierter Einblick gewonnen wird. \texttt{OVER()} sorgt dafür, dass für jeden
-ursprünglichen Wert der Menge der bestimmte Durchschnittswert angegeben wird.
-Anders als bei den klassischen Aggregatfunktionen aus \ref{list:simpleAgg} wird
-die Ergebnismenge nicht zusammengefasst. Im Beispiel aus dem Block \ref{list:empty_over}
-wird durch das \texttt{Over} bereits ein Fenster über die Ergebnismenge gelegt. In
-diesem Fall umschließt das Fenster alle Einträge, da keine genaueren Angaben im
-Argument angegeben wurden. Für ein praxisnahes Beispiel mit mehreren Fenstern,
-soll eine Ausleihhistorie aufgebaut werden, die angibt welches Mitglied wie viele
-Bücher ausgeliehen hat. Hierzu soll die Analyse-Funktion \texttt{ROW\_NUMBER} herangezogen
-werden. Das Ziel ist es über die Ergebnismenge der \textit{Borrowed\_Books} ein Fenster
-zu legen und diese anhand der \textit{member\_id} aufzuteilen. \texttt{ROW\_NUMBER}
-zählt dann die Zeilen in jedem Fenster. Listing \ref{list:window-function} zeigt
-den nötigen Quelltext für dieses Beispiel.
+Nach Betrachtung der Ergebnismenge fällt sofort auf, dass nun ein viel detaillierter
+Einblick gewonnen wird. \texttt{OVER()} sorgt dafür, dass für jeden
+ursprünglichen Wert der Menge der bestimmte Durchschnittswert angegeben wird. Anders
+als bei den klassischen Aggregatfunktionen aus \ref{list:simpleAgg} wird die Ergebnismenge
+nicht zusammengefasst. Im Beispiel aus dem Block \ref{list:empty_over} wird
+durch das \texttt{Over} bereits ein Fenster über die Ergebnismenge gelegt. In
+diesem Fall umschließt das Fenster alle Einträge, da keine genaueren Angaben im Argument
+angegeben wurden. Für ein praxisnahes Beispiel mit mehreren Fenstern, soll eine Ausleihhistorie
+aufgebaut werden, die angibt welches Mitglied wie viele Bücher ausgeliehen hat. Hierzu
+soll die Analyse-Funktion \texttt{ROW\_NUMBER} herangezogen werden. Das Ziel ist
+es über die Ergebnismenge der \textit{Borrowed\_Books} ein Fenster zu legen und
+diese anhand der \textit{member\_id} aufzuteilen. \texttt{ROW\_NUMBER} zählt dann
+die Zeilen in jedem Fenster. Listing \ref{list:window-function} zeigt den
+nötigen Quelltext für dieses Beispiel.
 
 \lstset{caption={Analyse-Funktion mit mehreren Fenstern}, label={list:window-function}}
 \begin{lstlisting}
@@ -119,14 +119,14 @@ FROM Borrowed_Books;
 	\label{tab:ergebnnis_analyse_funktion}
 \end{table}
 
-Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der Fachliteratur
-als \textit{running total} beschrieben wird \citep{Nuijten2023}. Die Gruppierung
-der Fenster sind anhand der \textit{member\_id} zu erkennen.
+Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der
+Fachliteratur als \textit{running total} beschrieben wird \citep{Nuijten2023}. Die
+Gruppierung der Fenster sind anhand der \textit{member\_id} zu erkennen.
 
-Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden
-und die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten Beispiel
-der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id} sortiert werden.
-Die konkrete Syntax für diese Query zeigt der folgenden Bock.
+Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden und
+die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten
+Beispiel der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id}
+sortiert werden. Die konkrete Syntax für diese Query zeigt der folgenden Bock.
 
 \lstset{caption={Analytische-Funktion und Order By}, label={list:window-function-order-by}}
 \begin{lstlisting}
@@ -159,21 +159,21 @@ FROM Borrowed_Books;
 \end{table}
 
 Wie zu erkennen ist, wird die \textit{oder\_by\_clause} wie in früheren Kapiteln
-bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel
-angehängt. Sie ist somit ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser
-Beispielreihe wurde noch lange nicht alle Möglichkeiten der Window-Funktions angesprochen
-die Dokumentation von \citet{oracle} beschreibt noch weitere Sprachkonstrukte, die
-in dieser Arbeit aber unberücksichtigt belieben.
+bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel angehängt.
+Sie ist somit ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser
+Beispielreihe wurde noch lange nicht alle Möglichkeiten der Window-Funktions
+angesprochen die Dokumentation von \citet{oracle} beschreibt noch weitere Sprachkonstrukte,
+die in dieser Arbeit aber unberücksichtigt belieben.
 
 \section{Implementierung - Rollup and Cube}
-\label{sec:implementierung_rollup_and_cube} Die Erweiterungen \texttt{ROLLUP}
-und \texttt{CUBE} werden als Erweiterung der \texttt{GROUP BY} Klausel
-verstanden. Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB} die
-Möglichkeiten und Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien
-zu der herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit herkömmlichen
-Befehlen Einsicht in mehrere Gruppierungen zu erhalten, muss für jede
-gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Die Codeblöcke
-\ref{list:group_date} und \ref{list:group_id} zeigen dies.
+\label{sec:implementierung_rollup_and_cube} Die Erweiterungen \texttt{ROLLUP} und
+\texttt{CUBE} werden als Erweiterung der \texttt{GROUP BY} Klausel verstanden.
+Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB} die Möglichkeiten und
+Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien zu der
+herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit
+herkömmlichen Befehlen Einsicht in mehrere Gruppierungen zu erhalten, muss für jede
+gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Die Codeblöcke \ref{list:group_date}
+und \ref{list:group_id} zeigen dies.
 
 \begin{minipage}{0.45\textwidth}
 	\lstset{caption={Gruppe Date}, label={list:group_date}} \begin{lstlisting}
@@ -192,10 +192,10 @@ GROUP BY(member_id);
 \end{minipage}
 
 Um dieses Vorgehen zu vereinfachen, kann auf das Schlüsselwort \texttt{GROUPING
-SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und
-\ref{list:group_date} in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls
-in einer Relation dargestellt. Alle nicht relevanten Felder werden dann mit
-\texttt{NULL} aufgefüllt.
+SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und \ref{list:group_date}
+in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls in einer Relation
+dargestellt. Alle nicht relevanten Felder werden dann mit \texttt{NULL}
+aufgefüllt.
 
 \begin{lstlisting}[caption={Beispiel eines Grouping sets}, label={list:grouping_sets}]
 SELECT borrow_date, member_id,
@@ -203,14 +203,14 @@ FROM Borrowed_Books
 GROUP BY GROUPING SETS(borrow_date, member_id);
 \end{lstlisting}
 
-Mit \texttt{GROUPING SETS} ist es nicht möglich eine Kombination aus den angegebenen
-Attributen zu gruppieren. Diese Funktion ist den Erweiterungen \texttt{ROLLUP} und
-\texttt{CUBE} überlassen. Um aus einem Set an Gruppierungen einnen \texttt{ROLLUP}
-zu erstellen, ist lediglich das Schlüsselwort auszutauschen. Konkret ersetzten
-wir also das \texttt{GROUPING SETS} gegen ein \texttt{ROLLUP}. Die Implementierung
-kann nun so verändert werden, dass ein praktisches Beispiel sichtbar wird. Mit der
-Aggregatfunktion \texttt{COUNT} und der \texttt{ROLLUP} Funktion kann eine Query
-gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
+Mit \texttt{GROUPING SETS} ist es nicht möglich eine Kombination aus den
+angegebenen Attributen zu gruppieren. Diese Funktion ist den Erweiterungen \texttt{ROLLUP}
+und \texttt{CUBE} überlassen. Um aus einem Set an Gruppierungen einnen \texttt{ROLLUP}
+zu erstellen, ist lediglich das Schlüsselwort auszutauschen. Konkret ersetzten wir
+also das \texttt{GROUPING SETS} gegen ein \texttt{ROLLUP}. Die Implementierung
+kann nun so verändert werden, dass ein praktisches Beispiel sichtbar wird. Mit
+der Aggregatfunktion \texttt{COUNT} und der \texttt{ROLLUP} Funktion kann eine
+Query gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
 
 \begin{description}
 	\label{bul:aufzählung}

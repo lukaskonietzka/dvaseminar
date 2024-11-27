@@ -67,13 +67,17 @@
 	% Alternativen: \thesisLanguage, ngerman, english
 	\selectlanguage{\thesisLanguage}
 	\pagenumbering{roman}
-	\setcounter{page}{1}
 
 	\THAtitlepage
 
 	\let
 	\cleardoublepage
 	\relax
+
+	%%% --------------------------------------------------
+	%%% Kurzfassung und Inhaltsverzeichnis
+	%%% --------------------------------------------------
+
 	\begin{abstract}
 		\section*{Kurzfassung}
 		Der SQL-Standard wird bald 40 Jahre alt und hat bis heute diverse Erweiterungen
@@ -89,10 +93,11 @@
 		dass die meisten Analyse-Erweiterungen viele Möglichkeiten bieten, jedoch auch
 		eine Steigerung der Komplexität mitbringen.
 	\end{abstract}
+
 	\tableofcontents
 
 	%%% --------------------------------------------------
-	%%% Ab hier: Inhalt
+	%%% Inhalt
 	%%% --------------------------------------------------
 
 	\setcounter{page}{1}
@@ -104,7 +109,11 @@
 	\include{chapters/Ergebnis}
 	\include{chapters/Fazit}
 
-	\appendix % Ab hier Anhang
+	%%% --------------------------------------------------
+	%%% Anhang
+	%%% --------------------------------------------------
+	\appendix
+
 	\include{chapters/LibraryDB}
 	\include{chapters/LibraryDBSampleData}
 

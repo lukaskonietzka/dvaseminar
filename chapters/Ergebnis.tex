@@ -8,36 +8,8 @@ Skript für das Erstellen der Datenbank kann dem \hyperref[sec:library_db]{Anhan
 \label{sec:window_function} Dieses Kapitel beschäftigt sich ausschließlich mit der
 konkreten Anwendung der Window-Functions und deren Verwandtheit zu den herkömmlichen
 Aggregatfunktionen. Hierzu wird das Beispiel der \textit{LibraryDB} herangezogen.
-Zu Beginn sei eine Aggregatfunktion der einfachsten Art gezeigt.
-
-\begin{minipage}{0.55\textwidth}
-	\lstset{caption={Aggregatfunktion}, label={list:simpleAgg}} \begin{lstlisting}
-SELECT AVG(published_year)
-AS avg_year
-FROM Books;
-	\end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-	\centering
-	\begin{tabular}{|c|}
-		\hline
-		\textbf{avg\_year} \\
-		\hline
-		1947.2500          \\
-		\hline
-	\end{tabular}
-	\captionof{table}{Ergebnis Aggregatfunktion} \label{tab:ergebnis_aggregatfunktion}
-\end{minipage}
-
-Diese Query läuft über die Relation \textit{Books} der \textit{LibraryDB}. Dabei
-bildet sie den Durchschnitt aller Einträger in der Spalte \textit{published\_year}.
-Das Ergebnis dieser Query ist eine einzige Zeile, die den Durchschnitt aller Einträge
-bildet. Das Resultat ist in Tabelle \ref{tab:ergebnis_aggregatfunktion} zu sehen.
-Im nächsten Schritt kann ein genauerer Einblick gewonnen werden, indem durch die
-\texttt{GROUP BY} Klausel die Ergebnismenge in Gruppen unterteilt wird. So ist
-erkennbar, welches Genre an Büchern welches durchschnittliche Alter hat. Das
-zugehörige Statement sieht wie folgt aus.
+Um das Beispiel näher erläutern zu können sei auf eine einfache Aggregatfunktion
+mit \texttt{GROUP BY} Klausel verwiesen.
 
 \begin{minipage}{0.55\textwidth}
 	\lstset{caption={Aggregatfunktion und Group\_By}, label={list:group_by}} \begin{lstlisting}
@@ -250,8 +222,6 @@ gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
 	\item[$\bullet$ 2. Punkt] Wie viel Bücher wurden von einer Person an einem Tag
 		ausgeliehen
 \end{description}
-
-\filbreak
 
 \begin{lstlisting}[caption={Beispiel eines ROLLUP}, label={list:rollup}]
 SELECT borrow_date, member_id, COUNT(book_id)

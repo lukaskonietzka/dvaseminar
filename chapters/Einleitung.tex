@@ -6,27 +6,27 @@ geschafft und sind ab diesem Zeitpunkt ein fester Bestandteil von SQL. Trotz
 Ihrer doch langen Geschichte, stehen die Analyse-Erweiterungen eher im Schatten der
 breiten Palette an SQL-Befehlen und konnten nicht sonderlich viel an Bekanntheit
 gewinnen.
-
 % --------------------------------------------------------------------------------------------
 
 \section{Ziel der Arbeit}
-\label{sec:ziel_der_arbeit} Dieser Artikel soll für Klarheit sorgen und das
-Geheimnis dahinter offenbaren. Es werden einige dieser Analyse-Erweiterungen anhand
-einfacher Beispiele aufzeigen, um eine eingehende Erklärung zu bieten. Hierzu sollen
-die unterschiedlichen Sprachkonstrukte und Methoden demonstriert und die Konzepte
-dahinter erläutert werden. Es kann so folgende konkrete Problemstellung
+\label{sec:ziel_der_arbeit} Diese Arbeit soll für Klarheit sorgen und das Geheimnis
+dahinter offenbaren. Es werden einige dieser Analyse-Erweiterungen anhand
+einfacher Beispiele aufzeigen, um eine eingehende Erklärung zu bieten. Hierzu
+sollen die unterschiedlichen Sprachkonstrukte und Methoden demonstriert und die
+Konzepte dahinter erläutert werden. Es kann so folgende konkrete Problemstellung
 abgeleitet werden.
 \begin{center}
 	\textit{"Welche Analyse-Erweiterungen gibt es und welche Möglichkeiten ergeben
 	sich durch einen Einsatz dieser Konstrukte."}
 \end{center}
-Sofern auf die Forschungsfrage eine Antwort gefunden werden kann, besteht am
-Ende dieser Arbeit ein grober Überblick über die bekanntesten Analyse-Erweiterungen
-im SQL-Standard und für welche Fälle diese eingesetzt werden. Außerdem soll ein Verständnis
-bestehen, wie auch komplexere Datenabfragen durch Einsatz der Analyse-Erweiterungen
-vereinfacht werden. Darüber hinaus soll die Arbeite eine praxisnahe Orientierungshilfe
-liefern, die als Stütze bei der Datenanalyse mit SQL fungiert.
-
+Sofern auf die Forschungsfrage eine Antwort gefunden werden kann, besteht am Ende
+dieser Arbeit ein grober Überblick über die bekanntesten Analyse-Erweiterungen im
+SQL-Standard und für welche Fälle diese eingesetzt werden. Außerdem soll ein
+Verständnis bestehen, wie auch komplexere Datenabfragen durch Einsatz der Analyse-Erweiterungen
+vereinfacht werden. Darüber hinaus soll die Arbeite eine praxisnahe
+Orientierungshilfe liefern, die als Stütze bei der Datenanalyse mit SQL fungiert.
+Um diesen Aspekt noch weiter zu verdeutlichen, soll das nächste Kapitel die Relevanz
+dieser ARbeit noch genauer beleuchten.
 % --------------------------------------------------------------------------------------------
 
 \section{Relevanz der Analyse-Erweiterungen}
@@ -39,9 +39,9 @@ sollen genau diesen Analyseprozess unterstützen.
 Die Analyse-Erweiterungen für SQL finden vorrangig ihren Einsatz im Bereich Data
 Analysis, so belegen es auch \citet[Kapitel 3]{FOTACHE2015243}. Es ist in diesem
 Kontext oft von \textit{analytical} oder \textit{window functions} die Rede
-\citep[Kapitel 3]{FOTACHE2015243}. Die Begriffe \textit{statistical inspired
-aggregate functions} und \textit{multiple group by operators} tauchen im Fachbereich
-Data Analysis ebenfalls immer wieder auf \citep[Kapitel 4.3]{FOTACHE2015243}.
+\citep[vgl.][Kapitel 3]{FOTACHE2015243}. Die Begriffe \textit{statistical
+inspired aggregate functions} und \textit{multiple group by operators} tauchen im
+Fachbereich Data Analysis ebenfalls immer wieder auf \citep[vgl.][Kapitel 4.3]{FOTACHE2015243}.
 Alle diese Fachbegriffe sind auf die Analyse-Erweiterungen in SQL zurückzuführen.
 Auch in den Punkten Komplexität und Kompaktheit können die Erweiterungen punkten.
 Mit den Analyse-Erweiterungen ist eine komplexe Datenanalyse durch nur wenige
@@ -50,33 +50,27 @@ Zeilen Quelltext möglich so \citet[Abstract]{Maue2022}.
 Es wird also deutlich, dass die Analyse-Erweiterungen nicht nur eine komplexe Analyse
 zulassen, sondern für das ganze Gebiet der Datenanalyse einen hohen Wert bietet.
 Sie gewähren eine weitaus detailliertere Einsicht in Datensätze, als es mit
-herkömmlichen Befehlen möglich ist.
-
+herkömmlichen Befehlen möglich ist. Daraus lässt sich auch ableiten, dass das
+Themer der Analyse-Erweiterungen große Kreise wirft. Um beim lesen dieser Arbeit
+einen groben Überblick zu schaffen wird die Gliederung der Arbeit im Folgenden Besxchrieben
 % --------------------------------------------------------------------------------------------
 
 \section{Aufbau der Arbeit}
-\label{sec:aufbau_der_arbeit} Diese Arbeit liefert am Ende einen groben Überblick
-über die Analyse-Erweiterungen und deren Möglichkeiten. Darüber hinaus sollen
-einige praxisbezogenen Beispiele diskutieren werden. Hierzu teilt sich das Thema
-in drei Teile auf.
-
-Der erste Teil bildet eine Recherche zum aktuellen Stand der Technik und führt in
-die Grundlagen der hier fokussierten Erweiterungen ein. Hierzu wird einen Blick
-auf die Funktionsweise der unterschiedlichen Erweiterungen geworfen. Ergänzend dazu
-sollen auch zusätzliche Erweiterungen aufgezählt werden.
-
-Der zweite Teil bildet den Kern der Arbeit und soll die fokussierten Analyse-Erweiterungen
-anhand eines passenden Beispiels erläutern. Hierzu wird ein globales Beispiel
-einer relationalen Datenbank generiert, mit deren Hilfe alle der ausgewählten Erweiterungen
-demonstriert und analysiert werden. Für die Analyse wird auf Bewertungskriterien
-zurückgegriffen, die generisch gewählt werden. So können die sehr
-unterschiedlichen Erweiterungen kategorisiert werden.
-
-Im letzten Teil der Arbeit sollen die Ergebnisse evaluiert werden. Hierzu werden
-die Beispiele analysiert und mögliche Interpretationen ausgearbeitet. Die zu
-späterem Zeitpunkt definierten Bewertungskriterien spielen hierbei eine
-wesentliche Rolle.
-
+\label{sec:aufbau_der_arbeit} Diese Arbeit liefert am Ende einen groben
+Überblick über die Analyse-Erweiterungen und deren Möglichkeiten. Darüber hinaus
+sollen einige praxisbezogenen Beispiele diskutieren werden. Hierzu teilt sich
+das Thema in drei Teile auf. Der erste Teil bildet eine Recherche zum aktuellen Stand
+der Technik und führt in die Grundlagen der hier fokussierten Erweiterungen ein.
+Hierzu wird einen Blick auf die Funktionsweise der unterschiedlichen
+Erweiterungen geworfen. Ergänzend dazu sollen auch zusätzliche Erweiterungen aufgezählt
+werden. Der zweite Teil bildet den Kern der Arbeit und soll die fokussierten
+Analyse-Erweiterungen anhand eines passenden Beispiels erläutern. Hierzu wird ein
+globales Beispiel einer relationalen Datenbank generiert, mit deren Hilfe alle
+der ausgewählten Erweiterungen demonstriert und analysiert werden. Für die Analyse
+wird auf Bewertungskriterien zurückgegriffen, die generisch gewählt werden. So können
+die sehr unterschiedlichen Erweiterungen kategorisiert werden. Im letzten Teil
+der Arbeit sollen die Ergebnisse evaluiert werden. Hierzu werden die Beispiele analysiert
+und mögliche Interpretationen ausgearbeitet.
 % --------------------------------------------------------------------------------------------
 
 \section{Fokus der Arbeit}
@@ -96,11 +90,14 @@ die folgenden.
 
 \begin{description}
 	\item[$\bullet$ Window-Functions] als statistical inspired aggregate functions
-		\\ \citep[Kapitel 4.3]{FOTACHE2015243}
+		\\ \citep[vgl.][Kapitel 4.3]{FOTACHE2015243}
 
-	\item[$\bullet$ ROLLUP and CUBE] als multiple group by operators \\ \citep[Kapitel4.3]{FOTACHE2015243}
+	\item[$\bullet$ ROLLUP and CUBE] als multiple group by operators \\ \citep[vgl.][Kapitel4.3]{FOTACHE2015243}
 \end{description}
 
 Im Laufe des Artikels soll Wissen zu diesen beiden Erweiterungen gesammelt und
 an praxisbezogenen Beispiel angewandt werden. Alle weiteren Analyse-Erweiterungen
 werden in diesem Artikel nur kurz namentlich erwähnt und erfahren keine weitere Behandlung.
+Um dies zu gewährleisten sind einige Theoretische Grundlagen nötig, die zum verstehen
+der Ergebnisse essenziell sind. Das Kapitel \ref{chap:hintergund_und_grundlagen}
+führt demnach in alle wichtigen Hintergründe ein.

@@ -9,8 +9,8 @@ entnommen werden.
 \label{sec:window_function} Dieses Kapitel beschäftigt sich ausschließlich mit der
 konkreten Anwendung der Window-Functions und deren Verwandtheit zu den herkömmlichen
 Aggregatfunktionen. Hierzu wird das Beispiel der \textit{LibraryDB} herangezogen.
-Um das Beispiel näher erläutern zu können sei auf eine einfache Aggregatfunktion
-mit \texttt{GROUP BY} Klausel verwiesen.
+Um das Beispiel näher erläutern zu können sei zunächst auf eine einfache
+Aggregatfunktion mit \texttt{GROUP BY} Klausel verwiesen.
 
 \begin{minipage}{0.55\textwidth}
 	\lstset{caption={Aggregatfunktion und Group\_By}, label={list:group_by}} \begin{lstlisting}
@@ -160,10 +160,14 @@ FROM Borrowed_Books;
 
 Wie zu erkennen ist, wird die \textit{oder\_by\_clause} wie in früheren Kapiteln
 bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel angehängt.
-Sie ist somit ein Teil der \textit{analytic\_clause}. Mit Abschluss dieser
-Beispielreihe wurde noch lange nicht alle Möglichkeiten der Window-Funktions
-angesprochen die Dokumentation von \citet{oracle} beschreibt noch weitere Sprachkonstrukte,
-die in dieser Arbeit aber unberücksichtigt belieben.
+Sie ist somit ein Teil der \textit{analytic\_clause}.
+
+Mit Abschluss dieser Beispielreihe wurde noch lange nicht alle Möglichkeiten der
+Window-Funktions angesprochen die Dokumentation von \citet{oracle} beschreibt
+noch weitere Sprachkonstrukte, die in dieser Arbeit aber unberücksichtigt belieben.
+Beispielsweise ist es durch das sogenaten \textit{windowing} möglich, ein
+laufendes Fenster zu erstellen das durch über alle Einträge läuft und so die
+analytischen Funktionen auf die Einträge anwendet.
 
 \section{Implementierung - Rollup and Cube}
 \label{sec:implementierung_rollup_and_cube} Die Erweiterungen \texttt{ROLLUP} und

@@ -2,30 +2,32 @@
 \label{chap:methodik} Dieses Kapitel soll das Vorgehen und die konkrete Methodik
 während der Ausarbeitung dieser Arbeit näher erläutern. Begonnen wurde mit einer
 umfassenden Literaturrecherche zum aktuellen Stand der Technik. Anschließend wird
-eine Beispielimplementierung eingeführt anhand derer konkrete Beispiele angezeigt
+eine Beispielimplementierung eingeführt anhand derer konkrete Beispiele aufgezeigt
 werden.
+% --------------------------------------------------------------------------------------------
 
 \section{Literaturrecherche}
 \label{sec:literaturrecherche} Die Literaturrecherche bildet das Fundament dieser
 Arbeit und liefert alle nötigen Grundlagen und Hintergründe. Es werden die hier
 relevanten Konzepte und Methoden zu den Analyse-Erweiterungen eingeführt und
 erläutert. Darüber hinaus sind Grundkonzepte der einzelnen Erweiterungen zu finden.
-Das Ziel der Recherche war es auch die offiziellen Dokumentationen der großen
-DBMS Hersteller mit einzubeziehen.
+Die Recherer soll auch den aktuellen Stand der Kunst wiederspieglen und die
+bekanntesten und größten Erweiterungen fokusieren. Das Ziel der Recherche war es
+auch die offiziellen Dokumentationen der großen DBMS Hersteller mit einzubeziehen.
+% --------------------------------------------------------------------------------------------
 
 \section{Implementierung}
-\label{sec:implementierung} Bevor mit dem Erstellen einer Beispieldatenbank
-begonnen werden kann, muss ein Datenbank-Management-System (DBMS) gewählt werden,
-mit dem die Beispiele generiert werden können. Aufgrund der einfachen Installation
-und des wenigen Overheads, wird für die folgenden Beispiele eine MYSQL Datenbank
-verwendet. Dieses bietet alle Erweiterungen, die in dieser Arbeit näher
-betrachtet werden sollen.
-
-Als praxisnahes Beispiel wird auf ein allgemein bekanntes Situation
-zurückgegriffen, um die Komplexität zu reduzieren und den Fokus mehr auf die Analyse-Erweiterungen
-zu lenken. Im Rahmen dieses Artikels soll die Implementierung einer Datenbank
-für eine Bibliothek als Beispiel fungieren. Dieses trägt fortan den Namen \textit{LibraryDB}.
-Das Skript für die Erstellung der Datenbank und auch die konkreten Relationen können
+\label{sec:implementierung} Bevor mit dem Erstellen einer Beispieldatenbank begonnen
+werden kann, muss ein Datenbank-Management-System (DBMS) gewählt werden, mit dem
+die Beispiele generiert werden können. Aufgrund der einfachen Installation und
+des wenigen Overheads, wird für die folgenden Beispiele eine MYSQL Datenbank verwendet.
+Dieses bietet alle Erweiterungen, die in dieser Arbeit näher betrachtet werden sollen.
+Als praxisnahes Beispiel im Rahmen dieser Arbeit wird auf ein allgemein
+bekanntes Situation zurückgegriffen, um die Komplexität zu reduzieren und den Fokus
+mehr auf die Analyse-Erweiterungen zu lenken. Konkret handelt es sich um die
+Datenbank einer Bibliothe. Dieses trägt fortan den Namen \textit{LibraryDB}. Das
+Skript für die Erstellung der Datenbank und auch die konkreten Relationen können
 dem \hyperref[sec:library_db]{Anhang} entnommen werden. Die Implementierung des
 SQL Skripts soll innerhalb dieser Arbeit unberührt bleiben, bilde aber die Grundlage
-der Beispiele.
+der Beispiele im nachfolgenden Kapitel, dass nun thematisiert werdern soll.
+% --------------------------------------------------------------------------------------------

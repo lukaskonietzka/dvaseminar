@@ -33,12 +33,12 @@ prägnante und eindeutige Definition der \textit{Analytic Functions} sei auf die
 der \citet{oracle} Datenbank verwiesen, die die \textit{Analytic Functions} als
 aggregierten Wert basierend auf einer Gruppen von Datensätzen beschreibt. Diese Gruppen
 an Datensätzen werden als Fenster bezeichnet und sind über die \textit{analytic
-clausel} definiert \citep[vgl.][]{oracle}.
+clausel} definiert \citep[vgl.][K. 7]{oracle}.
 
 Wenn man dieser Definition weiter folgt, dann werden darunter also aggregierte
 Werte verstanden, die mittels dem Schlüsselwort \texttt{OVER} auf bestimmte
 Zeilen in einer Tabelle angewendet werden. So ist es Beispielsweise möglich,
-auch benachbarte Datensätze mit einzubeziehen \citep[vgl.][]{oracle}.
+auch benachbarte Datensätze mit einzubeziehen \citep[vgl.][K. 7]{oracle}.
 
 Die Definition lässt weiter vermuten, dass die analytischen Funktionen stark
 verwandt sind mit den weit verbreiteten Aggregatfunktionen. Zur Unterscheidung der
@@ -61,12 +61,12 @@ festlegt \citep[vgl.][S. 35]{Nuijten2023}.
 \end{description}
 Um nun den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
 zu können, sei an dieser Stelle nochmals auf die Dokumentation von \citet{oracle}
-verwiesen. Hier ist ein konkreter Aufbau einer analytischen Funktion zu finden, die
-hier näher betrachtet werden soll.
+verwiesen. Abbildung \ref{fig:aufbauAnalyticFunction} zeigt ein konkreter Aufbau
+einer analytischen Funktion, der hier näher betrachtet werden soll.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticFunction.jpg}
-	\caption{ Aufbau einer analytischen Funktion \citep[vgl.][]{oracle}}
+	\caption{ Aufbau einer analytischen Funktion \citep[vgl.][K. 7]{oracle}}
 	. \label{fig:aufbauAnalyticFunction}
 \end{figure}
 Der erste Teil beschreibt die konkrete analytische Funktion, die auf die Ergebnismenge
@@ -89,11 +89,11 @@ liefert \citet[S. 36]{Nuijten2023}:
 Im Argument der \texttt{OVER} Funktion wird die Ausprägung und die Ordnung des Fensters
 definiert. Dieses Argument ist bekannt als \textit{analytic-clause} \citep[vgl.][]{oracle}.
 Der Aufbau dieser Klausel sei in Abbildung \ref{fig:aufbauAnalytischeKlausel} beschrieben
-\citep[vgl.][]{oracle}.
+\citep[vgl.][K. 7]{oracle}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticClausel.jpg}
-	\caption{ Aufbau einer analytischen Klausel \citep[vgl.][]{oracle}}
+	\caption{ Aufbau einer analytischen Klausel \citep[vgl.][K. 7]{oracle}}
 	. \label{fig:aufbauAnalytischeKlausel}
 \end{figure}
 Aus dem Aufbau der \textit{analytic-clause} gemäß der \citet{oracle} wird klar,
@@ -101,7 +101,7 @@ dass diese grob in zwei Teile aufgeteilt wird. Ein \textit{partition-clause}, di
 die einzelnen Fenster festlegt und die \textit{order-by-clause} , welche die
 Reihenfolge in den einzelnen Fenstern festlegt. Diese beiden Klauseln können mit
 den Schlüsselwortern \texttt{PARTITION BY} und \texttt{ORDER BY} realisiert werden.
-Ein etwas generische Beispiel sieht wie folgt aus \citep[vgl.][]{oracle}:
+Ein etwas generische Beispiel sieht wie folgt aus \citep[vgl.][K.7]{oracle}:
 \begin{center}
 	\texttt{PARTITION BY <..> ORDER BY <..>}
 \end{center}
@@ -189,14 +189,14 @@ rechts mit der kleinsten Menge begonnen und links auf die größte aufgerollt (\
 
 \subsection{Cube}
 \label{subsec:cube} Mit einem \texttt{ROLLUP} sind nicht alle möglichen Kombinationen
-an Gruppierungen möglich \citep[vgl.][]{oracle99}. Die Erweiterung \texttt{ROLLUP}
+an Gruppierungen möglich \citep[vgl.][K. 20]{oracle99}. Die Erweiterung \texttt{ROLLUP}
 gibt eine eindeutige Gruppierungsreihenfolge vor, die ohne Ausnahme eingehalten wird.
 Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf das
 Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, welche \citet{oracle99}
 in ihrer Dokumentation beschreiben. Wird die Methode des \texttt{CUBE} verwendet,
 so ist oft von einem Datenwürfel die Rede. Dieser aggregiert alle möglichen
 Kombinationen der Gruppierungen, einschließlich der Gesamtsumme und erstellt so Datenwürfel
-\citep[vgl.][]{oracle99}. Folgendes Beispiel zeigt die Verwendung:
+\citep[vgl.][K. 20]{oracle99}. Folgendes Beispiel zeigt die Verwendung:
 \begin{center}
 	\texttt{GROUP BY CUBE (A, B, C);}
 \end{center}

@@ -9,8 +9,9 @@ entnommen werden.
 \label{sec:window_function} Dieses Kapitel beschäftigt sich ausschließlich mit der
 konkreten Anwendung der \textit{Window Functions} und deren Verwandtschaft zu
 den herkömmlichen Aggregatfunktionen. Hierzu wird das Beispiel der \textit{LibraryDB}
-herangezogen. Um das Beispiel näher erläutern zu können sei zunächst auf eine einfache
-Aggregatfunktion mit \texttt{GROUP BY} Klausel verwiesen.
+herangezogen. Um das Beispiel näher erläutern zu können sei zunächst in Listing \ref{list:group_by} auf eine einfache
+Aggregatfunktion mit \texttt{GROUP BY} Klausel verwiesen. Das Ergebnis dieses Listings
+ist in Tabelle \ref{tab:ergebnis_group_by} zu sehen.
 
 \begin{minipage}{0.55\textwidth}
 	\lstset{caption={Aggregatfunktion und \texttt{GROUP BY}}, label={list:group_by}}
@@ -43,7 +44,7 @@ GROUP BY genre;
 	\captionof{table}{Ergebnis \texttt{GROUP BY}} \label{tab:ergebnis_group_by}
 \end{minipage}
 
-Diese Query liefert genau soviel Records wie es verschiedenen Einträger in der Spalte
+Diese Query liefert genau soviel Einträge wie es verschiedenen Einträger in der Spalte
 \textit{genre} gibt, die Tabelle \ref{tab:ergebnis_group_by} zeigt einen Ausschnitt.
 Es wird dann für jedes \textit{genre} ein durchschnittliches Alter der Bücher angegeben.
 Für die Nächste Betrachtung soll aus der Aggregatfunktion \texttt{AVG(<..>)} eine
@@ -92,7 +93,7 @@ soll die Analyse-Funktion \texttt{ROW\_NUMBER} herangezogen werden. Das Ziel ist
 es über die Ergebnismenge der \textit{Borrowed\_Books} ein Fenster zu legen und
 diese anhand der \textit{member\_id} aufzuteilen. \texttt{ROW\_NUMBER} zählt dann
 die Zeilen in jedem Fenster. Listing \ref{list:window-function} zeigt den
-nötigen Quelltext, Tabelle für dieses Beispiel.
+nötigen Quelltext, sowie die Ergenismegen für dieses Beispiel.
 
 \lstset{caption={Analyse-Funktion mit mehreren Fenstern}, label={list:window-function}}
 \begin{lstlisting}
@@ -130,10 +131,10 @@ Die Gruppierung der Fenster sind anhand der \textit{member\_id} zu erkennen.
 Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden
 und die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten Beispiel
 der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id} sortiert werden.
-Die konkrete Syntax für diese Query zeigt der folgenden Bock.
+Die konkrete Syntax für diese Query zeigt das folgende Listing \ref{list:window-function-order-by}.
 
 \lstset{caption={Analytische-Funktion und \texttt{ORDER BY}}, label={list:window-function-order-by}}
-\begin{lstlisting}
+\begin{lstlisting}[label={list:window-function-order-by}]
 SELECT member_id, book_id, borrow_date, return_date,
 ROW_NUMBER() OVER(PARTITION BY member_id ORDER BY book_id)
 AS borrow_sequence
@@ -204,7 +205,7 @@ Um dieses Vorgehen zu vereinfachen, kann auf das Schlüsselwort \texttt{GROUPING
 SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und \ref{list:group_date}
 in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls in einer Relation
 dargestellt. Alle nicht relevanten Felder werden dann mit \texttt{NULL}
-aufgefüllt.
+aufgefüllt. Listing \ref{list:grouping_sets} zeigt solch ein \texttt{GROUPING SET}.
 
 \begin{lstlisting}[caption={Beispiel eines \texttt{GROUPING SETS}}, label={list:grouping_sets}]
 SELECT borrow_date, member_id,
@@ -239,6 +240,10 @@ FROM Borrowed_Books
 GROUP BY ROLLUP(borrow_date, member_id);
 \end{lstlisting}
 
+Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query
+\ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die oben
+genannten Punkte aus der Aufzählung \ref{bul:aufzählung} wiederfinden.
+
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|}
@@ -262,10 +267,7 @@ GROUP BY ROLLUP(borrow_date, member_id);
 	\label{tab:rollup}
 \end{table}
 
-Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query
-\ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die oben
-genannten Punkte aus der Aufzählung \ref{bul:aufzählung} wiederfinden. Der erste
-Punkt (Gesamtverleih) ist auf die letzte Zeile zurückzuführen, die angibt, dass
+Der erste Punkt (Gesamtverleih) ist auf die letzte Zeile zurückzuführen, die angibt, dass
 insgesamt bereits zehn Bücher verliehen wurden. Das Datum oder das Mitglied wird
 hier also nicht berücksichtigt. Der Punkt zwei weist auf alle Einträge hin, die in
 der Spalte \textit{member\_id} ein \texttt{NULL} vorfinden. Beispielsweise
@@ -281,11 +283,11 @@ gewonnen werden.
 Auch wenn der \texttt{ROLLUP} bereits einen sehr tiefen Einblick mit nur wenigen
 Zeilen Code gewährt, gibt es noch ein Konstrukt, dass noch tiefer geht. Durch
 ersetzten des Schlüsselwortes \texttt{ROLLUP} gegen \texttt{CUBE} lassen sich
-noch mehr Kombinationen der Ergebnismenge anzeigen. Hierzu sei auf das Listing ...
+noch mehr Kombinationen der Ergebnismenge anzeigen. Hierzu sei auf das Listing \ref{list:cube}
 verweisen. Damit lässt sich auch ermitteln wie viele Bücher ein Mitglied
 unabhängig vom Tag ausgeliehen hat.
 
-\begin{lstlisting}
+\begin{lstlisting}[label={list:cube}]
 SELECT borrow_date, member_id, COUNT(book_id)
 	AS total_borrowed
 FROM Borrowed_Books

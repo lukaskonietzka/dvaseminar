@@ -1,0 +1,9 @@
+Aggregatfunktionen
+LibraryDB
+Window
+Function
+Functions
+GROUP
+BY
+Query
+Records

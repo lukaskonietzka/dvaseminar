@@ -13,7 +13,8 @@ herangezogen. Um das Beispiel näher erläutern zu können sei zunächst auf ein
 Aggregatfunktion mit \texttt{GROUP BY} Klausel verwiesen.
 
 \begin{minipage}{0.55\textwidth}
-	\lstset{caption={Aggregatfunktion und Group\_By}, label={list:group_by}} \begin{lstlisting}
+	\lstset{caption={Aggregatfunktion und \texttt{GROUP BY}}, label={list:group_by}}
+	\begin{lstlisting}
 SELECT
 genre,
 AVG(published_year) AS avg_year
@@ -39,7 +40,7 @@ GROUP BY genre;
 		Thriller       & 2003.0000          \\
 		\hline
 	\end{tabular}
-	\captionof{table}{Ergebnis Group\_by} \label{tab:ergebnis_group_by}
+	\captionof{table}{Ergebnis \texttt{GROUP BY}} \label{tab:ergebnis_group_by}
 \end{minipage}
 
 Diese Query liefert genau soviel Records wie es verschiedenen Einträger in der Spalte
@@ -51,7 +52,8 @@ Schlüsselwort \texttt{OVER()} anzuhängen, wie in \ref{list:empty_over} zu sehe
 ist.
 
 \begin{minipage}{0.60\textwidth}
-	\lstset{caption={Aggregatfunktion mit Over}, label={list:empty_over}} \begin{lstlisting}
+	\lstset{caption={Aggregatfunktion mit \texttt{OVER}}, label={list:empty_over}}
+	\begin{lstlisting}
 SELECT AVG(published_year) OVER()
 AS avg_year
 FROM Books;
@@ -73,7 +75,7 @@ FROM Books;
 		1947.2500          \\
 		\hline
 	\end{tabular}
-	\captionof{table}{Ergebnis Over} \label{tab:ergebnis_over}
+	\captionof{table}{Ergebnis \texttt{OVER}} \label{tab:ergebnis_over}
 \end{minipage}
 
 Nach Betrachtung der Ergebnismenge fällt sofort auf, dass nun ein viel
@@ -90,7 +92,7 @@ soll die Analyse-Funktion \texttt{ROW\_NUMBER} herangezogen werden. Das Ziel ist
 es über die Ergebnismenge der \textit{Borrowed\_Books} ein Fenster zu legen und
 diese anhand der \textit{member\_id} aufzuteilen. \texttt{ROW\_NUMBER} zählt dann
 die Zeilen in jedem Fenster. Listing \ref{list:window-function} zeigt den
-nötigen Quelltext für dieses Beispiel.
+nötigen Quelltext, Tabelle für dieses Beispiel.
 
 \lstset{caption={Analyse-Funktion mit mehreren Fenstern}, label={list:window-function}}
 \begin{lstlisting}
@@ -121,16 +123,16 @@ FROM Borrowed_Books;
 	\label{tab:ergebnnis_analyse_funktion}
 \end{table}
 
-Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der
-Fachliteratur als \textit{running total} beschrieben wird \citep[vgl.][S. 37]{Nuijten2023}.
+Durch das Zählen der Zeilen für jedes Fenster entsteht etwas, das in der Fachliteratur
+als \textit{running total} beschrieben wird \citep[vgl.][S. 37]{Nuijten2023}.
 Die Gruppierung der Fenster sind anhand der \textit{member\_id} zu erkennen.
 
-Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden und
-die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten
-Beispiel der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id}
-sortiert werden. Die konkrete Syntax für diese Query zeigt der folgenden Bock.
+Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden
+und die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten Beispiel
+der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id} sortiert werden.
+Die konkrete Syntax für diese Query zeigt der folgenden Bock.
 
-\lstset{caption={Analytische-Funktion und Order By}, label={list:window-function-order-by}}
+\lstset{caption={Analytische-Funktion und \texttt{ORDER BY}}, label={list:window-function-order-by}}
 \begin{lstlisting}
 SELECT member_id, book_id, borrow_date, return_date,
 ROW_NUMBER() OVER(PARTITION BY member_id ORDER BY book_id)
@@ -156,31 +158,31 @@ FROM Borrowed_Books;
 		4                   & 5                 & 2023-05-12            & 2023-06-01            & 1                         \\
 		\hline
 	\end{tabular}
-	\caption{Ergebnis Order By}
+	\caption{Ergebnis \texttt{ORDER BY}}
 	\label{tab:ergebnis_oder_by}
 \end{table}
 
 Wie zu erkennen ist, wird die \textit{oder\_by\_clause} wie in früheren Kapiteln
-bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel angehängt.
-Sie ist somit ein Teil der \textit{analytic\_clause}. Die Sortierung erfolgt
+bereits beschrieben einfach an die \textit{partition\_by\_clause} Klausel
+angehängt. Sie ist somit ein Teil der \textit{analytic\_clause}. Die Sortierung erfolgt
 immer je Fenster.
 
 Mit Abschluss dieser Beispielreihe wurde noch lange nicht alle Möglichkeiten der
-\textit{Window Funktions} angesprochen. Die Dokumentation von \citet{oracle} beschreibt
-noch weitere Sprachkonstrukte, die in dieser Arbeit aber unberücksichtigt
+\textit{Window Funktions} angesprochen. Die Dokumentation von \citet{oracle}
+beschreibt noch weitere Sprachkonstrukte, die in dieser Arbeit aber unberücksichtigt
 belieben. Beispielsweise ist es durch das sogenannten \textit{windowing} möglich,
-ein laufendes Fenster zu erstellen, das durch alle Einträge läuft und so die
-analytischen Funktionen auf die Einträge anwendet \citep[vgl.][]{oracle}.
+ein laufendes Fenster zu erstellen, das durch alle Einträge läuft und so die analytischen
+Funktionen auf die Einträge anwendet \citep[vgl.][]{oracle}.
 
 \section{Implementierung - Rollup and Cube}
-\label{sec:implementierung_rollup_and_cube} Die Erweiterungen \texttt{ROLLUP}
-und \texttt{CUBE} werden als Erweiterung der \texttt{GROUP BY} Klausel
-verstanden. Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB} die
-Möglichkeiten und Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien
-zu der herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit herkömmlichen
-Befehlen Einsicht in mehrere Gruppierungen zu erhalten, muss für jede gewünschte
-Gruppierung ein \texttt{SELECT} geschrieben werden. Die Codeblöcke
-\ref{list:group_date} und \ref{list:group_id} zeigen dies.
+\label{sec:implementierung_rollup_and_cube} Die Erweiterungen \texttt{ROLLUP} und
+\texttt{CUBE} werden als Erweiterung der \texttt{GROUP BY} Klausel verstanden.
+Dieses Kapitel soll nun durch Hilfe der \textit{LibraryDB} die Möglichkeiten und
+Sprachkonstrukte näher aufschlüsseln. Dazu sollen die Analogien zu der
+herkömmlichen \texttt{GROUP BY} Funktion visualisiert werden. Um mit
+herkömmlichen Befehlen Einsicht in mehrere Gruppierungen zu erhalten, muss für jede
+gewünschte Gruppierung ein \texttt{SELECT} geschrieben werden. Die Codeblöcke \ref{list:group_date}
+und \ref{list:group_id} zeigen dies.
 
 \begin{minipage}{0.45\textwidth}
 	\lstset{caption={Gruppe Date}, label={list:group_date}} \begin{lstlisting}
@@ -199,25 +201,25 @@ GROUP BY(member_id);
 \end{minipage}
 
 Um dieses Vorgehen zu vereinfachen, kann auf das Schlüsselwort \texttt{GROUPING
-SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und
-\ref{list:group_date} in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls
-in einer Relation dargestellt. Alle nicht relevanten Felder werden dann mit
-\texttt{NULL} aufgefüllt.
+SETS} zurückgegriffen werden, dass die Blöcke \ref{list:group_id} und \ref{list:group_date}
+in einer Abfrage vereint. Die Ergebnismenge wird ebenfalls in einer Relation
+dargestellt. Alle nicht relevanten Felder werden dann mit \texttt{NULL}
+aufgefüllt.
 
-\begin{lstlisting}[caption={Beispiel eines Grouping sets}, label={list:grouping_sets}]
+\begin{lstlisting}[caption={Beispiel eines \texttt{GROUPING SETS}}, label={list:grouping_sets}]
 SELECT borrow_date, member_id,
 FROM Borrowed_Books
 GROUP BY GROUPING SETS(borrow_date, member_id);
 \end{lstlisting}
 
-Mit \texttt{GROUPING SETS} ist es nicht möglich eine Kombination aus den angegebenen
-Attributen zu gruppieren. Diese Funktion ist den Erweiterungen \texttt{ROLLUP} und
-\texttt{CUBE} überlassen. Um aus einem Set an Gruppierungen einnen \texttt{ROLLUP}
-zu erstellen, ist lediglich das Schlüsselwort auszutauschen. Konkret ersetzten
-wir also das \texttt{GROUPING SETS} gegen ein \texttt{ROLLUP}. Die Implementierung
-kann nun so verändert werden, dass ein praktisches Beispiel sichtbar wird. Mit der
-Aggregatfunktion \texttt{COUNT} und der \texttt{ROLLUP} Funktion kann eine Query
-gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
+Mit \texttt{GROUPING SETS} ist es nicht möglich eine Kombination aus den
+angegebenen Attributen zu gruppieren. Diese Funktion ist den Erweiterungen \texttt{ROLLUP}
+und \texttt{CUBE} überlassen. Um aus einem Set an Gruppierungen einnen \texttt{ROLLUP}
+zu erstellen, ist lediglich das Schlüsselwort auszutauschen. Konkret ersetzten wir
+also das \texttt{GROUPING SETS} gegen ein \texttt{ROLLUP}. Die Implementierung
+kann nun so verändert werden, dass ein praktisches Beispiel sichtbar wird. Mit
+der Aggregatfunktion \texttt{COUNT} und der \texttt{ROLLUP} Funktion kann eine
+Query gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
 
 \begin{description}
 	\label{bul:aufzählung}
@@ -256,31 +258,32 @@ GROUP BY ROLLUP(borrow_date, member_id);
 		NULL                  & NULL                & 10                       \\
 		\hline
 	\end{tabular}
-	\caption{Ergebnis Rollup}
+	\caption{Ergebnis \texttt{ROLLUP}}
 	\label{tab:rollup}
 \end{table}
 
-Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query \ref{list:rollup}.
-Bei genauerem Betrachten der Ergebnismenge lassen sich die oben genannten Punkte
-aus der Aufzählung \ref{bul:aufzählung} wiederfinden. Der erste Punkt (Gesamtverleih)
-ist auf die letzte Zeile zurückzuführen, die angibt, dass insgesamt bereits zehn
-Bücher verliehen wurden. Das Datum oder das Mitglied wird hier also nicht
-berücksichtigt. Der Punkt zwei weist auf alle Einträge hin, die in der Spalte
-\textit{member\_id} ein \texttt{NULL} vorfinden. Beispielsweise wurden am \textit{2023-01-01}
-insgesamt drei Bücher verliehen (Zeile drei). Die kleinste Betrachtung sind dann
-alle Spalten, die kein \texttt{NULL} aufweisen. Betrachtet man die erste Zeile, so
-kann dort herausgelesen werden, dass am \textit{2023-01-01} das Mitglied mit der
-Nummer \textit{eins}, zwei Bücher ausgeliehen hat. Ohne die Erweiterung \texttt{ROLLUP}
-müsste für jede dieser drei Punkte ein eigenes \texttt{SELECT} geschrieben
-werden. Durch die richtige Anordnung der Attribute innerhalb der Rollup-Funktion
-kann also ein immer detaillierterer Einblick gewonnen werden.
+Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query
+\ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die oben
+genannten Punkte aus der Aufzählung \ref{bul:aufzählung} wiederfinden. Der erste
+Punkt (Gesamtverleih) ist auf die letzte Zeile zurückzuführen, die angibt, dass
+insgesamt bereits zehn Bücher verliehen wurden. Das Datum oder das Mitglied wird
+hier also nicht berücksichtigt. Der Punkt zwei weist auf alle Einträge hin, die in
+der Spalte \textit{member\_id} ein \texttt{NULL} vorfinden. Beispielsweise
+wurden am \textit{2023-01-01} insgesamt drei Bücher verliehen (Zeile drei). Die
+kleinste Betrachtung sind dann alle Spalten, die kein \texttt{NULL} aufweisen. Betrachtet
+man die erste Zeile, so kann dort herausgelesen werden, dass am \textit{2023-01-01}
+das Mitglied mit der Nummer \textit{eins}, zwei Bücher ausgeliehen hat. Ohne die
+Erweiterung \texttt{ROLLUP} müsste für jede dieser drei Punkte ein eigenes
+\texttt{SELECT} geschrieben werden. Durch die richtige Anordnung der Attribute
+innerhalb der Rollup-Funktion kann also ein immer detaillierterer Einblick
+gewonnen werden.
 
 Auch wenn der \texttt{ROLLUP} bereits einen sehr tiefen Einblick mit nur wenigen
-Zeilen Code gewährt, gibt es noch ein Konstrukt, dass noch tiefer geht. Durch ersetzten
-des Schlüsselwortes \texttt{ROLLUP} gegen \texttt{CUBE} lassen sich noch mehr Kombinationen
-der Ergebnismenge anzeigen. Hierzu sei auf das Kapitel \ref{subsec:cube}
-verweisen. Damit lässt sich auch ermitteln wie viele Bücher ein Mitglied unabhängig
-vom Tag ausgeliehen hat.
+Zeilen Code gewährt, gibt es noch ein Konstrukt, dass noch tiefer geht. Durch
+ersetzten des Schlüsselwortes \texttt{ROLLUP} gegen \texttt{CUBE} lassen sich
+noch mehr Kombinationen der Ergebnismenge anzeigen. Hierzu sei auf das Listing ...
+verweisen. Damit lässt sich auch ermitteln wie viele Bücher ein Mitglied
+unabhängig vom Tag ausgeliehen hat.
 
 \begin{lstlisting}
 SELECT borrow_date, member_id, COUNT(book_id)
@@ -290,10 +293,10 @@ GROUP BY CUBE(borrow_date, member_id);
 \end{lstlisting}
 
 \section{Zusätzliche Erweiterungen}
-\label{sec:zus_erweiterungen} Weitere Analyse-Erweiterungen, die hier aber unberührt
-bleiben sollen, sind Beispielsweise die rekursiven Abfragen. Eine Rekursion ist laut
-\citet{benecke1998rekursion} die Definition eines Problems, einer Funktion oder eines
-Verhaltens durch sich selbst. Aufbauend auf dem Konzept der \textit{Common Table
-Espressions} (CTE) können damit auch in SQL Probleme rekursiv gelöst werden \citep[vgl.][]{Ignacio2022}.
-Hinzu kommt das Konzept des \textit{Pivot and unpivot}, das \citet{Nuijten2023}
-näher beschreiben.
+\label{sec:zus_erweiterungen} Weitere Analyse-Erweiterungen, die hier aber
+unberührt bleiben sollen, sind Beispielsweise die rekursiven Abfragen. Eine
+Rekursion ist laut \citet{benecke1998rekursion} die Definition eines Problems,
+einer Funktion oder eines Verhaltens durch sich selbst. Aufbauend auf dem Konzept
+der \textit{Common Table Espressions} (CTE) können damit auch in SQL Probleme
+rekursiv gelöst werden \citep[vgl.][]{Ignacio2022}. Hinzu kommt das Konzept des
+\textit{Pivot and unpivot}, das \citet{Nuijten2023} näher beschreiben.

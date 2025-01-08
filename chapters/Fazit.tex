@@ -3,25 +3,26 @@
 an Möglichkeiten, gerade in Bezug auf die Datenanalyse, wie es \citet{FOTACHE2015243}
 in ihrer Arbeit \textit{SQL and Data Analysis} beschreiben. Die Erweiterungen
 Rollup, Cube und Window-Funktions bieten grundsätzlich eine gute Lesbarkeit des Quelltextes.
-Jedoch sind für eine korrekte Implementierung einer Query mit Fenster-Funktion
-wesentlich mehr Fachkenntnisse nötig. Es müssen viel mehr einzelne Klauseln verstanden
-und betrachtet werden, die alle eine eigene Syntax haben. Ein \texttt{ROLLUP}
-oder \texttt{CUBE} ist hier wesentlich einfacher zu handhaben. Diese können
-lediglich der \texttt{GROUP BY} Klausel vorangestellt werden. Da die Window-Functions
-das deutlich komplexere Sprachkonstrukt bieten, ergeben sich hierdurch mehr Möglichkeiten
-und die größere Flexibilität. Die Erweiterungen \texttt{ROLLUP} und \texttt{CUBE}
-sind hingegen etwas starrer in ihrer Anwendung. Betrachtet man nur die Ergebnismenge,
-so fällt auf, dass das Resultat der komplexeren Window-Functions anfangs leichter
-zu interpretieren ist. Bei den Konzepten \texttt{ROLLUP} und \texttt{CUBE}
-gestaltet sich die Interpretation der Ergebnisrelation etwas schwieriger. Es muss
-erst verstanden werden wie die \texttt{NULL} Werte zu interpretieren sind. Auch sind
-die verschiedenen Ebenen der Gruppierungen nicht sofort ersichtlich.
+Jedoch sind für eine korrekte Implementierung einer Query mit \textit{window
+function} wesentlich mehr Fachkenntnisse nötig. Es müssen viel mehr einzelne
+Klauseln verstanden und betrachtet werden, die alle eine eigene Syntax haben.
+Ein \texttt{ROLLUP} oder \texttt{CUBE} ist hier wesentlich einfacher zu
+handhaben. Diese können lediglich der \texttt{GROUP BY} Klausel vorangestellt
+werden. Da die Window-Functions das deutlich komplexere Sprachkonstrukt bieten,
+ergeben sich hierdurch mehr Möglichkeiten und die größere Flexibilität. Die Erweiterungen
+\texttt{ROLLUP} und \texttt{CUBE} sind hingegen etwas starrer in ihrer Anwendung.
+Betrachtet man nur die Ergebnismenge, so fällt auf, dass das Resultat der
+komplexeren Window-Functions anfangs leichter zu interpretieren ist. Bei den Konzepten
+\texttt{ROLLUP} und \texttt{CUBE} gestaltet sich die Interpretation der Ergebnisrelation
+etwas schwieriger. Es muss erst verstanden werden wie die \texttt{NULL} Werte zu
+interpretieren sind. Auch sind die verschiedenen Ebenen der Gruppierungen nicht
+sofort ersichtlich.
 
-Mit Blick auf die Forschungsfrage zeigt sich, dass die Integration dieser
-Analyse-Erweiterungen die Datenanalyse erheblich vereinfacht und verbessert, da komplexe
-Abfragen mit deutlich weniger Quelltext umgesetzt werden können. Jedoch wurde
-auch klar, dass für mehr Möglichkeiten immer komplexer werdende Sprachkonstrukte
-nötig sind. Für die Zukunft wäre eine weitergehende Untersuchung der
-spezifischen Anwendungsfälle dieser Erweiterungen sinnvoll, um ihre Potenziale vollständig
-auszuschöpfen. Auch eine weiterführende Recherche zu dem Thema rekursive
-Abfragen würde die Arbeit hervorragend ergänzen.
+Mit Blick auf die Forschungsfrage zeigt sich, dass die Integration dieser Analyse-Erweiterungen
+die Datenanalyse erheblich vereinfacht und verbessert, da komplexe Abfragen mit
+deutlich weniger Quelltext umgesetzt werden können. Jedoch wurde auch klar, dass
+für mehr Möglichkeiten immer komplexer werdende Sprachkonstrukte nötig sind. Für
+die Zukunft wäre eine weitergehende Untersuchung der spezifischen Anwendungsfälle
+dieser Erweiterungen sinnvoll, um ihre Potenziale vollständig auszuschöpfen. Auch
+eine weiterführende Recherche zu dem Thema rekursive Abfragen würde die Arbeit hervorragend
+ergänzen.

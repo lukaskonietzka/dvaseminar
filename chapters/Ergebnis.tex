@@ -189,7 +189,7 @@ und \ref{list:group_id} zeigen dies.
 
 \begin{minipage}{0.45\textwidth}
 	\lstset{caption={Gruppierung nach \textit{date}}, label={list:group_date}} \begin{lstlisting}
-SELECT borrow_date,
+SELECT borrow_date
 FROM Borrowed_Books
 GROUP BY(borrow_date);
 	\end{lstlisting}
@@ -197,7 +197,7 @@ GROUP BY(borrow_date);
 \hfill
 \begin{minipage}{0.45\textwidth}
 	\lstset{caption={Gruppierung nach \textit{id}}, label={list:group_id}} \begin{lstlisting}
-SELECT member_id,
+SELECT member_id
 FROM Borrowed_Books
 GROUP BY(member_id);
 	\end{lstlisting}
@@ -211,7 +211,7 @@ aufgefüllt. Listing \ref{list:grouping_sets} zeigt solch ein \texttt{GROUPING
 SET}.
 
 \begin{lstlisting}[caption={Beispiel eines \texttt{GROUPING SETS}}, label={list:grouping_sets}]
-SELECT borrow_date, member_id,
+SELECT borrow_date, member_id
 FROM Borrowed_Books
 GROUP BY GROUPING SETS(borrow_date, member_id);
 \end{lstlisting}
@@ -298,7 +298,7 @@ GROUP BY CUBE(borrow_date, member_id);
 \section{Zusätzliche Erweiterungen}
 \label{sec:zus_erweiterungen} Weitere Analyse-Erweiterungen, die hier aber
 unberührt bleiben sollen, sind Beispielsweise die rekursiven Abfragen. Eine
-Rekursion ist laut \citet[S. 151-155]{benecke1998rekursion} die Definition eines Problems,
-einer Funktion oder eines Verhaltens durch sich selbst. Aufbauend auf dem Konzept
-der \textit{Common Table Espressions} (CTE) können damit auch in SQL Probleme
-rekursiv gelöst werden \citep[vgl.][]{Ignacio2022}.
+Rekursion ist laut \citet[S. 151-155]{benecke1998rekursion} die Definition eines
+Problems, einer Funktion oder eines Verhaltens durch sich selbst. Aufbauend auf dem
+Konzept der \textit{Common Table Espressions} (CTE) können damit auch in SQL
+Probleme rekursiv gelöst werden \citep[vgl.][]{Ignacio2022}.

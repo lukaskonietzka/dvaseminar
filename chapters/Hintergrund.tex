@@ -8,9 +8,9 @@ anderem ein Blick auf die Historie hilfreich. Der Hauptgrund für die Wahl der z
 oben genannten Erweiterungen in Kapitel \ref{sec:fokus_der_arbeit} liegt nämlich
 nicht nur in ihren vielseitigen Möglichkeiten, sondern auch in ihrer Integration
 in den SQL-Standard, wie aus der Arbeit von \citet[S.~10]{grust2017advanced}
-hervorgeht. Durch nähere Betrachtung der Arbeit von \cite{grust2017advanced} wird
+hervorgeht. Durch nähere Betrachtung der Arbeit von \citet[S.~10]{grust2017advanced} wird
 deutlich, dass im Jahre 1987 die erste Version des SQL-Standards veröffentlicht
-wurde. Mit SQL3 1999 kamen dann die ersten Analyse-Erweiterungen mit den \textit{recursive
+wurde. Mit \textit{SQL3} 1999 kamen dann die ersten Analyse-Erweiterungen mit den \textit{recursive
 queries} hinzu \citep[vgl.][S.~10]{grust2017advanced}. Die Erweiterungen \texttt{ROLLUP}
 und \texttt{CUBE} wurden ebenfalls im Jahre 1999 in den SQL-Standard aufgenommen
 \citep[vgl.][Kapitel 9.12]{melton2001sql}. \citet[S.~10]{grust2017advanced}
@@ -27,10 +27,10 @@ sind aus eine komplexe Datenanalyse nicht mehr wegzudenken. \citet[S. 1244]{cao2
 bezeichnen sie für den aktuellen Stand der Technik als repräsentativ und absolut
 notwendig. Hinzu kommt, dass sie laut \citet[S. 113]{kellenberger2019expert} einen
 Performance Vorteil bietet. Dieser Performance Vorteil ergibt sich jedoch laut
-\citet{kellenberger2019expert} nicht primär durch die bessere Laufzeit, sondern
+\citet[S.~113]{kellenberger2019expert} nicht primär durch die bessere Laufzeit, sondern
 vielmehr dadurch, wie einfach komplexe Abfragen damit werden können. Für eine
 prägnante und eindeutige Definition der \textit{Analytic Functions} sei auf die Dokumentation
-der \citet{oracle} Datenbank verwiesen, die die \textit{Analytic Functions} als
+der \citet[K.~7]{oracle} Datenbank verwiesen, die die \textit{Analytic Functions} als
 aggregierten Wert basierend auf einer Gruppen von Datensätzen beschreibt. Diese Gruppen
 an Datensätzen werden als Fenster bezeichnet und sind über die \textit{analytic
 clausel} definiert \citep[vgl.][K. 7]{oracle}.
@@ -60,7 +60,7 @@ festlegt \citep[vgl.][S. 35]{Nuijten2023}.
 	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewandt
 \end{description}
 Um nun den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
-zu können, sei an dieser Stelle nochmals auf die Dokumentation von \citet{oracle}
+zu können, sei an dieser Stelle nochmals auf die Dokumentation von \citet[K.~7]{oracle}
 verwiesen. Abbildung \ref{fig:aufbauAnalyticFunction} zeigt ein konkreter Aufbau
 einer analytischen Funktion, der hier näher betrachtet werden soll.
 \begin{figure}[h]
@@ -76,7 +76,7 @@ Spalte diese angewendet werden soll \citep[vgl.][S.~110]{schicker2017datenbanken
 Eine grobe Übersicht über verschiedenen Window-Functions beschreibt \citet[]{ibrahaim23}
 in seinem Artikel. Hierzu unterteilt er die möglichen Funktionen übersichtlich
 in drei verschiedenen Gruppen. Eine weitere gute Informationsquelle bietet wieder
-die \citet{oracle} Dokumentation.
+die \citet[K.~7]{oracle} Dokumentation.
 
 Das Schlüsselwort \texttt{OVER} wurde bereits zuvor in diesem Artikel erwähnt.
 Es ist der namensgebende Teil der \textit{Window-Functions}, da so die Fenster
@@ -96,7 +96,7 @@ Der Aufbau dieser Klausel sei in Abbildung \ref{fig:aufbauAnalytischeKlausel} be
 	\caption{ Aufbau einer analytischen Klausel \citep[vgl.][K. 7]{oracle}}
 	. \label{fig:aufbauAnalytischeKlausel}
 \end{figure}
-Aus dem Aufbau der \textit{analytic-clause} gemäß der \citet{oracle} wird klar,
+Aus dem Aufbau der \textit{analytic-clause} gemäß der \citet[K.~7]{oracle} wird klar,
 dass diese grob in zwei Teile aufgeteilt wird. Ein \textit{partition-clause}, die
 die einzelnen Fenster festlegt und die \textit{order-by-clause} , welche die
 Reihenfolge in den einzelnen Fenstern festlegt. Diese beiden Klauseln können mit
@@ -115,7 +115,7 @@ Klausel in das Argument der \texttt{OVER} Funktion eingefügt \citep[vgl.][S. 36
 \end{center}
 Dieses Sprachkonstrukt kann nun in eine bekannte \texttt{SELECT} Klausel eingebaut
 werden. Sie wird an der gleichen Stelle eingebaut, an der auch eine klassische Aggregatfunktion
-verwendet wird. Für weitere Details sei auf die Dokumentation von \citet{oracle}
+verwendet wird. Für weitere Details sei auf die Dokumentation von \citet[K.~7]{oracle}
 verwiesen, die einen tieferen Einblick in den Aufbau der einzelnen Klauseln
 gewähren. Für die zweite konkrete analytischen Funktionen führt das Kapitel Theoretische
 Grundlagen im folgenden in die Multidimensonalen Group BY Klauseln ein, welches
@@ -128,7 +128,7 @@ alle relevanten Grundlagen zum Thema \texttt{ROLLUP} und \texttt{CUBE} enthält.
 	behandelt werden soll, macht ihrem Namen alle Ehre und gewährt mit wenigen
 	Zeilen Quelltext, eine viel analytischere Einsicht in die Ergebnismenge, als
 	es mit herkömmlichen SQL-Befehlen möglich ist \citep[vgl.][S. 303]{melton2002advanced}.
-	\citet{melton2002advanced} beschreibt diese als mehrdimensionale Zusammenfassungen
+	\citet[S. 303]{melton2002advanced} beschreibt diese als mehrdimensionale Zusammenfassungen
 	und kontrollierte Unterbrechungen von gruppierten Date. Diese Formulierung
 	lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE}
 	Erweiterungen der \texttt{GROUP BY} Klausel sind. Bevor mit den eigentlichen
@@ -170,7 +170,7 @@ alle relevanten Grundlagen zum Thema \texttt{ROLLUP} und \texttt{CUBE} enthält.
 \texttt{ROLLUP} eine Erweiterung der \texttt{GROUP BY}- und \texttt{GROUPING
 SETS}-Klausel. Ein Rollup ist als Zwischensumme zu betrachten, der von der
 kleinsten Ebenen bis hin zur größten "\textit{aufgerollt}" wird, so beschreibt
-es die \citet{oracle99}. Die Reihenfolge der Gruppierung folgt der angegebenen
+es die \citet[K. 20]{oracle99}. Die Reihenfolge der Gruppierung folgt der angegebenen
 Gruppierungsliste. Die Richtung der Gruppierungsreihenfolge ist von rechts nach links
 \citep[vgl.][]{oracle16}:
 \begin{center}
@@ -192,7 +192,7 @@ rechts mit der kleinsten Menge begonnen und links auf die größte aufgerollt (\
 an Gruppierungen möglich \citep[vgl.][K. 20]{oracle99}. Die Erweiterung \texttt{ROLLUP}
 gibt eine eindeutige Gruppierungsreihenfolge vor, die ohne Ausnahme eingehalten wird.
 Wenn eine andere Reihenfolge oder mehrere Gruppierungen gewollt sind, muss auf das
-Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, welche \citet{oracle99}
+Konzept der \texttt{CUBE} Erweiterung zurückgegriffen werden, welche \citet[K. 20]{oracle99}
 in ihrer Dokumentation beschreiben. Wird die Methode des \texttt{CUBE} verwendet,
 so ist oft von einem Datenwürfel die Rede. Dieser aggregiert alle möglichen
 Kombinationen der Gruppierungen, einschließlich der Gesamtsumme und erstellt so Datenwürfel

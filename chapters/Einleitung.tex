@@ -1,15 +1,16 @@
 \chapter{Einleitung}
-\label{chap:einleitung} Der SQL-Standard wird bald 40 Jahre alt und hat bis heute
-diverse Erweiterungen erfahren. Ein der Wichtigsten sind die Analyse-Erweiterungen.
-Einige dieser Erweiterungen haben es im Laufe der Jahre in den SQL-Standard geschafft
-und sind ab diesem Zeitpunkt ein fester Bestandteil. Trotz Ihrer doch langen
-Geschichte, stehen die Analyse-Erweiterungen eher im Schatten der breiten Palette
-an SQL-Befehlen und konnten nicht sonderlich viel an Bekanntheit gewinnen.
+\label{chap:einleitung} Der SQL-Standard (Structured Query Language) wird bald 40
+Jahre alt und hat bis heute diverse Erweiterungen erfahren. Ein der Wichtigsten
+sind die Analyse-Erweiterungen. Einige dieser Erweiterungen haben es im Laufe der
+Jahre in den SQL-Standard geschafft und sind ab diesem Zeitpunkt ein fester Bestandteil.
+Trotz Ihrer doch langen Geschichte, stehen die Analyse-Erweiterungen eher im Schatten
+der breiten Palette an SQL-Befehlen und konnten nicht sonderlich viel an Bekanntheit
+gewinnen.
 % --------------------------------------------------------------------------------------------
 
 \section{Ziel der Arbeit}
 \label{sec:ziel_der_arbeit} Die vorliegende Arbeit soll für Klarheit sorgen und das
-Geheimnis dahinter auzeigen. Es werden einige dieser Analyse-Erweiterungen
+Geheimnis dahinter aufzeigen. Es werden einige dieser Analyse-Erweiterungen
 anhand einfacher Beispiele aufzeigen, um eine eingehende Erklärung zu bieten.
 Hierzu sollen die unterschiedlichen Sprachkonstrukte und Methoden demonstriert
 und die Konzepte dahinter erläutert werden. Es kann so folgende konkrete Problemstellung
@@ -22,80 +23,78 @@ Sofern auf die Forschungsfrage eine Antwort gefunden werden kann, besteht am End
 dieser Arbeit ein grober Überblick über die bekanntesten Analyse-Erweiterungen im
 SQL-Standard und für welche Fälle diese eingesetzt werden. Außerdem soll ein
 Verständnis geschaffen werden, wie auch komplexere Datenabfragen durch Einsatz der
-Analyse-Erweiterungen vereinfacht werden. Darüber hinaus soll die Arbeite eine
-praxisnahe Orientierungshilfe liefern die als Stütze bei der Datenanalyse mit
-SQL fungiert. Um diesen Aspekt noch weiter zu verdeutlichen, soll das nächste
-Kapitel die Relevanz dieser Arbeit noch genauer beleuchten.
+Analyse-Erweiterungen vereinfacht werden. Darüber hinaus liefert die Arbeite
+eine praxisnahe Orientierungshilfe, die als Stütze bei der Datenanalyse mit SQL fungiert.
+Um diesen Aspekt noch weiter zu verdeutlichen, beleuchtet das nächste Kapitel die
+Relevanz dieser Arbeit noch genauer.
 % --------------------------------------------------------------------------------------------
 
 \section{Relevanz der Analyse-Erweiterungen}
-\label{sec:relevant} Datenanalysen gehören heute zu den unverzichtbaren
-Werkzeugen für Entscheidungen in Unternehmen und Forschung. Da sich viele Unternehmen
-auf die klassischen relationalen Datenbanken stützen, wird SQL als Standard zur
-Abfrage von Daten und zur Erstellung von Analysen eingesetzt. Die SQL Analyse-Erweiterungen
+\label{sec:relevant} Datenanalysen gehören heute zu den unverzichtbaren Werkzeugen
+für Entscheidungen in Unternehmen und Forschung. Da sich viele Unternehmen auf
+die klassischen relationalen Datenbanken stützen, wird SQL als Standard zur Abfrage
+von Daten und zur Erstellung von Analysen eingesetzt. Die SQL Analyse-Erweiterungen
 sollen genau diesen Analyseprozess unterstützen.
 
 Die Analyse-Erweiterungen für SQL finden vorrangig ihren Einsatz im Bereich Data
-Analysis, so belegen es auch \citet[S. 245]{FOTACHE2015243}. Es ist in diesem
-Kontext oft von \textit{analytical} oder \textit{window functions} die Rede. Die
+Analysis, so belegen es auch \citet[S. 245]{FOTACHE2015243}. Es ist in diesem Kontext
+oft von \textit{analytical} oder \textit{window functions} die Rede. Die
 Begriffe \textit{statistical inspired aggregate functions} und \textit{multiple
-group by operators} tauchen im Fachbereich Data Analysis ebenfalls immer wieder auf
-\citep[vgl.][S. 247 - 248]{FOTACHE2015243}. Alle diese Fachbegriffe sind auf die
-Analyse-Erweiterungen in SQL zurückzuführen. Auch in den Punkten Komplexität und
-Kompaktheit können die Erweiterungen punkten. Mit den Analyse-Erweiterungen ist eine
-komplexe Datenanalyse durch nur wenige Zeilen Quelltext möglich, so \citet[K. 1]{Maue2022}.
+group by operators} tauchen im Fachbereich Data Analysis ebenfalls immer wieder
+auf \citep[vgl.][S. 247 - 248]{FOTACHE2015243}. Alle diese Fachbegriffe sind auf
+die Analyse-Erweiterungen in SQL zurückzuführen. Auch in den Punkten Komplexität
+und Kompaktheit können die Erweiterungen punkten. Mit den Analyse-Erweiterungen
+ist eine komplexe Datenanalyse durch nur wenige Zeilen Quelltext möglich, so \citet[K.
+1]{Maue2022}.
 
-Es wird also deutlich, dass die Analyse-Erweiterungen nicht nur eine komplexe
-Analyse zulassen, sondern für das ganze Gebiet der Datenanalyse einen hohen Wert
-bietet. Sie gewähren eine weitaus detailliertere Einsicht in Datensätze als es
-mit herkömmlichen Befehlen möglich ist. Daraus lässt sich auch ableiten, dass
-das Thema der Analyse-Erweiterungen große Kreise schlägt. Dieses umfangreiche Gebiet
-bedarf einer kurzen Gliederung, die hier eingeleitet werden soll.
+Es wird also deutlich, dass die Analyse-Erweiterungen nicht nur eine komplexe Analyse
+zulassen, sondern für das ganze Gebiet der Datenanalyse einen hohen Wert bietet.
+Sie gewähren eine weitaus detailliertere Einsicht in Datensätze als es mit herkömmlichen
+Befehlen möglich ist. Daraus lässt sich auch ableiten, dass das Thema der Analyse-Erweiterungen
+große Kreise schlägt. Dieses umfangreiche Gebiet bedarf einer kurzen Gliederung,
+die hier eingeleitet werden soll.
 % --------------------------------------------------------------------------------------------
 
 \section{Aufbau der Arbeit}
 \label{sec:aufbau_der_arbeit} Für diese Arbeit erfolgt eine Unterteilung in fünf
 Hauptkapitel, die eine systematische Annäherung an das Thema der Analyse-Erweiterungen
 ermöglichen. Nach der Einleitung, in der die Zielsetzung, Relevanz und der Fokus
-der Arbeit dargelegt werden, folgt das Kapitel Theoretische Grundlagen. Hier
-werden die wesentlichen Konzepte, wie \textit{Window Functions} und
-multidimensionale \textit{Group By Klauseln}, ausführlich behandelt. Das dritte Kapitel,
-Methodik, beschreibt die Vorgehensweise der Arbeit. Es umfasst die durchgeführte
-Literaturrecherche und die Implementierungsschritte, die die Grundlage für die später
-präsentierten Ergebnisse bilden. Im vierten Kapitel, Ergebnisse, werden die
-Resultate der Implementierung dargestellt. Dabei liegt der Fokus auf der praktischen
-Anwendung der behandelten Konzepte, ergänzt durch zusätzliche Erweiterungen, die
-den Nutzen der unterschiedlichen Erweiterungen verdeutlichen. Abschließend wird
-im Kapitel Fazit eine Zusammenfassung der gewonnenen Erkenntnisse gegeben und
-ein Ausblick auf mögliche zukünftige Arbeiten präsentiert. Ergänzend dazu enthält
-der Anhang die SQL-Skripte und Beispieldaten, die zur Reproduzierbarkeit der
-Ergebnisse beitragen.
+der Arbeit dargelegt werden, folgt das Kapitel Theoretische Grundlagen. Hier werden
+die wesentlichen Konzepte, wie \textit{Window Functions} und multidimensionale \textit{Group
+By Klauseln}, ausführlich behandelt. Das dritte Kapitel, Methodik, beschreibt
+die Vorgehensweise der Arbeit. Es umfasst die durchgeführte Literaturrecherche und
+die Implementierungsschritte, die die Grundlage für die später präsentierten
+Ergebnisse bilden. Im vierten Kapitel, Ergebnisse, werden die Resultate der Implementierung
+dargestellt. Dabei liegt der Fokus auf der praktischen Anwendung der behandelten
+Konzepte, ergänzt durch zusätzliche Erweiterungen, die den Nutzen der
+unterschiedlichen Erweiterungen verdeutlichen. Abschließend wird im Kapitel Fazit
+eine Zusammenfassung der gewonnenen Erkenntnisse gegeben und ein Ausblick auf mögliche
+zukünftige Arbeiten präsentiert. Ergänzend dazu enthält der Anhang die SQL-Skripte
+und Beispieldaten, die zur Reproduzierbarkeit der Ergebnisse beitragen.
 % --------------------------------------------------------------------------------------------
 
 \section{Fokus der Arbeit}
 \label{sec:fokus_der_arbeit} Es existieren diverse Analyse-Erweiterungen für SQL
 die für die unterschiedlichsten Anwendungsfälle eingesetzt werden können. Einige
 dieser Erweiterungen lösen Nischenprobleme, andere bieten eine breite Palette an
-Funktionen. Diese Arbeit wählt zwei der vielen Analyse-Erweiterungen aus und setzt
-so einen Fokus.
+Funktionen. Diese Arbeit wählt zwei der vielen Analyse-Erweiterungen aus und
+setzt so einen Fokus.
 
-Für eine konkrete Auswahl stützt sich die Arbeit auf Erweiterungen, die laut
-\citet{FOTACHE2015243}, für den Fachbereich Data Analysis eine wichtige Rolle
-spielen. \citet{FOTACHE2015243} sprechen in ihrer Arbeit von zwei wichtigen
-Punkten, die auch hier den Fokus bilden sollen \citep[vgl.][S. 245]{FOTACHE2015243}.
+Für eine konkrete Auswahl stützt sich die Arbeit auf Erweiterungen, die laut \citet[S.
+245]{FOTACHE2015243}, für den Fachbereich Data Analysis eine wichtige Rolle spielen.
+Sie sprechen in ihrer Arbeit unter anderem von zwei wichtigen Punkten, die auch hier
+den Fokus bilden sollen \citep[vgl.][S. 245]{FOTACHE2015243}.
 
 \begin{description}
 	\item[$\bullet$ \textbf{Window-Functions}] - als statistical inspired aggregate
-		functions \\ \citep[vgl.][S. 247 - 248]{FOTACHE2015243}
+		functions \\ \citep[vgl.][S. 245]{FOTACHE2015243}
 
 	\item[$\bullet$ \textbf{ROLLUP and CUBE}] - als multiple group by operators \\
 		\citep[vgl.][S. 247 - 248]{FOTACHE2015243}
 \end{description}
 
-Im Laufe des nächsten Kapitels, Theoretische Grundlagen, soll Wissen zu diesen beiden
-Erweiterungen gesammelt und an praxisbezogenen Beispiel angewandt werden. Alle
-weiteren Analyse-Erweiterungen werden in diesem Artikel nur kurz namentlich
-erwähnt und erfahren keine weitere Behandlung. Um dies zu gewährleisten sind einige
-Theoretische Grundlagen nötig, die zum verstehen der Ergebnisse essenziell sind.
-Das Kapitel \ref{chap:hintergund_und_grundlagen} führt demnach in alle wichtigen
-Hintergründe ein.
+Im Laufe des nächsten Kapitels, theoretische Grundlagen, soll Wissen zu diesen beiden
+Erweiterungen gesammelt und an Beispielen aufgezeigt werden. Alle weiteren
+Analyse-Erweiterungen werden in diesem Artikel nur kurz namentlich erwähnt und
+erfahren keine weitere Behandlung. Das Kapitel \ref{chap:hintergund_und_grundlagen}
+führt demnach in alle wichtigen Hintergründe ein.

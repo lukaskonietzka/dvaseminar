@@ -96,6 +96,10 @@
 		jedoch auch mit einer erhöhten Komplexität einhergehen.
 	\end{abstract}
 
+	%%% --------------------------------------------------
+	%%% Inhaltsverzeichnis
+	%%% --------------------------------------------------
+
 	\tableofcontents
 
 	%%% --------------------------------------------------
@@ -112,6 +116,25 @@
 	\include{chapters/Fazit}
 
 	%%% --------------------------------------------------
+	%%% Verzeichnisse
+	%%% --------------------------------------------------
+
+	\listoffigures % Abbildungsverzeichnis
+	\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+	\listoftables % Tabellenverzeichnis
+	\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+	\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+	\lstlistoflistings % Listings
+	\addcontentsline{toc}{chapter}{Quellcodesverzeichnis}
+
+	% --------------------------------------------------
+	% Bibliographie
+	% --------------------------------------------------
+	\renewcommand{\bibfont}{\footnotesize}
+	\printbibliography
+	[title={Literaturverzeichnis}, heading=bibintoc]
+
+	%%% --------------------------------------------------
 	%%% Anhang
 	%%% --------------------------------------------------
 	\appendix
@@ -120,16 +143,6 @@
 	\include{chapters/LibraryDBSampleData}
 
 	\AuthorDeclaration % Selbständigkeitserklärung
-	\listoffigures % Abbildungsverzeichnis
-	\listoftables % Tabellenverzeichnis
-	\lstlistoflistings % Listings
-
-	% --------------------------------------------------
-	% Bibliographie
-	% --------------------------------------------------
-	\renewcommand{\bibfont}{\footnotesize}
-	\printbibliography
-	[title={Literaturverzeichnis}, heading=bibintoc]
 
 	% --------------------------------------------------
 	% Index

@@ -44,7 +44,7 @@ GROUP BY genre;
 	\captionof{table}{Ergebnis \texttt{GROUP BY}} \label{tab:ergebnis_group_by}
 \end{minipage}
 
-Diese Query liefert genau soviel Einträge wie es verschiedenen Einträger in der
+Diese Abfrage liefert genau soviel Einträge wie es verschiedenen Einträger in der
 Spalte \textit{genre} gibt. Es wird dann für jedes \textit{genre} ein durchschnittliches
 Alter der Bücher angegeben. Für die Nächste Betrachtung soll aus der
 Aggregatfunktion \texttt{AVG(<..>)} eine Analyse-Funktion generiert werden.
@@ -132,7 +132,7 @@ Die Gruppierung der Fenster sind anhand der \textit{member\_id} zu erkennen.
 Mit der \texttt{ORDER BY}-Klausel kann noch ein Schritt weiter gegangen werden
 und die Einträger innerhalb eines Fensters sortiert werden. In dem konkreten Beispiel
 der \textit{LibraryDB} soll jedes Fenster nach der \textit{book\_id} sortiert werden.
-Die konkrete Syntax und die Ergebnismenge für diese Query zeigt das folgende
+Die konkrete Syntax und die Ergebnismenge für diese Abfrage zeigt das folgende
 Listing \ref{list:window-function-order-by}.
 
 \lstset{caption={Analytische-Funktion und \texttt{ORDER BY}}, label={list:window-function-order-by}}
@@ -223,7 +223,7 @@ zu erstellen, ist lediglich das Schlüsselwort auszutauschen. Konkret ersetzten 
 also das \texttt{GROUPING SETS} gegen ein \texttt{ROLLUP}. Die Implementierung
 kann nun so verändert werden, dass ein praktisches Beispiel sichtbar wird. Mit
 der Aggregatfunktion \texttt{COUNT} und der \texttt{ROLLUP} Funktion kann eine
-Query gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
+Abfrage gebaut werden, die in einer Ergebnismenge folgenden Daten liefert.
 
 \begin{description}
 	\label{bul:aufzählung}
@@ -243,7 +243,7 @@ FROM Borrowed_Books
 GROUP BY ROLLUP(borrow_date, member_id);
 \end{lstlisting}
 
-Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Query \ref{list:rollup}.
+Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Abfrage \ref{list:rollup}.
 Bei genauerem Betrachten der Ergebnismenge lassen sich die oben genannten Punkte
 aus der Aufzählung wiederfinden.
 

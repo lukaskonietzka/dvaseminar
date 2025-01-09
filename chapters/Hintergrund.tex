@@ -38,18 +38,17 @@ die \textit{analytic clausel} definiert \citep[vgl.][K. 7]{oracle}.
 Wenn man dieser Definition weiter folgt, dann werden darunter also aggregierte
 Werte verstanden, die mittels dem Schlüsselwort \texttt{OVER} auf bestimmte
 Zeilen in einer Tabelle angewendet werden. So ist es Beispielsweise möglich,
-auch benachbarte Datensätze mit einzubeziehen \citep[vgl.][K. 7]{oracle}.
-
-Die Definition lässt weiter vermuten, dass die analytischen Funktionen stark
-verwandt sind mit den weit verbreiteten Aggregatfunktionen. Zur Unterscheidung der
+auch benachbarte Datensätze mit einzubeziehen \citep[vgl.][K. 7]{oracle}. Die
+Definition lässt weiter vermuten, dass die analytischen Funktionen stark verwandt
+sind mit den weit verbreiteten Aggregatfunktionen. Zur Unterscheidung der
 Aggregatfunktion und den analytischen Funktionen kann nach \citet[S. 36]{Nuijten2023}
-die Ergebnismenge betrachtet werden. Sie erläutern, dass Beispielsweise ein
-\texttt{COUNT(<...>)} als Aggregatfunktion nur eine Zeile zurückliefert, während
-analytische Funktionen die Ergebnismenge nicht verändern und für jeden Eintrag
-einen Wert vorsehen \citep[vgl.][S. 36]{Nuijten2023}.
+die Ergebnismenge betrachtet werden. Sie erläutern, dass Beispielsweise ein \texttt{COUNT(<...>)}
+als Aggregatfunktion nur eine Zeile zurückliefert, während analytische Funktionen
+die Ergebnismenge nicht verändern und für jeden Eintrag einen Wert vorsehen \citep[vgl.][S.
+36]{Nuijten2023}.
 
-Die Abarbeitung einer solchen Analyse-Funktion lässt sich in drei Stufen einteilen,
-wobei die Sortierung dieser drei Schritte auch die Reihenfolge der Abarbeitung
+Die Abarbeitung einer solchen Analyse-Funktion lässt sich in drei Stufen
+einteilen, wobei die Sortierung dieser drei Schritte auch die Reihenfolge der Abarbeitung
 festlegt \citep[vgl.][S. 35]{Nuijten2023}.
 \begin{description}
 	\item[$\bullet$ 1. Stufe] auflösen der \texttt{JOIN}-, \texttt{WHERE}-, \texttt{GROUP
@@ -59,8 +58,8 @@ festlegt \citep[vgl.][S. 35]{Nuijten2023}.
 
 	\item[$\bullet$ 3. Stufe] die ORDER BY-Klausel wir auf die Ergebnismenge angewandt
 \end{description}
-Um nun den Aufbau einer einfachen \textit{Window Function} etwas genauer verstehen
-zu können, sei an dieser Stelle nochmals auf die Dokumentation von \citet[K.~7]{oracle}
+Um nun den Aufbau einer einfachen \textit{Window Function} etwas genauer
+verstehen zu können, sei an dieser Stelle nochmals auf die Dokumentation von \citet[K.~7]{oracle}
 verwiesen. Abbildung \ref{fig:aufbauAnalyticFunction} zeigt ein konkreter Aufbau
 einer analytischen Funktion, der hier näher betrachtet werden soll.
 \begin{figure}[h]
@@ -69,101 +68,99 @@ einer analytischen Funktion, der hier näher betrachtet werden soll.
 	\caption{ Aufbau einer analytischen Funktion \citep[vgl.][K. 7]{oracle}}
 	. \label{fig:aufbauAnalyticFunction}
 \end{figure}
-Der erste Teil beschreibt die konkrete analytische Funktion, die auf die Ergebnismenge
-ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
-Aggregatfunktionen. Das Argument einer Analyse-Funktion legt fest, auf welche
-Spalte diese angewendet werden soll \citep[vgl.][S.~110]{schicker2017datenbanken}.
-Eine grobe Übersicht über verschiedenen Window-Functions beschreibt \citet[]{ibrahaim23}
-in seinem Artikel. Hierzu unterteilt er die möglichen Funktionen übersichtlich
-in drei verschiedenen Gruppen. Eine weitere gute Informationsquelle bietet wieder
+Der erste Teil beschreibt die konkrete analytische Funktion, die auf die
+Ergebnismenge ausgeführt wird. Hier besteht die größte Parallelität zu den klassischen
+Aggregatfunktionen. Das Argument einer Analyse-Funktion legt fest, auf welche Spalte
+diese angewendet werden soll \citep[vgl.][S.~110]{schicker2017datenbanken}. Eine
+grobe Übersicht über verschiedenen Window-Functions beschreibt \citet[]{ibrahaim23}
+in seinem Artikel. Hierzu unterteilt er die möglichen Funktionen übersichtlich in
+drei verschiedenen Gruppen. Eine weitere gute Informationsquelle bietet wieder
 die \citet[K.~7]{oracle} Dokumentation.
 
-Das Schlüsselwort \texttt{OVER} wurde bereits zuvor in diesem Artikel erwähnt.
-Es ist der namensgebende Teil der \textit{Window-Functions}, da so die Fenster
-über die Ergebnismenge gelegt werden. Bleibt das Argument der \texttt{OVER()}
-Funktion leer, so wird das Fenster über alle Einträge gespannt. Ein Beispiel
-liefert \citet[S. 36]{Nuijten2023}.
+Das Schlüsselwort \texttt{OVER} wurde bereits zuvor in diesem Artikel erwähnt. Es
+ist der namensgebende Teil der \textit{Window-Functions}, da so die Fenster über
+die Ergebnismenge gelegt werden. Bleibt das Argument der \texttt{OVER()} Funktion
+leer, so wird das Fenster über alle Einträge gespannt. Ein Beispiel liefert \citet[S.
+36]{Nuijten2023}.
 \begin{center}
 	\texttt{AVG(<..>) OVER()}
 \end{center}
-Im Argument der \texttt{OVER} Funktion wird die Ausprägung und die Ordnung des Fensters
-definiert. Dieses Argument ist bekannt als \textit{analytic-clause} \citep[vgl.][]{oracle}.
-Der Aufbau dieser Klausel sei in Abbildung \ref{fig:aufbauAnalytischeKlausel} beschrieben
-\citep[vgl.][K. 7]{oracle}.
+Im Argument der \texttt{OVER} Funktion wird die Ausprägung und die Ordnung des
+Fensters definiert. Dieses Argument ist bekannt als \textit{analytic-clause}
+\citep[vgl.][]{oracle}. Der Aufbau dieser Klausel sei in Abbildung
+\ref{fig:aufbauAnalytischeKlausel} beschrieben \citep[vgl.][K. 7]{oracle}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{img/aufbauAnalyticClausel.jpg}
 	\caption{ Aufbau einer analytischen Klausel \citep[vgl.][K. 7]{oracle}}
 	. \label{fig:aufbauAnalytischeKlausel}
 \end{figure}
-Aus dem Aufbau der \textit{analytic-clause} gemäß der \citet[K.~7]{oracle} wird klar,
-dass diese grob in zwei Teile aufgeteilt wird. Ein \textit{partition-clause}, die
-die einzelnen Fenster festlegt und die \textit{order-by-clause} , welche die
+Aus dem Aufbau der \textit{analytic-clause} gemäß der \citet[K.~7]{oracle} wird
+klar, dass diese grob in zwei Teile aufgeteilt wird. Ein \textit{partition-clause},
+die die einzelnen Fenster festlegt und die \textit{order-by-clause} , welche die
 Reihenfolge in den einzelnen Fenstern festlegt. Diese beiden Klauseln können mit
-den Schlüsselwortern \texttt{PARTITION BY} und \texttt{ORDER BY} realisiert werden.
-Ein etwas generische Beispiel sieht wie folgt aus \citep[vgl.][K.7]{oracle}.
+den Schlüsselwortern \texttt{PARTITION BY} und \texttt{ORDER BY} realisiert
+werden. Ein etwas generische Beispiel sieht wie folgt aus \citep[vgl.][K.7]{oracle}.
 \begin{center}
 	\texttt{PARTITION BY <..> ORDER BY <..>}
 \end{center}
-Wenn die gezeigten Aufbauten aus den Abbildungen
-\ref{fig:aufbauAnalyticFunction} und \ref{fig:aufbauAnalytischeKlausel}
-zusammengesetzt werden, entsteht eine Analyse-Funktion, die bereits eine höhere
-Ausprägung hat. Für eine korrekte Fusion der beiden Klauseln wird die analytische
-Klausel in das Argument der \texttt{OVER} Funktion eingefügt \citep[vgl.][S. 36]{Nuijten2023}.
+Wenn die gezeigten Aufbauten aus den Abbildungen \ref{fig:aufbauAnalyticFunction}
+und \ref{fig:aufbauAnalytischeKlausel} zusammengesetzt werden, entsteht eine
+Analyse-Funktion, die bereits eine höhere Ausprägung hat. Für eine korrekte
+Fusion der beiden Klauseln wird die analytische Klausel in das Argument der
+\texttt{OVER} Funktion eingefügt \citep[vgl.][S. 36]{Nuijten2023}.
 \begin{center}
 	\texttt{AVG(<..>) OVER (Partition BY <..> ORDER BY <..>)}
 \end{center}
-Dieses Sprachkonstrukt kann nun in eine bekannte \texttt{SELECT} Klausel eingebaut
-werden. Sie wird an der gleichen Stelle eingebaut, an der auch eine klassische Aggregatfunktion
-verwendet wird. Für weitere Details sei auf die Dokumentation von \citet[K.~7]{oracle}
-verwiesen, die einen tieferen Einblick in den Aufbau der einzelnen Klauseln
-gewähren.Für die zweite konkrete analytischen Funktionen führt das Kapitel
-Theoretische Grundlagen im folgenden in die Multidimensonalen Group BY Klauseln
-ein, welches alle relevanten Grundlagen zum Thema \texttt{ROLLUP} und \texttt{CUBE}
+Dieses Sprachkonstrukt kann nun in eine bekannte \texttt{SELECT} Klausel
+eingebaut werden. Sie wird an der gleichen Stelle eingebaut, an der auch eine
+klassische Aggregatfunktion verwendet wird. Für weitere Details sei auf die Dokumentation
+von \citet[K.~7]{oracle} verwiesen, die einen tieferen Einblick in den Aufbau der
+einzelnen Klauseln gewähren.Für die zweite konkrete analytischen Funktionen führt
+das Kapitel Theoretische Grundlagen im folgenden in die Multidimensonalen Group BY
+Klauseln ein, welches alle relevanten Grundlagen zum Thema \texttt{ROLLUP} und \texttt{CUBE}
 enthält.
 % --------------------------------------------------------------------------------------------
 
-\begin{samepage}
-	\section{Multidimensonale Group By Klauseln}
-	\label{sec:rollup_and_cube} Auch die letzte Analyse-Erweiterung die in diese Arbeit
-	behandelt werden soll, macht ihrem Namen alle Ehre und gewährt mit wenigen
-	Zeilen Quelltext, eine viel analytischere Einsicht in die Ergebnismenge, als
-	es mit herkömmlichen SQL-Befehlen möglich ist \citep[vgl.][S. 303]{melton2002advanced}.
-	\citet[S. 303]{melton2002advanced} beschreibt diese als mehrdimensionale Zusammenfassungen
-	und kontrollierte Unterbrechungen von gruppierten Date. Diese Formulierung
-	lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE}
-	Erweiterungen der \texttt{GROUP BY} Klausel sind. Bevor mit den eigentlichen
-	Erweiterungen begonnen werden kann, muss hier ein Grundkonzept vorangestellt werden.
-	Dieses Führt schrittweise die Schlüsselwörter \texttt{ROLLUP} und \texttt{CUBE}
-	ein. Hierbei handelt es sich um das Konzept des \texttt{GROUPING SETS}.
-	% --------------------------------------------------------------------------------------------
+\section{Multidimensonale Group By Klauseln}
+\label{sec:rollup_and_cube} Auch die letzte Analyse-Erweiterung die in diese
+Arbeit behandelt werden soll, macht ihrem Namen alle Ehre und gewährt mit wenigen
+Zeilen Quelltext, eine viel analytischere Einsicht in die Ergebnismenge, als es mit
+herkömmlichen SQL-Befehlen möglich ist \citep[vgl.][S. 303]{melton2002advanced}.
+\citet[S. 303]{melton2002advanced} beschreibt diese als mehrdimensionale
+Zusammenfassungen und kontrollierte Unterbrechungen von gruppierten Date. Diese Formulierung
+lässt erahnen, dass die Konzepte, \texttt{ROLLUP} und \texttt{CUBE} Erweiterungen
+der \texttt{GROUP BY} Klausel sind. Bevor mit den eigentlichen Erweiterungen begonnen
+werden kann, muss hier ein Grundkonzept vorangestellt werden. Dieses Führt schrittweise
+die Schlüsselwörter \texttt{ROLLUP} und \texttt{CUBE} ein. Hierbei handelt es
+sich um das Konzept des \texttt{GROUPING SETS}.
+% --------------------------------------------------------------------------------------------
 
-	\subsection{Grouping Sets}
-	\label{subsec:grouping_sets} Das Schlüsselwort \texttt{GROUPING SETS} ist ebenfalls
-	eine Erweiterung der herkömmlichen \texttt{GROUP BY} Klausel wie auch die
-	\citet{oracle16} Dokumentation belegt. Wie aus dem Namen schon hervorgeht, handelt
-	es sich nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an
-	Gruppierungen. Das Set lässt darauf deuten, dass jede Gruppierung nur einmal
-	vorkommt. Das Schlüsselwort \texttt{GROUPING SETS} erlaubt mehrere
-	Gruppierungen in einer Abfrage. Hierbei wird nur nach eine angegebene Spalte gruppiert
-	und nicht nach allen möglichen Gruppen \citep[vgl.][]{oracle16}. Für eine Kombination
-	an Gruppierungen sei an dieser Stelle schon auf die Erweiterungen \texttt{ROLLUP}
-	und \texttt{CUBE} verwiesen. Folgender Ausschnitt zeigt ein generisches
-	Beispiel.
-	\begin{center}
-		\texttt{GROUP BY GROUPING SETS (A, B)}
-	\end{center}
-	Folgt man der Dokumentation von \citet{oracle16} und dem hier gezeigten
-	Beispiel, so ergeben sich bei einem \texttt{GROUPING SETS} folgenden
-	Gruppierungen.
-	\begin{align*}
-		\{A\}, \quad \{B\}
-	\end{align*}
-	Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach $A$ und einmal
-	nach $B$. Es werden keine Kombinationen gruppiert, nur die einzelnen Spalten \citep[vgl.][]{oracle16}.
-	Sollen unterschiedliche Kombinationen der Spaltern Gruppiert werden, so sei
-	auf die nachfolgenden Kapitel \texttt{ROLLUP} und \texttt{CUBE} verwiesen.
-\end{samepage}
+\subsection{Grouping Sets}
+\label{subsec:grouping_sets} Das Schlüsselwort \texttt{GROUPING SETS} ist
+ebenfalls eine Erweiterung der herkömmlichen \texttt{GROUP BY} Klausel wie auch die
+\citet{oracle16} Dokumentation belegt. Wie aus dem Namen schon hervorgeht,
+handelt es sich nicht um eine einzelne Gruppierung, sondern um ein ganzes Set an
+Gruppierungen. Das Set lässt darauf deuten, dass jede Gruppierung nur einmal vorkommt.
+Das Schlüsselwort \texttt{GROUPING SETS} erlaubt mehrere Gruppierungen in einer Abfrage.
+Hierbei wird nur nach eine angegebene Spalte gruppiert und nicht nach allen
+möglichen Gruppen \cite{oracle16}. Für eine Kombination an Gruppierungen sei an dieser
+Stelle schon auf die Erweiterungen \texttt{ROLLUP} und \texttt{CUBE} verwiesen.
+Folgender Ausschnitt zeigt ein generisches Beispiel \citep[vgl.][]{oracle16}.
+\begin{center}
+	\texttt{GROUP BY GROUPING SETS (A, B)}
+\end{center}
+Folgt man der Dokumentation von \citet{oracle16} und dem hier gezeigten Beispiel,
+so ergeben sich bei einem \texttt{GROUPING SETS} folgenden Gruppierungen.
+\begin{align*}
+	\{A\}, \quad \{B\}
+\end{align*}
+Die Ergebnismenge dieser Gruppierung ist einmal die Gruppierung nach $A$ und
+einmal nach $B$. Es werden keine Kombinationen gruppiert, nur die einzelnen
+Spalten \citep[vgl.][]{oracle16}. Sollen unterschiedliche Kombinationen der
+Spaltern Gruppiert werden, so sei auf die nachfolgenden Kapitel \texttt{ROLLUP}
+und \texttt{CUBE} verwiesen.
+
 % --------------------------------------------------------------------------------------------
 
 \subsection{Rollup}

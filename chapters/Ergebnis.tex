@@ -44,8 +44,8 @@ GROUP BY genre;
 	\captionof{table}{Ergebnis \texttt{GROUP BY}} \label{tab:ergebnis_group_by}
 \end{minipage}
 
-Diese Abfrage liefert genau soviel Einträge wie es verschiedenen Einträger in der
-Spalte \textit{genre} gibt. Es wird dann für jedes \textit{genre} ein durchschnittliches
+Diese Abfrage liefert genau soviel Einträge wie es verschiedenen Einträger in
+der Spalte \textit{genre} gibt. Es wird dann für jedes \textit{genre} ein durchschnittliches
 Alter der Bücher angegeben. Für die Nächste Betrachtung soll aus der
 Aggregatfunktion \texttt{AVG(<..>)} eine Analyse-Funktion generiert werden.
 Hierzu ist hinter die Aggregatfunktion das Schlüsselwort \texttt{OVER()} anzuhängen,
@@ -243,9 +243,9 @@ FROM Borrowed_Books
 GROUP BY ROLLUP(borrow_date, member_id);
 \end{lstlisting}
 
-Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Abfrage \ref{list:rollup}.
-Bei genauerem Betrachten der Ergebnismenge lassen sich die oben genannten Punkte
-aus der Aufzählung wiederfinden.
+Tabelle \ref{tab:rollup} zeigt einen Ausschnitt der Ergebnismenge aus der Abfrage
+\ref{list:rollup}. Bei genauerem Betrachten der Ergebnismenge lassen sich die
+oben genannten Punkte aus der Aufzählung wiederfinden.
 
 \begin{table}[h]
 	\centering
